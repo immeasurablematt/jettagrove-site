@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matthew Baggetta -- Content Strategist &middot; Web3</title>
+    <meta name="description" content="Content strategist with 10 years of experience across B2B SaaS and Web3. Data-driven strategy, conversion-focused execution.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #F4F4F5;
+            --bg-card: #FFFFFF;
+            --text-primary: #18181B;
+            --text-secondary: #52525B;
+            --text-muted: #A1A1AA;
+            --accent: #2563EB;
+            --accent-hover: #1D4ED8;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-glow: rgba(37, 99, 235, 0.12);
+            --border: #E4E4E7;
+            --border-subtle: #F4F4F5;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #09090B;
+            --bg-secondary: #18181B;
+            --bg-card: #1E1E22;
+            --text-primary: #FAFAFA;
+            --text-secondary: #A1A1AA;
+            --text-muted: #71717A;
+            --accent: #60A5FA;
+            --accent-hover: #93C5FD;
+            --accent-soft: rgba(96, 165, 250, 0.1);
+            --accent-glow: rgba(96, 165, 250, 0.15);
+            --border: #27272A;
+            --border-subtle: #1E1E22;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a { color: var(--text-primary); text-decoration: none; transition: var(--transition); }
+        a:hover { color: var(--accent); }
+
+        .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+        /* ---- Top Bar ---- */
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(250,250,250,0.85);
+            transition: background 0.3s ease;
+        }
+        [data-theme="dark"] .top-bar {
+            background: rgba(9,9,11,0.85);
+        }
+        .top-bar-inner {
+            max-width: 920px; margin: 0 auto; padding: 0 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 56px;
+        }
+        .top-bar .site-name {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700; font-size: 15px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        .nav-links {
+            display: flex; align-items: center; gap: 28px;
+        }
+        .nav-links a {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-muted);
+            position: relative; letter-spacing: 0.01em;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1.5px; background-color: var(--accent);
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none; border: 1px solid var(--border); cursor: pointer;
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); transition: var(--transition);
+        }
+        .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+        .theme-toggle svg { width: 16px; height: 16px; }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none; background: none; border: none; cursor: pointer;
+            padding: 4px; color: var(--text-primary);
+        }
+        .hamburger svg { width: 24px; height: 24px; }
+        .mobile-menu {
+            display: none; position: fixed; top: 56px; left: 0; right: 0; bottom: 0;
+            background: var(--bg-primary); z-index: 999;
+            padding: 32px 24px; flex-direction: column; gap: 24px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-size: 18px; font-weight: 500; color: var(--text-secondary);
+            padding: 12px 0; border-bottom: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+        }
+
+        /* ---- Header / Hero ---- */
+        header {
+            padding: 120px 0 40px;
+        }
+        header h1 {
+            font-size: clamp(2.4rem, 6vw, 3.8rem);
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        header .subtitle {
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-weight: 400;
+            max-width: 520px;
+        }
+        header .tagline {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 500px;
+            line-height: 1.65;
+        }
+
+        .social-links { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+        .social-links a {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-muted);
+            display: flex; align-items: center; gap: 4px;
+        }
+        .social-links a:hover { color: var(--accent); }
+        .social-links a .arrow { transition: transform 0.2s ease; }
+        .social-links a:hover .arrow { transform: translate(2px, -2px); }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex; gap: 40px; margin-bottom: 36px; flex-wrap: wrap;
+            padding: 28px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+        }
+        .stat-block .number {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.4rem; font-weight: 700;
+            color: var(--accent); line-height: 1;
+        }
+        .stat-block .label {
+            font-size: 11px; color: var(--text-muted); margin-top: 4px;
+            text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500;
+        }
+
+        .cta-links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .cta-links a {
+            font-size: 14px; padding: 10px 22px;
+            border-radius: var(--radius-sm);
+            font-weight: 500; transition: var(--transition);
+        }
+        .cta-links a.primary {
+            background: var(--accent); color: #fff; border: 1px solid var(--accent);
+        }
+        .cta-links a.primary:hover {
+            background: var(--accent-hover); border-color: var(--accent-hover);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+        .cta-links a.secondary {
+            background: transparent; color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .cta-links a.secondary:hover {
+            border-color: var(--accent); color: var(--accent);
+        }
+
+        /* ---- Sections ---- */
+        section {
+            padding: 72px 0;
+            opacity: 0; transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+        .section-header h2 {
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            margin-bottom: 8px;
+        }
+        .section-header .section-desc {
+            font-size: 14px; color: var(--text-muted);
+            max-width: 600px; line-height: 1.6;
+        }
+
+        /* ---- Marquee ---- */
+        .marquee-section { padding: 20px 0 48px; overflow: hidden; }
+        .marquee-label {
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--text-muted); text-align: center; margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .marquee-track {
+            display: flex; width: max-content;
+            animation: marquee 50s linear infinite;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 24px; margin: 0 6px;
+            background: var(--bg-card); border-radius: 40px;
+            border: 1px solid var(--border); white-space: nowrap;
+            transition: var(--transition);
+        }
+        .marquee-item:hover { border-color: var(--accent); box-shadow: 0 2px 12px var(--accent-glow); }
+        .marquee-item img {
+            height: 28px; width: 28px; object-fit: contain; border-radius: 6px;
+        }
+        .marquee-item span {
+            font-size: 13px; font-weight: 600; color: var(--text-primary);
+        }
+
+        /* ---- Results Cards / Slider ---- */
+        .results-slider-wrap { position: relative; }
+        .results-grid {
+            display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 8px;
+        }
+        .results-grid::-webkit-scrollbar { display: none; }
+        .result-block {
+            flex: 0 0 min(85vw, 480px); scroll-snap-align: start; position: relative;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 28px;
+            transition: var(--transition); box-shadow: var(--shadow-sm);
+        }
+        .result-block:hover { border-color: var(--accent); box-shadow: var(--shadow-md); }
+        .result-block .result-title {
+            font-family: 'Space Mono', monospace; font-size: 0.75rem;
+            color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 8px;
+        }
+        .result-block .hero-number {
+            font-family: 'Space Mono', monospace; font-size: 3rem;
+            font-weight: 700; color: var(--accent); line-height: 1;
+            margin-bottom: 4px;
+            opacity: 0; transform: translateY(16px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .result-block .hero-number.visible { opacity: 1; transform: translateY(0); }
+        .result-block .hero-subtitle {
+            font-size: 13px; color: var(--text-muted); font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .result-block .period {
+            font-family: 'JetBrains Mono', monospace; font-size: 10px;
+            color: var(--text-muted); position: absolute; top: 28px; right: 28px;
+            background: var(--bg-secondary); padding: 3px 10px;
+            border-radius: 20px; letter-spacing: 0.02em;
+        }
+        .result-block .chart-wrap { margin: 0 -4px 16px; }
+        .result-block canvas { width: 100% !important; }
+        .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .mini-stat {
+            background: var(--bg-secondary); padding: 12px 14px;
+            border-radius: var(--radius-sm); transition: var(--transition);
+        }
+        .mini-stat:hover { background: var(--bg-card); box-shadow: var(--shadow-sm); }
+        .mini-stat .value {
+            font-family: 'Space Mono', monospace; font-weight: 700;
+            color: var(--accent); font-size: 0.9rem; display: block; margin-bottom: 2px;
+        }
+        .mini-stat .label {
+            font-size: 10px; color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .slider-dots {
+            display: flex; justify-content: center; gap: 8px; margin-top: 20px;
+        }
+        .slider-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--border);
+            border: none; cursor: pointer; transition: var(--transition); padding: 0;
+        }
+        .slider-dot.active { background: var(--accent); width: 24px; border-radius: 4px; }
+
+        /* ---- Work Cards ---- */
+        .work-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px; margin-top: 20px;
+        }
+        .work-card {
+            background: var(--bg-card); padding: 24px; border-radius: var(--radius-md);
+            transition: var(--transition); border: 1px solid var(--border);
+            display: block; box-shadow: var(--shadow-sm);
+        }
+        a.work-card { text-decoration: none; color: inherit; cursor: pointer; }
+        .work-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+        .work-card .badge {
+            display: inline-block; font-size: 11px; font-weight: 600;
+            text-transform: uppercase; color: var(--accent);
+            margin-bottom: 8px; letter-spacing: 0.04em;
+        }
+        .work-card h3 { font-size: 0.95rem; margin-bottom: 8px; }
+        .work-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ---- Tweets ---- */
+        .tweets-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px; margin-top: 20px;
+        }
+        .tweets-slider {
+            display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; padding-bottom: 8px; margin-top: 16px;
+        }
+        .tweets-slider::-webkit-scrollbar { height: 4px; }
+        .tweets-slider::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+        .tweets-slider .tweet-wrapper { flex: 0 0 min(85vw, 400px); scroll-snap-align: start; }
+        .tweet-wrapper { display: flex; flex-direction: column; align-items: center; }
+        .tweet-cat {
+            font-family: 'Space Mono', monospace; font-size: 10px;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: var(--accent); margin-bottom: 8px; font-weight: 600;
+        }
+        blockquote.twitter-tweet {
+            border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 20px; max-width: 550px; width: 100%; margin: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 14px; line-height: 1.5; color: var(--text-primary);
+            background: var(--bg-card);
+        }
+        blockquote.twitter-tweet p { margin: 0 0 12px; }
+        blockquote.twitter-tweet a { color: var(--accent); text-decoration: none; }
+        blockquote.twitter-tweet a:hover { text-decoration: underline; }
+
+        /* ---- Tab Bar ---- */
+        .tab-bar {
+            display: flex; gap: 0; margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        .tab-btn {
+            background: none; border: none; cursor: pointer;
+            padding: 12px 24px; font-family: 'Inter', sans-serif;
+            font-size: 14px; color: var(--text-muted); font-weight: 500;
+            border-bottom: 2px solid transparent; margin-bottom: -1px;
+            transition: var(--transition);
+        }
+        .tab-btn:hover { color: var(--text-primary); }
+        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        /* ---- Client Panels ---- */
+        .work-sub { margin-top: 48px; }
+        .work-sub h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--text-primary); }
+        .work-sub .sub-desc {
+            font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;
+        }
+
+        .client-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+        .client-pill {
+            background: none; border: 1px solid var(--border); cursor: pointer;
+            padding: 8px 18px; font-family: 'Inter', sans-serif;
+            font-size: 13px; color: var(--text-muted); border-radius: 24px;
+            transition: var(--transition); white-space: nowrap; font-weight: 500;
+        }
+        .client-pill:hover { border-color: var(--accent); color: var(--accent); }
+        .client-pill.active {
+            border-color: var(--accent); color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .client-panel { display: none; }
+        .client-panel.active { display: block; }
+        .hidden { display: none; }
+
+        /* ---- Story / About ---- */
+        .story-content { max-width: 640px; }
+        .story-content p {
+            font-size: 15px; color: var(--text-secondary);
+            margin-bottom: 20px; line-height: 1.75;
+        }
+
+        .about-grid { display: grid; grid-template-columns: 160px 1fr; gap: 40px; align-items: start; }
+        .headshot {
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
+            border: 3px solid var(--bg-card); box-shadow: var(--shadow-md);
+        }
+        .about-text p {
+            font-size: 15px; color: var(--text-secondary);
+            margin-bottom: 16px; line-height: 1.7;
+        }
+        .about-links { display: flex; gap: 12px; margin-top: 20px; }
+        .about-links a {
+            font-size: 13px; padding: 10px 20px; background: var(--accent);
+            color: #fff; border-radius: var(--radius-sm); font-weight: 500;
+            transition: var(--transition);
+        }
+        .about-links a:hover { background: var(--accent-hover); box-shadow: 0 4px 12px var(--accent-glow); }
+
+        .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+        .tag {
+            font-size: 12px; padding: 6px 14px;
+            background: var(--bg-secondary); border-radius: 20px;
+            color: var(--text-secondary); font-weight: 500;
+            border: 1px solid var(--border);
+        }
+
+        /* ---- Contact ---- */
+        .contact-links { display: flex; flex-direction: column; gap: 12px; max-width: 480px; }
+        .contact-link {
+            display: flex; align-items: center; gap: 14px; font-size: 14px;
+            color: var(--text-secondary); padding: 16px 20px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-md); transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .contact-link:hover {
+            border-color: var(--accent); color: var(--accent);
+            box-shadow: var(--shadow-md);
+        }
+        .contact-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+        /* ---- Footer ---- */
+        footer {
+            padding: 48px 0; border-top: 1px solid var(--border); margin-top: 48px;
+        }
+        footer p { font-size: 13px; color: var(--text-muted); text-align: center; }
+        footer a { color: var(--accent); }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+            header { padding: 80px 0 32px; }
+            section { padding: 48px 0; }
+            .stats-bar { gap: 24px; }
+            .stat-block .number { font-size: 1.8rem; }
+            .result-block { flex: 0 0 85vw; }
+            .result-block .hero-number { font-size: 2.2rem; }
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .headshot { margin: 0 auto; width: 120px; height: 120px; }
+            .about-links { justify-content: center; }
+            .about-tags { justify-content: center; }
+            .cta-links { flex-direction: column; align-items: flex-start; }
+            .tab-btn { padding: 10px 16px; font-size: 13px; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-bar { gap: 20px; }
+            .stat-block .number { font-size: 1.5rem; }
+            .container { padding: 0 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <a href="#top" class="site-name">MB</a>
+            <nav class="nav-links">
+                <a href="#results">Results</a>
+                <a href="#work">Work</a>
+                <a href="#story">Story</a>
+                <a href="#about">About</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#results" class="mobile-nav-link">Results</a>
+        <a href="#work" class="mobile-nav-link">Work</a>
+        <a href="#story" class="mobile-nav-link">Story</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <header id="top">
+        <div class="container">
+            <h1>Matthew Baggetta</h1>
+            <p class="subtitle">Content strategy that converts -- from protocols to platforms.</p>
+            <p class="tagline">10 years building content engines. 5 in B2B SaaS. 5 in Web3/crypto. Data-driven strategy, conversion-focused execution, and systems that compound over time.</p>
+            <nav class="social-links">
+                <a href="https://linkedin.com/in/baggetta" target="_blank" rel="noopener">LinkedIn <span class="arrow">&nearr;</span></a>
+                <a href="https://x.com/matthew_ok" target="_blank" rel="noopener">X <span class="arrow">&nearr;</span></a>
+                <a href="mailto:hello@baggetta.com">Email <span class="arrow">&nearr;</span></a>
+            </nav>
+
+            <div class="stats-bar">
+                <div class="stat-block">
+                    <div class="number"><span data-target="9" class="counter">0</span>M+</div>
+                    <div class="label">Total Impressions</div>
+                </div>
+                <div class="stat-block">
+                    <div class="number"><span data-target="430" class="counter">0</span>%</div>
+                    <div class="label">SEO Traffic Growth</div>
+                </div>
+                <div class="stat-block">
+                    <div class="number"><span data-target="174" class="counter">0</span>%</div>
+                    <div class="label">Social Reach Growth</div>
+                </div>
+                <div class="stat-block">
+                    <div class="number"><span data-target="11" class="counter">0</span></div>
+                    <div class="label">Protocols Served</div>
+                </div>
+            </div>
+
+            <div class="cta-links">
+                <a href="#work" class="primary">View Work</a>
+                <a href="#about" class="secondary">About Me</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SCROLLING CLIENT LOGOS -->
+    <div class="marquee-section">
+        <div class="marquee-label">Trusted By</div>
+        <div class="marquee-track">
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=aptoslabs.com&sz=128" alt="Aptos"><span>Aptos</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=io.net&sz=128" alt="io.net"><span>io.net</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=seamlessprotocol.com&sz=128" alt="Seamless"><span>Seamless</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=ctrl.xyz&sz=128" alt="Ctrl"><span>Ctrl Wallet</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=tac.build&sz=128" alt="TAC"><span>TAC</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=layerzero.network&sz=128" alt="LayerZero"><span>LayerZero</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=kraken.com&sz=128" alt="Kraken"><span>Kraken</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=lightlink.io&sz=128" alt="LightLink"><span>LightLink</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=waves.tech&sz=128" alt="Waves"><span>Waves</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=kava.io&sz=128" alt="Kava"><span>Kava</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=moonbeam.network&sz=128" alt="Moonbeam"><span>Moonbeam</span></div>
+            <div class="marquee-item"><img src="blockgeeks-logo.jpg" alt="Blockgeeks" style="border-radius:50%"><span>Blockgeeks</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=nulogy.com&sz=128" alt="Nulogy"><span>Nulogy</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=tophat.com&sz=128" alt="Top Hat"><span>Top Hat</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=personifycorp.com&sz=128" alt="Personify"><span>Personify</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=7shifts.com&sz=128" alt="7shifts"><span>7shifts</span></div>
+            <!-- duplicate set for seamless loop -->
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=aptoslabs.com&sz=128" alt="Aptos"><span>Aptos</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=io.net&sz=128" alt="io.net"><span>io.net</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=seamlessprotocol.com&sz=128" alt="Seamless"><span>Seamless</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=ctrl.xyz&sz=128" alt="Ctrl"><span>Ctrl Wallet</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=tac.build&sz=128" alt="TAC"><span>TAC</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=layerzero.network&sz=128" alt="LayerZero"><span>LayerZero</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=kraken.com&sz=128" alt="Kraken"><span>Kraken</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=lightlink.io&sz=128" alt="LightLink"><span>LightLink</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=waves.tech&sz=128" alt="Waves"><span>Waves</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=kava.io&sz=128" alt="Kava"><span>Kava</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=moonbeam.network&sz=128" alt="Moonbeam"><span>Moonbeam</span></div>
+            <div class="marquee-item"><img src="blockgeeks-logo.jpg" alt="Blockgeeks" style="border-radius:50%"><span>Blockgeeks</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=nulogy.com&sz=128" alt="Nulogy"><span>Nulogy</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=tophat.com&sz=128" alt="Top Hat"><span>Top Hat</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=personifycorp.com&sz=128" alt="Personify"><span>Personify</span></div>
+            <div class="marquee-item"><img src="https://www.google.com/s2/favicons?domain=7shifts.com&sz=128" alt="7shifts"><span>7shifts</span></div>
+        </div>
+    </div>
+
+    <!-- RESULTS DASHBOARD -->
+    <section id="results">
+        <div class="container">
+            <div class="section-header">
+                <h2>Results</h2>
+                <p class="section-desc">Data-driven content strategy with measurable impact across social, SEO, and executive ghostwriting.</p>
+            </div>
+
+            <div class="results-slider-wrap">
+                <div class="results-grid" id="resultsSlider">
+
+                    <!-- Aptos -->
+                    <div class="result-block">
+                        <div class="result-title">Aptos CEO Ghostwriting</div>
+                        <div class="period">Jun -- Oct 2024</div>
+                        <div class="hero-number" data-target="4.34" data-suffix="M">0</div>
+                        <div class="hero-subtitle">Total Impressions / +469% Growth</div>
+                        <div class="chart-wrap">
+                            <canvas id="aptosLineChart" height="180"></canvas>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="aptosBarChart" height="180"></canvas>
+                        </div>
+                        <div class="mini-stats">
+                            <div class="mini-stat"><div class="value">+469%</div><div class="label">Growth</div></div>
+                            <div class="mini-stat"><div class="value">2.2M</div><div class="label">Oct Peak</div></div>
+                            <div class="mini-stat"><div class="value">23.8K</div><div class="label">Avg Views</div></div>
+                            <div class="mini-stat"><div class="value">5 mos</div><div class="label">Duration</div></div>
+                        </div>
+                    </div>
+
+                    <!-- Seamless -->
+                    <div class="result-block">
+                        <div class="result-title">SeamlessFi Social Reach</div>
+                        <div class="period">Apr -- Nov 2025</div>
+                        <div class="hero-number" data-target="174" data-suffix="%">0</div>
+                        <div class="hero-subtitle">With 47% Less Content</div>
+                        <div class="chart-wrap">
+                            <canvas id="seamlessLineChart" height="180"></canvas>
+                        </div>
+                        <div class="mini-stats">
+                            <div class="mini-stat"><div class="value">38 > 20</div><div class="label">Posts/Mo</div></div>
+                            <div class="mini-stat"><div class="value">1412 > 3871</div><div class="label">Views/Post</div></div>
+                            <div class="mini-stat"><div class="value">46.9K</div><div class="label">Peak Views</div></div>
+                            <div class="mini-stat"><div class="value">497K</div><div class="label">Impressions</div></div>
+                        </div>
+                    </div>
+
+                    <!-- io.net -->
+                    <div class="result-block">
+                        <div class="result-title">io.net Blog SEO</div>
+                        <div class="period">Aug 2025 -- Jan 2026</div>
+                        <div class="hero-number" data-target="430" data-suffix="%">0</div>
+                        <div class="hero-subtitle">Traffic Value Growth</div>
+                        <div class="chart-wrap">
+                            <canvas id="ionetLineChart" height="180"></canvas>
+                        </div>
+                        <div class="mini-stats">
+                            <div class="mini-stat"><div class="value">479</div><div class="label">New Keywords</div></div>
+                            <div class="mini-stat"><div class="value">38 > 54</div><div class="label">Top 10 Rankings</div></div>
+                            <div class="mini-stat"><div class="value">$16.4K/mo</div><div class="label">Traffic Value</div></div>
+                            <div class="mini-stat"><div class="value">No. 4</div><div class="label">GPU vs CPU</div></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="slider-dots" id="sliderDots">
+                    <button class="slider-dot active" data-index="0" aria-label="Slide 1"></button>
+                    <button class="slider-dot" data-index="1" aria-label="Slide 2"></button>
+                    <button class="slider-dot" data-index="2" aria-label="Slide 3"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work">
+        <div class="container">
+            <div class="section-header">
+                <h2>Work</h2>
+            </div>
+
+            <div class="tab-bar">
+                <button class="tab-btn active" data-tab="web3">Web3</button>
+                <button class="tab-btn" data-tab="web2">B2B SaaS</button>
+            </div>
+
+            <!-- WEB3 TAB -->
+            <div id="tab-web3" class="tab-content">
+                <div class="work-sub" style="margin-top:0">
+                    <div class="client-selector">
+                        <button class="client-pill active" data-panel="panel-aptos">Aptos</button>
+                        <button class="client-pill" data-panel="panel-ctrl">Ctrl Wallet</button>
+                        <button class="client-pill" data-panel="panel-ionet">io.net</button>
+                        <button class="client-pill" data-panel="panel-seamless">Seamless</button>
+                        <button class="client-pill" data-panel="panel-moonbeam">Moonbeam</button>
+                    </div>
+
+                    <div class="client-panel active" id="panel-aptos">
+                        <p class="sub-desc" style="margin-top:0"><strong>Executive Ghostwriting -- Aptos CEO Mo Shaikh</strong><br>Ghostwriting for Mo Shaikh, CEO of Aptos ($1.5B+ L1). Scripted videos, partnerships, tech education, thought leadership, events.</p>
+                        <div class="tweets-slider">
+                            <div class="tweet-wrapper"><div class="tweet-cat">Scripted Video</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Aptos Autumn is back <a href="https://t.co/yQnchvQjm4">pic.twitter.com/yQnchvQjm4</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1842199371762589797?ref_src=twsrc%5Etfw">October 4, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Partnerships</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Today, <a href="https://twitter.com/BlackRock?ref_src=twsrc%5Etfw">@BlackRock</a> chose Aptos as the only non-EVM chain to launch its money market fund tokenized by <a href="https://twitter.com/Securitize?ref_src=twsrc%5Etfw">@Securitize</a>: BUIDL<br><br>Following <a href="https://twitter.com/OndoFinance?ref_src=twsrc%5Etfw">@OndoFinance</a>&#39;s USDY, <a href="https://twitter.com/FTDA_US?ref_src=twsrc%5Etfw">@FTDA_US</a>&#39;s FOBXX, &amp; <a href="https://twitter.com/BitwiseInvest?ref_src=twsrc%5Etfw">@BitwiseInvest</a>&#39;s Aptos ETP, RWAs &amp; institutional-grade DeFi are not just coming to Aptos.<br><br>They&#39;re here.</p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1856708291415683125?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">forget about paying with bitcoin. leave your digital gold in its vault if you want. imagine paying for your ride with APT.<br><br>coming &#x1F51C; <a href="https://t.co/rgHfBJWBS9">pic.twitter.com/rgHfBJWBS9</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1844732037262959056?ref_src=twsrc%5Etfw">October 11, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">TradFi has to figure these things out in the next 12-18mo to be in the best position for the incoming tsunami of tokenized funds:<br><br>- a tokenized fund vision<br>- a use case road map<br>- on-chain compliance<br>- a center of excellence to orchestrate everything<br><br>Aptos figured out the rest. <a href="https://t.co/pGyuuVUjro">pic.twitter.com/pGyuuVUjro</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1851646968919195694?ref_src=twsrc%5Etfw">October 30, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">...but seriously, Aptos is approaching a tipping point. Stripe just acquired Bridge - a stablecoin transaction API for $1.1B<br><br>Aptos&#39; purpose-built rails can support TRILLIONS of on-chain value flows right now (USDT soon). institutions &amp; enterprises: we&#39;ve been waiting for ya <a href="https://t.co/ORfKL3DFSp">pic.twitter.com/ORfKL3DFSp</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1849490515399680405?ref_src=twsrc%5Etfw">October 24, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">ICYMI few days ago Aptos did ~3,766 TPS (326M in one day). fees as low as ~$0.00005 per txn, without changes in success rates or fees. we are so ready, and we coming for ya zuck<br><br>1,000 TPS during peak - <a href="https://twitter.com/PayPal?ref_src=twsrc%5Etfw">@PayPal</a><br>10,000 TPS during peak - <a href="https://twitter.com/Steam?ref_src=twsrc%5Etfw">@Steam</a><br>100,000 TPS globally - <a href="https://twitter.com/facebook?ref_src=twsrc%5Etfw">@facebook</a> <a href="https://t.co/Nw1PLOCvTg">pic.twitter.com/Nw1PLOCvTg</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1835785844051128745?ref_src=twsrc%5Etfw">September 16, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Events</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">28 MILLION people are expected to attend the World Expo 2025 in Osaka Japan, and they&#39;ll all be using a digital wallet developed by our latest acquisition <a href="https://twitter.com/hashpalette_en?ref_src=twsrc%5Etfw">@hashpalette_en</a> on Aptos<br><br>&#x1F1EF;&#x1F1F5; has A+ gov&#39;t support &amp; a vibrant Web3 ecosystem, making it (and APAC) the future of Web3. lfg <a href="https://t.co/fMelMF9PNs">pic.twitter.com/fMelMF9PNs</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1843737088442937822?ref_src=twsrc%5Etfw">October 8, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Replies</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">they not like us. try <a href="https://twitter.com/Aptos?ref_src=twsrc%5Etfw">@Aptos</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1814979713208635414?ref_src=twsrc%5Etfw">July 21, 2024</a></blockquote></div>
+                        </div>
+                    </div>
+
+                    <div class="client-panel" id="panel-ctrl">
+                        <p class="sub-desc" style="margin-top:0"><strong>Social &amp; Memes -- Ctrl Wallet</strong><br>Decentralized finance infrastructure. Short-form video, memes, and community content.</p>
+                        <div class="tweets-grid">
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ctrl is for everyone.  If you like the rebrand you&#39;ll love the redesigned Ctrl extension and all-new mobile app. World-class with beautiful form and functionality.<br><br>Our founder <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> explains &#x1F447; <a href="https://t.co/KbI1GG3KBc">pic.twitter.com/KbI1GG3KBc</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1819961509243650133?ref_src=twsrc%5Etfw">August 4, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Bear markets are for building. And that&#39;s exactly what we did &#x1F6E0;&#xFE0F;<br><br>New name, same mission: true self-custody across more chains than ever.<br><br>One wallet for all your crypto. <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> breaks it down: <a href="https://t.co/rff19CKDzz">pic.twitter.com/rff19CKDzz</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1818315722646511965?ref_src=twsrc%5Etfw">July 30, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">discipline builds mastery<br>&#x271C; <a href="https://t.co/brsVjbzDEC">pic.twitter.com/brsVjbzDEC</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1819402794669166662?ref_src=twsrc%5Etfw">August 2, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">There has to be some kind of mistake! His power level is out of control! It&#39;s over 9000! <a href="https://t.co/CZxQYF9B9e">pic.twitter.com/CZxQYF9B9e</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1818511978090086403?ref_src=twsrc%5Etfw">July 31, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">A new player has entered the game.<br><br>ENTER PLAYER NAME: ____________<br><br>&#x271C; <a href="https://t.co/QPeRKySvPx">pic.twitter.com/QPeRKySvPx</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1817424760684601456?ref_src=twsrc%5Etfw">July 28, 2024</a></blockquote></div>
+                        </div>
+                    </div>
+
+                    <div class="client-panel" id="panel-ionet">
+                        <p class="sub-desc" style="margin-top:0"><strong>Threads &amp; Social -- io.net</strong><br>Decentralized GPU compute network (Solana). Threads, tweets, and thought leadership.</p>
+                        <div class="tweets-grid">
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">.<a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> has GPUs.<br><br>AI needs GPUs<br>Gaming needs GPUs<br>High-Performance Computing needs GPUs<br>Cloud Computing needs GPUs<br>Data Center Efficiency needs GPUs<br>Scientific Visualization needs GPUs<br>Healthcare needs GPUs<br>Automotive Industry needs GPUs<br>Finance needs GPUs<br>Defense and Military&#8230;</p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1879257216144101379?ref_src=twsrc%5Etfw">January 14, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">All this yapping about AI Agents, but nobody yapping about decentralized compute for AI Agents.<br><br>This is a big miss -  and big opportunity for savvy builders. Here&#39;s why:<br>&#x1F447; &#x1F9F5;<br>1/5</p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1878079459485778347?ref_src=twsrc%5Etfw">January 11, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">If you&#39;re watching AI, you&#39;re probably seeing <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> everywhere.<br><br>The DeepSeek R1 launch has been exciting, but full of hype and hot takes.  So lets unpack what you need to know &amp; why the launch matters to the space:<br><br>&#x1F9F5;&#x1F447;&#x1F3FB;<br>1/6 <a href="https://t.co/E58pkO5Glk">pic.twitter.com/E58pkO5Glk</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1884572266870231105?ref_src=twsrc%5Etfw">January 29, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Searches for &#39;ai agents&#39; have hockey-sticked. DeFAI is being built to keep the promises that DeFi made.<br><br>AI Agents built on a truly decentralized stack, across the compute, orchestration, application and execution layers are coming.<a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> accelerates AI Agents. <a href="https://t.co/F23lBNm640">pic.twitter.com/F23lBNm640</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1881424424622244040?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Cloud computing is expected to be a $2.5T market, and decentralized clouds are &lt; 1/1,000th of that now. Agents are going to completely abstract away the complexity stonewalling people from using DeFi<br><br>DefAI is the rocket engine, <a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> is the propellant <a href="https://t.co/xqpOAyGOxX">pic.twitter.com/xqpOAyGOxX</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1880011903914963307?ref_src=twsrc%5Etfw">January 16, 2025</a></blockquote></div>
+                        </div>
+                    </div>
+
+                    <div class="client-panel" id="panel-seamless">
+                        <p class="sub-desc" style="margin-top:0"><strong>Threads &amp; Social -- Seamless Protocol</strong><br>Base DeFi protocol. Product launches, migration threads, brand content.</p>
+                        <div class="tweets-grid">
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#x1F52E; LEVERAGE TOKENS ARE LIVE! &#x1F52E;<br><br>What are Leverage Tokens (LTs) and why should you care?<br><br>Let&#39;s dive in &#x1FA82;<br><br>1/7 <a href="https://t.co/LltqEWVQsO">pic.twitter.com/LltqEWVQsO</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1935715727161569388?ref_src=twsrc%5Etfw">June 19, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Leverage Tokens Litepaper just dropped, and Seamless is leading the charge into fully composable next-gen DeFi on <a href="https://twitter.com/base?ref_src=twsrc%5Etfw">@Base</a> - and beyond.<br><br>Leverage Tokens let you do more with your money on your own terms:<br><br>&#x2705; simplicity of a single-token solution<br>&#x2705; efficient performance of a&#8230; <a href="https://t.co/zzi9g4xDcP">pic.twitter.com/zzi9g4xDcP</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1902451711752728581?ref_src=twsrc%5Etfw">March 19, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#x274C; Manual ETH Looping: Dozens of txs, around the clock monitoring, liquidation anxiety<br><br>&#x2705; LT's 17x weETH/ETH Yield Loop: 1-click execution, automated rebalancing, verifiable transparent logic, tokenized and in your wallet<br><br>All of the same potential, none of the friction&#8230; <a href="https://t.co/c3H9DwjaDI">pic.twitter.com/c3H9DwjaDI</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1934998800055308472?ref_src=twsrc%5Etfw">June 17, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">With Leverage Tokens shipping so soon, how will you express the rollercoaster of feels?<br><br>Seamus can help!<br><br>Now your chats can be more based with this amazing, very real, Seamus Sticker &amp; Emoji packs. A Seamus for every emotion and every situation.<br><br>Get your Seamus stickers and&#8230; <a href="https://t.co/rOJyxm02KI">pic.twitter.com/rOJyxm02KI</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1932178379589226909?ref_src=twsrc%5Etfw">June 9, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">After spending months out in the wild, countless adventures and some close calls (trenches are rough sometimes), your companion is finally here.<br><br>Meet Seamus (pronounced Shai-mus, he's irish ofc &#x1F340; ). He's a seamies best friend. He's always sniffing out the best yields, he&#39;s&#8230; <a href="https://t.co/DwsfgnbjTl">pic.twitter.com/DwsfgnbjTl</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1930708465355493809?ref_src=twsrc%5Etfw">June 5, 2025</a></blockquote></div>
+                        </div>
+                    </div>
+
+                    <div class="client-panel" id="panel-moonbeam">
+                        <p class="sub-desc" style="margin-top:0"><strong>Social -- Moonbeam</strong></p>
+                        <div class="tweets-grid">
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Our dApp is the best way into the Moonbeam ecosystem<br><br>Just 3 clicks to become a proud <a href="https://twitter.com/search?q=%24GLMR&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$GLMR</a> holder<br><br>Have you tried it? Link below &#x1F440; <a href="https://t.co/r1Rtg2da1R">pic.twitter.com/r1Rtg2da1R</a></p>&mdash; Moonbeam (@MoonbeamNetwork) <a href="https://twitter.com/MoonbeamNetwork/status/1856728779462525109?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WEB2 TAB -->
+            <div id="tab-web2" class="tab-content hidden">
+                <div class="work-sub" style="margin-top:0">
+                    <div class="client-selector">
+                        <button class="client-pill active" data-panel="panel-copy">Copy</button>
+                        <button class="client-pill" data-panel="panel-whitepapers">Whitepapers</button>
+                        <button class="client-pill" data-panel="panel-collateral">Collateral</button>
+                        <button class="client-pill" data-panel="panel-video">Video</button>
+                        <button class="client-pill" data-panel="panel-blogs">Blogs</button>
+                    </div>
+
+                    <div class="client-panel active" id="panel-copy">
+                        <div class="work-grid">
+                            <div class="work-card">
+                                <div class="badge">Personify</div><h3>Referral Campaign Landing Page</h3><p>Seasonal referral campaign page that increased referrals by 50%. Simplified a multi-step manual process.</p>
+                            </div>
+                            <div class="work-card">
+                                <div class="badge">Blockgeeks</div><h3>Crypto Investment Masterclass</h3><p>Designed cohort-based course from scratch -- learning objectives, community learning elements, expert guest speakers. Built landing page for organic and paid traffic.</p>
+                            </div>
+                            <a href="http://www.gohemisphere.ca" class="work-card" target="_blank">
+                                <div class="badge">Hemisphere Freight</div><h3>Full Website Refresh &amp; Rebrand</h3><p>Complete website and rebrand for Canadian SMB. New URL, copy, and positioning to differentiate from enterprise competitors.</p>
+                            </a>
+                            <div class="work-card">
+                                <div class="badge">Nulogy</div><h3>Platform Product Messaging</h3><p>Implemented product messaging updates across all key features using the Solution Selling framework.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="client-panel" id="panel-whitepapers">
+                        <div class="work-grid">
+                            <a href="docs/nulogy-value-added-services.pdf" class="work-card" target="_blank">
+                                <div class="badge">Nulogy</div><h3>"Is Your System Up for the Race?"</h3><p>Whitepaper for 3PLs and contract packagers -- positioning Nulogy alongside ERPs for agile digital supply chains.</p>
+                            </a>
+                            <a href="docs/nulogy-trust-collaborate-innovate.pdf" class="work-card" target="_blank">
+                                <div class="badge">Personify</div><h3>Ultimate Membership Renewal Guide</h3><p>Complete overhaul -- added executive summary, descriptive chapters, refreshed layout. Replaced outdated product-heavy version with education-first approach.</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="client-panel" id="panel-collateral">
+                        <div class="work-grid">
+                            <a href="docs/nulogy-business-case-deck.pdf" class="work-card" target="_blank">
+                                <div class="badge">Nulogy</div><h3>Modular Business Case Deck</h3><p>Sales deck for Develop and Prove stages -- generic + customizable slides with prospect-specific variations.</p>
+                            </a>
+                            <a href="docs/nulogy-executive-keynote.pdf" class="work-card" target="_blank">
+                                <div class="badge">Nulogy</div><h3>Executive Keynote</h3><p>Joint presentation deck for industry trade show -- demonstrating solution value through trusted partner narrative.</p>
+                            </a>
+                            <a href="docs/nvc-workshop.pdf" class="work-card" target="_blank">
+                                <div class="badge">Workshop</div><h3>Nonviolent Communication Workshop</h3><p>2-hour company-wide interactive workshop deck on the NVC technique.</p>
+                            </a>
+                            <a href="docs/nulogy-awareness-brochure.pdf" class="work-card" target="_blank">
+                                <div class="badge">Nulogy</div><h3>Awareness &amp; Consideration Collateral</h3><p>Full suite: brochures, booklets, and 2-pagers for awareness and consideration stages.</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="client-panel" id="panel-video">
+                        <div class="work-grid">
+                            <a href="https://www.youtube.com/watch?v=5WtggEp79pk" class="work-card" target="_blank">
+                                <div class="badge">Top Hat</div><h3>Platform Overview Video</h3><p>Managed production with Planet Nutshell animation studio -- concept through scripting, casting, soundtrack, storyboarding, and distribution.</p>
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=92ehiP1BZ2k" class="work-card" target="_blank">
+                                <div class="badge">Top Hat</div><h3>Interactive Texts Product Overview</h3><p>Repurposed platform overview into focused product video. Sourcing, interviewing, filming, audio/video editing, UI capture.</p>
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=hb0hYSSFLsI" class="work-card" target="_blank">
+                                <div class="badge">Top Hat</div><h3>Marketplace Explainer</h3><p>Animated explainer video -- from concept development to final production with animation studio.</p>
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=oYY6cD7gt68" class="work-card" target="_blank">
+                                <div class="badge">Top Hat</div><h3>Customer Success Case Study</h3><p>End-to-end video production -- sourcing SME, interviewing, location scouting, filming, post-production with in-house animator.</p>
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=Pegr6jAfwY4" class="work-card" target="_blank">
+                                <div class="badge">Retreat</div><h3>Promotional Trailer</h3><p>Filmed, sourced music, edited video/audio, conducted interviews. Oversaw digital marketing campaigns and distribution.</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="client-panel" id="panel-blogs">
+                        <div class="work-grid">
+                            <a href="https://www.jettagrove.com/post/strategic-top-of-funnel" class="work-card" target="_blank">
+                                <div class="badge">7shifts</div><h3>Everything You Need to Know About Virtual Restaurants</h3><p>Long-form industry guide on the virtual restaurant trend in the food &amp; beverage space.</p>
+                            </a>
+                            <a href="https://www.jettagrove.com/post/4-principles-underpinning-values-based-leadership-success" class="work-card" target="_blank">
+                                <div class="badge">Leadership</div><h3>Harry Kraemer's 4 Principles of Values-Based Leadership</h3><p>Thought leadership on self-reflection, balance, self-confidence, and genuine humility.</p>
+                            </a>
+                            <div class="work-card">
+                                <div class="badge">Top Hat</div><h3>How to Bridge the Digital Divide in the Modern Classroom</h3><p>EdTech thought leadership on technology access and equity in education.</p>
+                            </div>
+                            <div class="work-card">
+                                <div class="badge">Top Hat</div><h3>How to Teach Anatomy with Fewer Resources</h3><p>Practical guide for educators on innovative anatomy instruction methods.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MY STORY -->
+    <section id="story">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Story</h2>
+            </div>
+            <div class="story-content">
+                <p>Born and raised in Toronto, I've lived in words for as long as I can remember.</p>
+                <p>I earned two degrees in English (Hons. B.A. and M.A.) and started a third -- a Ph.D. -- while working nights as a DJ and barback in downtown Toronto. Soon after, I realized that the things I thought mattered and what actually mattered were quite different. I left academia to marry my sweetheart Sheva and start a family. We now have two boys -- Bruce (5) and Rocky (2).</p>
+                <p>I repurposed my academic training as a writer, researcher, and educator into content marketing at some of Toronto's fastest-growing B2B SaaS companies -- Nulogy, Top Hat, Personify, 7shifts. I built everything from whitepapers and sales decks to video productions and full website refreshes.</p>
+                <p>When the pandemic hit and Bruce was born, I discovered crypto. Bought BTC and ETH, put it in a hardware wallet. Experimented with DeFi, traded NFTs, bridged assets off Ethereum, yield farmed, got wrecked, lurked Discord servers and obscure Telegram channels -- all in pursuit of learning and alpha.</p>
+                <p>What I found was a terrible need for high-quality crypto content. So the mission became: create informed, helpful, high-quality content for the broadest audience possible.</p>
+                <p>That led to Kraken, then LayerZero (first marketing hire), Waves Labs, Kava (2 years), and io.net -- building content engines that drove real results: 9M+ impressions, 430% SEO growth, ghostwriting for the CEO of a $1.5B protocol.</p>
+                <p>Now consulting through Steak Studio (Head of Strategy) and available for the right full-time opportunity. 10 years of content marketing. 5 in B2B SaaS. 5 in Web3. The throughline: data-driven strategy, conversion over vanity metrics, and technical depth that earns trust.</p>
+                <p>Based in Toronto. Onwards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About</h2>
+            </div>
+            <div class="about-grid">
+                <img src="headshot.jpg" alt="Matthew Baggetta" class="headshot">
+                <div class="about-text">
+                    <p>Content strategist with 10 years of experience -- 5 in B2B SaaS, 5 in Web3/crypto. I've built and scaled content engines for protocols like Aptos, io.net, Kava, and Kraken. My approach: data-driven strategy, conversion-focused execution, and systems that compound over time. English M.A. background. Based in Toronto.</p>
+                    <div class="about-tags">
+                        <span class="tag">Content Strategy</span>
+                        <span class="tag">SEO</span>
+                        <span class="tag">DeFi</span>
+                        <span class="tag">Protocol Marketing</span>
+                        <span class="tag">Brand Voice</span>
+                        <span class="tag">Ghostwriting</span>
+                        <span class="tag">Technical Writing</span>
+                        <span class="tag">Growth</span>
+                    </div>
+                    <div class="about-links">
+                        <a href="https://linkedin.com/in/baggetta" target="_blank">LinkedIn</a>
+                        <a href="mailto:baggetta@gmail.com">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact</h2>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:hello@baggetta.com" class="contact-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    hello@baggetta.com
+                </a>
+                <a href="https://linkedin.com/in/baggetta" target="_blank" rel="noopener" class="contact-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    @baggetta
+                </a>
+                <a href="https://x.com/matthew_ok" target="_blank" rel="noopener" class="contact-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    @matthew_ok
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Matthew Baggetta &middot; <a href="#top">Back to Top &uarr;</a></p>
+        </div>
+    </footer>
+
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const html = document.documentElement;
+        const saved = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', saved);
+        updateThemeIcon(saved);
+
+        function updateThemeIcon(theme) {
+            if (theme === 'light') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateThemeIcon(next);
+            updateChartColors(next);
+        });
+
+        // Mobile Menu
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+        // Counter Animation
+        let counted = false;
+        const counterObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting && !counted) {
+                    counted = true;
+                    document.querySelectorAll('.counter').forEach(c => {
+                        const target = parseInt(c.dataset.target);
+                        const dur = 1500;
+                        const inc = target / (dur / 16);
+                        let cur = 0;
+                        const timer = setInterval(() => {
+                            cur += inc;
+                            if (cur >= target) { c.textContent = target; clearInterval(timer); }
+                            else c.textContent = Math.floor(cur);
+                        }, 16);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        counterObs.observe(document.querySelector('.stats-bar'));
+
+        // Tab Switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+                document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+            });
+        });
+
+        // Client Panel Switcher
+        document.querySelectorAll('.client-pill').forEach(function(pill) {
+            pill.addEventListener('click', function() {
+                var selector = pill.closest('.work-sub');
+                selector.querySelectorAll('.client-pill').forEach(function(p) { p.classList.remove('active'); });
+                selector.querySelectorAll('.client-panel').forEach(function(p) { p.classList.remove('active'); });
+                pill.classList.add('active');
+                var panel = document.getElementById(pill.getAttribute('data-panel'));
+                if (panel) { panel.classList.add('active'); }
+            });
+        });
+
+        // Results slider dots
+        (function() {
+            var slider = document.getElementById('resultsSlider');
+            var dots = document.querySelectorAll('.slider-dot');
+            var blocks = slider.querySelectorAll('.result-block');
+            dots.forEach(function(dot) {
+                dot.addEventListener('click', function() {
+                    var idx = parseInt(dot.dataset.index);
+                    blocks[idx].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                });
+            });
+            slider.addEventListener('scroll', function() {
+                var scrollLeft = slider.scrollLeft;
+                var width = blocks[0].offsetWidth + 20;
+                var active = Math.round(scrollLeft / width);
+                dots.forEach(function(d, i) { d.classList.toggle('active', i === active); });
+            });
+        })();
+
+        // Animated count-up on scroll
+        const heroNumbers = document.querySelectorAll('.hero-number');
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+                    entry.target.classList.add('visible');
+                    const el = entry.target;
+                    const target = parseFloat(el.dataset.target);
+                    const suffix = el.dataset.suffix || '';
+                    const isDecimal = target % 1 !== 0;
+                    const duration = 1500;
+                    const start = performance.now();
+                    function tick(now) {
+                        const progress = Math.min((now - start) / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = target * eased;
+                        el.textContent = (isDecimal ? current.toFixed(2) : Math.round(current)) + suffix;
+                        if (progress < 1) requestAnimationFrame(tick);
+                    }
+                    requestAnimationFrame(tick);
+                }
+            });
+        }, { threshold: 0.3 });
+        heroNumbers.forEach(el => countObserver.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const href = a.getAttribute('href');
+                if (href === '#top') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const t = document.querySelector(href);
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Charts
+        function getChartColors(theme) {
+            return {
+                line: theme === 'dark' ? '#60A5FA' : '#2563EB',
+                bar: theme === 'dark' ? '#F59E0B' : '#D97706',
+                fill: theme === 'dark' ? 'rgba(96,165,250,0.12)' : 'rgba(37,99,235,0.06)',
+                grid: theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                text: theme === 'dark' ? '#71717A' : '#A1A1AA',
+            };
+        }
+
+        let aptosLine, aptosBar, seamlessLine, ionetLine;
+        const initTheme = html.getAttribute('data-theme');
+
+        function createCharts(theme) {
+            const c = getChartColors(theme);
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.font.size = 11;
+            Chart.defaults.color = c.text;
+
+            const commonScales = {
+                y: { beginAtZero: true, grid: { color: c.grid, drawBorder: false }, ticks: { padding: 8 } },
+                x: { grid: { display: false }, ticks: { padding: 4 } }
+            };
+            const commonPlugins = { legend: { display: false } };
+
+            aptosLine = new Chart(document.getElementById('aptosLineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Jun','Jul','Aug','Sep','Oct'],
+                    datasets: [{ label: 'Avg Views/Tweet', data: [7457,9366,9277,11870,23800],
+                        borderColor: c.line, backgroundColor: c.fill, tension: 0.4, fill: true,
+                        pointRadius: 3, pointBackgroundColor: c.line, borderWidth: 2 }]
+                },
+                options: { responsive: true, plugins: { ...commonPlugins, title: { display: true, text: 'Avg Views per Tweet', color: c.text, padding: { bottom: 12 } } },
+                    scales: commonScales }
+            });
+
+            aptosBar = new Chart(document.getElementById('aptosBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jun','Jul','Aug','Sep','Oct'],
+                    datasets: [{ label: 'Impressions', data: [270000,732000,409000,718000,2220000],
+                        backgroundColor: c.bar, borderRadius: 4, barPercentage: 0.6 }]
+                },
+                options: { responsive: true, plugins: { ...commonPlugins, title: { display: true, text: 'Monthly Impressions', color: c.text, padding: { bottom: 12 } } },
+                    scales: commonScales }
+            });
+
+            seamlessLine = new Chart(document.getElementById('seamlessLineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+                    datasets: [{ label: 'Avg Views/Post', data: [1412,1680,2100,2450,2900,3200,3550,3871],
+                        borderColor: c.line, backgroundColor: c.fill, tension: 0.4, fill: true,
+                        pointRadius: 3, pointBackgroundColor: c.line, borderWidth: 2 }]
+                },
+                options: { responsive: true, plugins: { ...commonPlugins, title: { display: true, text: 'Avg Views per Post', color: c.text, padding: { bottom: 12 } } },
+                    scales: commonScales }
+            });
+
+            ionetLine = new Chart(document.getElementById('ionetLineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Aug','Sep','Oct','Nov','Dec','Jan'],
+                    datasets: [{ label: 'Traffic Value ($)', data: [5097,8500,12000,16000,20000,27022],
+                        borderColor: c.line, backgroundColor: c.fill, tension: 0.4, fill: true,
+                        pointRadius: 3, pointBackgroundColor: c.line, borderWidth: 2 }]
+                },
+                options: { responsive: true, plugins: { ...commonPlugins, title: { display: true, text: 'Estimated Traffic Value ($)', color: c.text, padding: { bottom: 12 } } },
+                    scales: commonScales }
+            });
+        }
+
+        function updateChartColors(theme) {
+            const c = getChartColors(theme);
+            [aptosLine, aptosBar, seamlessLine, ionetLine].forEach(chart => {
+                if (!chart) return;
+                chart.options.scales.y.grid.color = c.grid;
+                chart.options.plugins.title.color = c.text;
+                Chart.defaults.color = c.text;
+                const ds = chart.data.datasets[0];
+                if (chart.config.type === 'line') {
+                    ds.borderColor = c.line; ds.backgroundColor = c.fill;
+                    ds.pointBackgroundColor = c.line;
+                } else {
+                    ds.backgroundColor = c.bar;
+                }
+                chart.update();
+            });
+        }
+
+        createCharts(initTheme);
+
+        // Subtle top-bar shadow on scroll
+        window.addEventListener('scroll', () => {
+            const topBar = document.querySelector('.top-bar');
+            if (window.scrollY > 10) {
+                topBar.style.boxShadow = '0 1px 8px rgba(0,0,0,0.06)';
+            } else {
+                topBar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
