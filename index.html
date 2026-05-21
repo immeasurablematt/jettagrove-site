@@ -100,6 +100,15 @@
             font-weight: 700; font-size: 15px;
             color: var(--text-primary);
             letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+        }
+        .top-bar .site-logo {
+            width: 28px;
+            height: 28px;
+            display: block;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .nav-links {
             display: flex; align-items: center; gap: 28px;
@@ -587,7 +596,9 @@
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="top-bar-inner">
-            <a href="#top" class="site-name">MB</a>
+            <a href="#top" class="site-name" aria-label="Matthew Baggetta home">
+                <img src="icons/favicon-32x32.png?v=20260521" alt="" class="site-logo">
+            </a>
             <nav class="nav-links">
                 <a href="#results">Results</a>
                 <a href="#work">Work</a>
