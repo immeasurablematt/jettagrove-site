@@ -13,47 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="assets/vendor/chart.umd.min.js"></script>
     <style>
-        /* ---- Color Palette: Warm Stone + Violet ---- */
-        :root {
-            --bg-primary: #FAF9F7;
-            --bg-secondary: #F3F1ED;
-            --bg-card: #FFFFFF;
-            --text-primary: #1C1917;
-            --text-secondary: #57534E;
-            --text-muted: #A8A29E;
-            --accent: #7C3AED;
-            --accent-hover: #6D28D9;
-            --accent-soft: rgba(124, 58, 237, 0.08);
-            --accent-glow: rgba(124, 58, 237, 0.15);
-            --border: #E7E5E4;
-            --border-subtle: #F5F5F4;
-            --shadow-sm: 0 1px 2px rgba(28,25,23,0.04);
-            --shadow-md: 0 4px 16px rgba(28,25,23,0.06);
-            --shadow-lg: 0 12px 40px rgba(28,25,23,0.08);
-            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #0C0A09;
-            --bg-secondary: #1C1917;
-            --bg-card: #292524;
-            --text-primary: #FAFAF9;
-            --text-secondary: #A8A29E;
-            --text-muted: #78716C;
-            --accent: #A78BFA;
-            --accent-hover: #C4B5FD;
-            --accent-soft: rgba(167, 139, 250, 0.1);
-            --accent-glow: rgba(167, 139, 250, 0.18);
-            --border: #292524;
-            --border-subtle: #1C1917;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
@@ -609,6 +568,7 @@
             --shadow-sm: 0 1px 2px rgba(22, 26, 29, 0.05);
             --shadow-md: 0 10px 24px rgba(22, 26, 29, 0.08);
             --shadow-lg: 0 24px 56px rgba(22, 26, 29, 0.12);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             --radius-sm: 8px;
             --radius-md: 8px;
             --radius-lg: 8px;
@@ -629,9 +589,10 @@
             --warm-soft: rgba(255, 154, 61, 0.14);
             --border: #30383A;
             --border-subtle: #22292B;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.4);
         }
-
-        * { letter-spacing: 0 !important; }
 
         body {
             background:
@@ -711,8 +672,7 @@
             position: relative;
         }
 
-        .hero-text::before {
-            content: "Independent content strategy / Web3 + B2B SaaS";
+        .hero-badge {
             display: inline-flex;
             width: fit-content;
             margin-bottom: 18px;
@@ -1151,6 +1111,7 @@
         <div class="container">
             <div class="hero-grid">
                 <div class="hero-text">
+                    <span class="hero-badge">Independent content strategy / Web3 + B2B SaaS</span>
                     <h1>Matthew Baggetta</h1>
                     <p class="subtitle">Content strategy that converts: from protocols to platforms.</p>
                     <p class="bio">Content strategist with 10 years of experience. 5 in B2B SaaS, 5 in Web3/crypto. I've built and scaled content engines for protocols like Aptos, io.net, Kava, and Kraken. My approach: data-driven strategy, conversion-focused execution, and systems that compound over time. English M.A. background. Based in Toronto.</p>
