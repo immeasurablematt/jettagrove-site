@@ -436,7 +436,7 @@
             gap: 16px; margin-top: 20px;
         }
         .tweets-slider {
-            display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+            display: flex; align-items: flex-start; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch; padding-bottom: 8px; margin-top: 16px;
         }
         .tweets-slider::-webkit-scrollbar { height: 4px; }
@@ -1330,179 +1330,111 @@
             </div>
 
             <div class="tab-bar">
-                <button class="tab-btn active" data-tab="web3">Web3</button>
-                <button class="tab-btn" data-tab="web2">B2B SaaS</button>
+                <button class="tab-btn active" data-tab="short-form">Short-Form</button>
+                <button class="tab-btn" data-tab="long-form">Long-Form</button>
+                <button class="tab-btn" data-tab="campaigns">Campaigns</button>
             </div>
 
-            <!-- WEB3 TAB -->
-            <div id="tab-web3" class="tab-content">
+            <!-- SHORT-FORM TAB -->
+            <div id="tab-short-form" class="tab-content">
                 <div class="work-sub" style="margin-top:0">
                     <div class="client-selector">
-                        <button class="client-pill active" data-panel="panel-aptos">Aptos</button>
-                        <button class="client-pill" data-panel="panel-ctrl">Ctrl Wallet</button>
-                        <button class="client-pill" data-panel="panel-ionet">io.net</button>
-                        <button class="client-pill" data-panel="panel-seamless">Seamless</button>
-                        <button class="client-pill" data-panel="panel-moonbeam">Moonbeam</button>
+                        <button class="client-pill active" data-panel="panel-exec-ghostwriting">Executive Ghostwriting</button>
+                        <button class="client-pill" data-panel="panel-brand-accounts">Brand Accounts</button>
                     </div>
 
-                    <div class="client-panel active" id="panel-aptos">
-                        <p class="sub-desc" style="margin-top:0"><strong>Executive Ghostwriting | Aptos CEO Mo Shaikh</strong><br>Ghostwriting for Mo Shaikh, CEO of Aptos ($1.5B+ L1). Scripted videos, partnerships, tech education, thought leadership, events.</p>
+                    <div class="client-panel active" id="panel-exec-ghostwriting">
+                        <p class="sub-desc" style="margin-top:0"><strong>Executive Ghostwriting | Aptos CEO Mo Shaikh + Jay / Lite Strategy</strong><br>Short-form thought leadership for technical founders and executives: scripted video, partnerships, product education, market narrative, and launch commentary.</p>
                         <div class="tweets-slider">
                             <div class="tweet-wrapper"><div class="tweet-cat">Scripted Video</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Aptos Autumn is back <a href="https://t.co/yQnchvQjm4">pic.twitter.com/yQnchvQjm4</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1842199371762589797?ref_src=twsrc%5Etfw">October 4, 2024</a></blockquote></div>
                             <div class="tweet-wrapper"><div class="tweet-cat">Partnerships</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Today, <a href="https://twitter.com/BlackRock?ref_src=twsrc%5Etfw">@BlackRock</a> chose Aptos as the only non-EVM chain to launch its money market fund tokenized by <a href="https://twitter.com/Securitize?ref_src=twsrc%5Etfw">@Securitize</a>: BUIDL<br><br>Following <a href="https://twitter.com/OndoFinance?ref_src=twsrc%5Etfw">@OndoFinance</a>&#39;s USDY, <a href="https://twitter.com/FTDA_US?ref_src=twsrc%5Etfw">@FTDA_US</a>&#39;s FOBXX, &amp; <a href="https://twitter.com/BitwiseInvest?ref_src=twsrc%5Etfw">@BitwiseInvest</a>&#39;s Aptos ETP, RWAs &amp; institutional-grade DeFi are not just coming to Aptos.<br><br>They&#39;re here.</p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1856708291415683125?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">forget about paying with bitcoin. leave your digital gold in its vault if you want. imagine paying for your ride with APT.<br><br>coming &#x1F51C; <a href="https://t.co/rgHfBJWBS9">pic.twitter.com/rgHfBJWBS9</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1844732037262959056?ref_src=twsrc%5Etfw">October 11, 2024</a></blockquote></div>
                             <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">TradFi has to figure these things out in the next 12-18mo to be in the best position for the incoming tsunami of tokenized funds:<br><br>- a tokenized fund vision<br>- a use case road map<br>- on-chain compliance<br>- a center of excellence to orchestrate everything<br><br>Aptos figured out the rest. <a href="https://t.co/pGyuuVUjro">pic.twitter.com/pGyuuVUjro</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1851646968919195694?ref_src=twsrc%5Etfw">October 30, 2024</a></blockquote></div>
                             <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">...but seriously, Aptos is approaching a tipping point. Stripe just acquired Bridge - a stablecoin transaction API for $1.1B<br><br>Aptos&#39; purpose-built rails can support TRILLIONS of on-chain value flows right now (USDT soon). institutions &amp; enterprises: we&#39;ve been waiting for ya <a href="https://t.co/ORfKL3DFSp">pic.twitter.com/ORfKL3DFSp</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1849490515399680405?ref_src=twsrc%5Etfw">October 24, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">ICYMI few days ago Aptos did ~3,766 TPS (326M in one day). fees as low as ~$0.00005 per txn, without changes in success rates or fees. we are so ready, and we coming for ya zuck<br><br>1,000 TPS during peak - <a href="https://twitter.com/PayPal?ref_src=twsrc%5Etfw">@PayPal</a><br>10,000 TPS during peak - <a href="https://twitter.com/Steam?ref_src=twsrc%5Etfw">@Steam</a><br>100,000 TPS globally - <a href="https://twitter.com/facebook?ref_src=twsrc%5Etfw">@facebook</a> <a href="https://t.co/Nw1PLOCvTg">pic.twitter.com/Nw1PLOCvTg</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1835785844051128745?ref_src=twsrc%5Etfw">September 16, 2024</a></blockquote></div>
                             <div class="tweet-wrapper"><div class="tweet-cat">Events</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">28 MILLION people are expected to attend the World Expo 2025 in Osaka Japan, and they&#39;ll all be using a digital wallet developed by our latest acquisition <a href="https://twitter.com/hashpalette_en?ref_src=twsrc%5Etfw">@hashpalette_en</a> on Aptos<br><br>&#x1F1EF;&#x1F1F5; has A+ gov&#39;t support &amp; a vibrant Web3 ecosystem, making it (and APAC) the future of Web3. lfg <a href="https://t.co/fMelMF9PNs">pic.twitter.com/fMelMF9PNs</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1843737088442937822?ref_src=twsrc%5Etfw">October 8, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Replies</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">they not like us. try <a href="https://twitter.com/Aptos?ref_src=twsrc%5Etfw">@Aptos</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1814979713208635414?ref_src=twsrc%5Etfw">July 21, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2054211853052493829?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2057462163837685910?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2049832405297488106?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
                         </div>
                     </div>
 
-                    <div class="client-panel" id="panel-ctrl">
-                        <p class="sub-desc" style="margin-top:0"><strong>Social &amp; Memes | Ctrl Wallet</strong><br>Decentralized finance infrastructure. Short-form video, memes, and community content.</p>
-                        <div class="tweets-grid">
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ctrl is for everyone.  If you like the rebrand you&#39;ll love the redesigned Ctrl extension and all-new mobile app. World-class with beautiful form and functionality.<br><br>Our founder <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> explains &#x1F447; <a href="https://t.co/KbI1GG3KBc">pic.twitter.com/KbI1GG3KBc</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1819961509243650133?ref_src=twsrc%5Etfw">August 4, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Bear markets are for building. And that&#39;s exactly what we did &#x1F6E0;&#xFE0F;<br><br>New name, same mission: true self-custody across more chains than ever.<br><br>One wallet for all your crypto. <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> breaks it down: <a href="https://t.co/rff19CKDzz">pic.twitter.com/rff19CKDzz</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1818315722646511965?ref_src=twsrc%5Etfw">July 30, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">discipline builds mastery<br>&#x271C; <a href="https://t.co/brsVjbzDEC">pic.twitter.com/brsVjbzDEC</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1819402794669166662?ref_src=twsrc%5Etfw">August 2, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">There has to be some kind of mistake! His power level is out of control! It&#39;s over 9000! <a href="https://t.co/CZxQYF9B9e">pic.twitter.com/CZxQYF9B9e</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1818511978090086403?ref_src=twsrc%5Etfw">July 31, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">A new player has entered the game.<br><br>ENTER PLAYER NAME: ____________<br><br>&#x271C; <a href="https://t.co/QPeRKySvPx">pic.twitter.com/QPeRKySvPx</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1817424760684601456?ref_src=twsrc%5Etfw">July 28, 2024</a></blockquote></div>
-                        </div>
-                    </div>
-
-                    <div class="client-panel" id="panel-ionet">
-                        <p class="sub-desc" style="margin-top:0"><strong>Threads &amp; Social | io.net</strong><br>Decentralized GPU compute network (Solana). Threads, tweets, and thought leadership.</p>
+                    <div class="client-panel" id="panel-brand-accounts">
+                        <p class="sub-desc" style="margin-top:0"><strong>Brand Accounts | io.net, Seamless, Ctrl Wallet, Moonbeam</strong><br>Technical social systems for protocols and products: launch narratives, product education, brand voice, market commentary, and community-building posts.</p>
                         <div class="tweets-grid">
                             <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">.<a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> has GPUs.<br><br>AI needs GPUs<br>Gaming needs GPUs<br>High-Performance Computing needs GPUs<br>Cloud Computing needs GPUs<br>Data Center Efficiency needs GPUs<br>Scientific Visualization needs GPUs<br>Healthcare needs GPUs<br>Automotive Industry needs GPUs<br>Finance needs GPUs<br>Defense and Military&#8230;</p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1879257216144101379?ref_src=twsrc%5Etfw">January 14, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">All this yapping about AI Agents, but nobody yapping about decentralized compute for AI Agents.<br><br>This is a big miss -  and big opportunity for savvy builders. Here&#39;s why:<br>&#x1F447; &#x1F9F5;<br>1/5</p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1878079459485778347?ref_src=twsrc%5Etfw">January 11, 2025</a></blockquote></div>
                             <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">If you&#39;re watching AI, you&#39;re probably seeing <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> everywhere.<br><br>The DeepSeek R1 launch has been exciting, but full of hype and hot takes.  So lets unpack what you need to know &amp; why the launch matters to the space:<br><br>&#x1F9F5;&#x1F447;&#x1F3FB;<br>1/6 <a href="https://t.co/E58pkO5Glk">pic.twitter.com/E58pkO5Glk</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1884572266870231105?ref_src=twsrc%5Etfw">January 29, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Searches for &#39;ai agents&#39; have hockey-sticked. DeFAI is being built to keep the promises that DeFi made.<br><br>AI Agents built on a truly decentralized stack, across the compute, orchestration, application and execution layers are coming.<a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> accelerates AI Agents. <a href="https://t.co/F23lBNm640">pic.twitter.com/F23lBNm640</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1881424424622244040?ref_src=twsrc%5Etfw">January 20, 2025</a></blockquote></div>
                             <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Cloud computing is expected to be a $2.5T market, and decentralized clouds are &lt; 1/1,000th of that now. Agents are going to completely abstract away the complexity stonewalling people from using DeFi<br><br>DefAI is the rocket engine, <a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> is the propellant <a href="https://t.co/xqpOAyGOxX">pic.twitter.com/xqpOAyGOxX</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1880011903914963307?ref_src=twsrc%5Etfw">January 16, 2025</a></blockquote></div>
-                        </div>
-                    </div>
-
-                    <div class="client-panel" id="panel-seamless">
-                        <p class="sub-desc" style="margin-top:0"><strong>Threads &amp; Social | Seamless Protocol</strong><br>Base DeFi protocol. Product launches, migration threads, brand content.</p>
-                        <div class="tweets-grid">
                             <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#x1F52E; LEVERAGE TOKENS ARE LIVE! &#x1F52E;<br><br>What are Leverage Tokens (LTs) and why should you care?<br><br>Let&#39;s dive in &#x1FA82;<br><br>1/7 <a href="https://t.co/LltqEWVQsO">pic.twitter.com/LltqEWVQsO</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1935715727161569388?ref_src=twsrc%5Etfw">June 19, 2025</a></blockquote></div>
                             <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Leverage Tokens Litepaper just dropped, and Seamless is leading the charge into fully composable next-gen DeFi on <a href="https://twitter.com/base?ref_src=twsrc%5Etfw">@Base</a> - and beyond.<br><br>Leverage Tokens let you do more with your money on your own terms:<br><br>&#x2705; simplicity of a single-token solution<br>&#x2705; efficient performance of a&#8230; <a href="https://t.co/zzi9g4xDcP">pic.twitter.com/zzi9g4xDcP</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1902451711752728581?ref_src=twsrc%5Etfw">March 19, 2025</a></blockquote></div>
                             <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#x274C; Manual ETH Looping: Dozens of txs, around the clock monitoring, liquidation anxiety<br><br>&#x2705; LT's 17x weETH/ETH Yield Loop: 1-click execution, automated rebalancing, verifiable transparent logic, tokenized and in your wallet<br><br>All of the same potential, none of the friction&#8230; <a href="https://t.co/c3H9DwjaDI">pic.twitter.com/c3H9DwjaDI</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1934998800055308472?ref_src=twsrc%5Etfw">June 17, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">With Leverage Tokens shipping so soon, how will you express the rollercoaster of feels?<br><br>Seamus can help!<br><br>Now your chats can be more based with this amazing, very real, Seamus Sticker &amp; Emoji packs. A Seamus for every emotion and every situation.<br><br>Get your Seamus stickers and&#8230; <a href="https://t.co/rOJyxm02KI">pic.twitter.com/rOJyxm02KI</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1932178379589226909?ref_src=twsrc%5Etfw">June 9, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">After spending months out in the wild, countless adventures and some close calls (trenches are rough sometimes), your companion is finally here.<br><br>Meet Seamus (pronounced Shai-mus, he's irish ofc &#x1F340; ). He's a seamies best friend. He's always sniffing out the best yields, he&#39;s&#8230; <a href="https://t.co/DwsfgnbjTl">pic.twitter.com/DwsfgnbjTl</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1930708465355493809?ref_src=twsrc%5Etfw">June 5, 2025</a></blockquote></div>
-                        </div>
-                    </div>
-
-                    <div class="client-panel" id="panel-moonbeam">
-                        <p class="sub-desc" style="margin-top:0"><strong>Social | Moonbeam</strong></p>
-                        <div class="tweets-grid">
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ctrl is for everyone.  If you like the rebrand you&#39;ll love the redesigned Ctrl extension and all-new mobile app. World-class with beautiful form and functionality.<br><br>Our founder <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> explains &#x1F447; <a href="https://t.co/KbI1GG3KBc">pic.twitter.com/KbI1GG3KBc</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1819961509243650133?ref_src=twsrc%5Etfw">August 4, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Bear markets are for building. And that&#39;s exactly what we did &#x1F6E0;&#xFE0F;<br><br>New name, same mission: true self-custody across more chains than ever.<br><br>One wallet for all your crypto. <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> breaks it down: <a href="https://t.co/rff19CKDzz">pic.twitter.com/rff19CKDzz</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1818315722646511965?ref_src=twsrc%5Etfw">July 30, 2024</a></blockquote></div>
                             <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Our dApp is the best way into the Moonbeam ecosystem<br><br>Just 3 clicks to become a proud <a href="https://twitter.com/search?q=%24GLMR&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$GLMR</a> holder<br><br>Have you tried it? Link below &#x1F440; <a href="https://t.co/r1Rtg2da1R">pic.twitter.com/r1Rtg2da1R</a></p>&mdash; Moonbeam (@MoonbeamNetwork) <a href="https://twitter.com/MoonbeamNetwork/status/1856728779462525109?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- WEB2 TAB -->
-            <div id="tab-web2" class="tab-content hidden">
+            <!-- LONG-FORM TAB -->
+            <div id="tab-long-form" class="tab-content hidden">
                 <div class="work-sub" style="margin-top:0">
-                    <div class="client-selector">
-                        <button class="client-pill active" data-panel="panel-copy">Copy</button>
-                        <button class="client-pill" data-panel="panel-whitepapers">Whitepapers</button>
-                        <button class="client-pill" data-panel="panel-collateral">Collateral</button>
-                        <button class="client-pill" data-panel="panel-video">Video</button>
-                        <button class="client-pill" data-panel="panel-blogs">Blogs</button>
+                    <p class="sub-desc" style="margin-top:0"><strong>Strategic Writing</strong><br>Long-form technical content, case studies, product explainers, governance work, and website copy for infrastructure, DeFi, and B2B buyers.</p>
+                    <div class="work-grid">
+                        <a href="https://blog.io.net/article/io-net-2024-year-in-review" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">io.net</div><h3>io.net 2024 Year in Review</h3><p>Company narrative that turns a year of infrastructure milestones into a clear market-positioning story.</p>
+                        </a>
+                        <a href="https://io.net/blog/article/ai-infrastructure-cost-savings-92-percent-case-study" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">io.net</div><h3>AI Infrastructure Cost Savings Case Study</h3><p>Case-study writing connecting technical infrastructure to measurable buyer value and cost reduction.</p>
+                        </a>
+                        <a href="https://seamlessprotocol.com/blog/leverage-tokens-amplified-gains-made-simple" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Seamless</div><h3>Leverage Tokens: Amplified Gains Made Simple</h3><p>Technical product education that makes a complex DeFi primitive easier to understand and evaluate.</p>
+                        </a>
+                        <a href="https://seamlessprotocol.com/blog/the-seamless-protocol-master-plan-part-1-the-setup" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Seamless</div><h3>The Seamless Protocol Master Plan</h3><p>Strategic narrative for a protocol roadmap, written to align product direction, market context, and community belief.</p>
+                        </a>
+                        <a href="https://tac.build/blog/telegram-mini-apps-explained-risks-red-flags-and-how-to-stay-safe" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">TAC</div><h3>Telegram Mini Apps Explained</h3><p>Security explainer translating app-store risk, DeFi behavior, and user safety into accessible guidance.</p>
+                        </a>
+                        <a href="https://www.kava.io/news/cosmos-native-usdt-deep-dive" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Kava</div><h3>Cosmos-native USDt Deep Dive</h3><p>Ecosystem technical article explaining why native stablecoin infrastructure matters for builders and users.</p>
+                        </a>
+                        <a href="docs/power-protocol-whitepaper.pdf" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">PowerDAO</div><h3>Power Protocol Whitepaper</h3><p>Technical whitepaper covering tokenomics, architecture, and market positioning for a crypto protocol.</p>
+                        </a>
+                        <a href="https://io.net/" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Website Copy</div><h3>io.net Website Copy</h3><p>Homepage and product-positioning copy for decentralized GPU compute, written for AI and infrastructure buyers.</p>
+                        </a>
                     </div>
+                </div>
+            </div>
 
-                    <div class="client-panel active" id="panel-copy">
-                        <div class="work-grid">
-                            <div class="work-card">
-                                <div class="badge">Personify</div><h3>Referral Campaign Landing Page</h3><p>Seasonal referral campaign page that increased referrals by 50%. Simplified a multi-step manual process.</p>
-                            </div>
-                            <div class="work-card">
-                                <div class="badge">Blockgeeks</div><h3>Crypto Investment Masterclass</h3><p>Designed cohort-based course from scratch: learning objectives, community learning elements, expert guest speakers. Built landing page for organic and paid traffic.</p>
-                            </div>
-                            <a href="http://www.gohemisphere.ca" class="work-card" target="_blank">
-                                <div class="badge">Hemisphere Freight</div><h3>Full Website Refresh &amp; Rebrand</h3><p>Complete website and rebrand for Canadian SMB. New URL, copy, and positioning to differentiate from enterprise competitors.</p>
-                            </a>
-                            <div class="work-card">
-                                <div class="badge">Nulogy</div><h3>Platform Product Messaging</h3><p>Implemented product messaging updates across all key features using the Solution Selling framework.</p>
-                            </div>
+            <!-- CAMPAIGNS TAB -->
+            <div id="tab-campaigns" class="tab-content hidden">
+                <div class="work-sub" style="margin-top:0">
+                    <p class="sub-desc" style="margin-top:0"><strong>Full-Funnel B2B Marketing</strong><br>Landing pages, sales decks, campaign collateral, videos, product booklets, and enablement assets built for buyers at different stages.</p>
+                    <div class="work-grid">
+                        <div class="work-card">
+                            <div class="badge">Personify</div><h3>Referral Campaign Landing Page</h3><p>Seasonal referral campaign page that increased referrals by 50%. Simplified a multi-step manual process.</p>
                         </div>
-                    </div>
-
-                    <div class="client-panel" id="panel-whitepapers">
-                        <div class="work-grid">
-                            <a href="docs/nulogy-value-added-services.pdf" class="work-card" target="_blank">
-                                <div class="badge">Nulogy</div><h3>"Is Your System Up for the Race?"</h3><p>Whitepaper for 3PLs and contract packagers. Positioning Nulogy alongside ERPs for agile digital supply chains.</p>
-                            </a>
-                            <a href="docs/nulogy-trust-collaborate-innovate.pdf" class="work-card" target="_blank">
-                                <div class="badge">Personify</div><h3>Ultimate Membership Renewal Guide</h3><p>Complete overhaul: added executive summary, descriptive chapters, refreshed layout. Replaced outdated product-heavy version with education-first approach.</p>
-                            </a>
-                            <a href="docs/power-protocol-whitepaper.pdf" class="work-card" target="_blank">
-                                <div class="badge">Web3</div><h3>Power Protocol Whitepaper</h3><p>Technical whitepaper for the Power Protocol project covering tokenomics, architecture, and market positioning.</p>
-                            </a>
-                            <a href="docs/blockchain-fundamentals-web3-iconoclast.pdf" class="work-card" target="_blank">
-                                <div class="badge">Blockgeeks</div><h3>Blockchain Fundamentals Guide</h3><p>Comprehensive educational resource on blockchain technology for a mainstream audience.</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="client-panel" id="panel-collateral">
-                        <div class="work-grid">
-                            <a href="docs/nulogy-business-case-deck.pdf" class="work-card" target="_blank">
-                                <div class="badge">Nulogy</div><h3>Modular Business Case Deck</h3><p>Sales deck for Develop and Prove stages: generic + customizable slides with prospect-specific variations.</p>
-                            </a>
-                            <a href="docs/nulogy-executive-keynote.pdf" class="work-card" target="_blank">
-                                <div class="badge">Nulogy</div><h3>Executive Keynote</h3><p>Joint presentation deck for industry trade show. Demonstrating solution value through trusted partner narrative.</p>
-                            </a>
-                            <a href="docs/nvc-workshop.pdf" class="work-card" target="_blank">
-                                <div class="badge">Workshop</div><h3>Nonviolent Communication Workshop</h3><p>2-hour company-wide interactive workshop deck on the NVC technique.</p>
-                            </a>
-                            <a href="docs/nulogy-awareness-brochure.pdf" class="work-card" target="_blank">
-                                <div class="badge">Nulogy</div><h3>Awareness &amp; Consideration Collateral</h3><p>Full suite: brochures, booklets, and 2-pagers for awareness and consideration stages.</p>
-                            </a>
-                            <a href="docs/tophat-interactive-text-booklet.pdf" class="work-card" target="_blank">
-                                <div class="badge">Top Hat</div><h3>Interactive Texts Product Booklet</h3><p>Print and digital booklet showcasing Top Hat's interactive textbook platform and its impact on student engagement.</p>
-                            </a>
-                            <a href="docs/press-release.pdf" class="work-card" target="_blank">
-                                <div class="badge">Press</div><h3>Press Release</h3><p>Media announcement demonstrating PR writing and strategic communications capability.</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="client-panel" id="panel-video">
-                        <div class="work-grid">
-                            <a href="https://www.youtube.com/watch?v=5WtggEp79pk" class="work-card" target="_blank">
-                                <div class="badge">Top Hat</div><h3>Platform Overview Video</h3><p>Managed production with Planet Nutshell animation studio: concept through scripting, casting, soundtrack, storyboarding, and distribution.</p>
-                            </a>
-                            <a href="https://www.youtube.com/watch?v=92ehiP1BZ2k" class="work-card" target="_blank">
-                                <div class="badge">Top Hat</div><h3>Interactive Texts Product Overview</h3><p>Repurposed platform overview into focused product video. Sourcing, interviewing, filming, audio/video editing, UI capture.</p>
-                            </a>
-                            <a href="https://www.youtube.com/watch?v=hb0hYSSFLsI" class="work-card" target="_blank">
-                                <div class="badge">Top Hat</div><h3>Marketplace Explainer</h3><p>Animated explainer video: from concept development to final production with animation studio.</p>
-                            </a>
-                            <a href="https://www.youtube.com/watch?v=oYY6cD7gt68" class="work-card" target="_blank">
-                                <div class="badge">Top Hat</div><h3>Customer Success Case Study</h3><p>End-to-end video production: sourcing SME, interviewing, location scouting, filming, post-production with in-house animator.</p>
-                            </a>
-                            <a href="https://www.youtube.com/watch?v=Pegr6jAfwY4" class="work-card" target="_blank">
-                                <div class="badge">Retreat</div><h3>Promotional Trailer</h3><p>Filmed, sourced music, edited video/audio, conducted interviews. Oversaw digital marketing campaigns and distribution.</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="client-panel" id="panel-blogs">
-                        <div class="work-grid">
-                            <div class="work-card">
-                                <div class="badge">7shifts</div><h3>Everything You Need to Know About Virtual Restaurants</h3><p>Long-form industry guide on the virtual restaurant trend in the food &amp; beverage space.</p>
-                            </div>
-                            <div class="work-card">
-                                <div class="badge">Leadership</div><h3>Harry Kraemer's 4 Principles of Values-Based Leadership</h3><p>Thought leadership on self-reflection, balance, self-confidence, and genuine humility.</p>
-                            </div>
-                            <div class="work-card">
-                                <div class="badge">Top Hat</div><h3>How to Bridge the Digital Divide in the Modern Classroom</h3><p>EdTech thought leadership on technology access and equity in education.</p>
-                            </div>
-                            <div class="work-card">
-                                <div class="badge">Top Hat</div><h3>How to Teach Anatomy with Fewer Resources</h3><p>Practical guide for educators on innovative anatomy instruction methods.</p>
-                            </div>
+                        <a href="docs/nulogy-business-case-deck.pdf" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Nulogy</div><h3>Modular Business Case Deck</h3><p>Sales deck for Develop and Prove stages: generic + customizable slides with prospect-specific variations.</p>
+                        </a>
+                        <a href="docs/nulogy-awareness-brochure.pdf" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Nulogy</div><h3>Awareness &amp; Consideration Collateral</h3><p>Full suite of brochures, booklets, and 2-pagers for awareness and consideration stages.</p>
+                        </a>
+                        <a href="docs/nulogy-executive-keynote.pdf" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Nulogy</div><h3>Executive Keynote</h3><p>Joint industry presentation deck showing solution value through a trusted partner narrative.</p>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=5WtggEp79pk" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Top Hat</div><h3>Platform Overview Video</h3><p>Managed production with an animation studio: concept, script, casting, soundtrack, storyboarding, and distribution.</p>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=92ehiP1BZ2k" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Top Hat</div><h3>Interactive Texts Product Overview</h3><p>Product-specific campaign video with sourcing, interviewing, filming, audio/video editing, and UI capture.</p>
+                        </a>
+                        <a href="docs/tophat-interactive-text-booklet.pdf" class="work-card" target="_blank" rel="noopener">
+                            <div class="badge">Top Hat</div><h3>Interactive Texts Product Booklet</h3><p>Print and digital booklet showcasing Top Hat's interactive textbook platform and its impact on student engagement.</p>
+                        </a>
+                        <div class="work-card">
+                            <div class="badge">Blockgeeks</div><h3>Crypto Investment Masterclass</h3><p>Designed a cohort-based course from scratch: learning objectives, community elements, expert speakers, and landing-page positioning.</p>
                         </div>
                     </div>
                 </div>
@@ -1559,6 +1491,7 @@
         </div>
     </footer>
 
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -1628,12 +1561,20 @@
         counterObs.observe(document.querySelector('.stats-bar'));
 
         // Tab Switching
+        function loadTwitterEmbeds(scope) {
+            if (window.twttr && window.twttr.widgets) {
+                window.twttr.widgets.load(scope || document.getElementById('work'));
+            }
+        }
+
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-                document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+                const tab = document.getElementById('tab-' + btn.dataset.tab);
+                tab.classList.remove('hidden');
+                requestAnimationFrame(() => loadTwitterEmbeds(tab));
             });
         });
 
@@ -1645,7 +1586,10 @@
                 selector.querySelectorAll('.client-panel').forEach(function(p) { p.classList.remove('active'); });
                 pill.classList.add('active');
                 var panel = document.getElementById(pill.getAttribute('data-panel'));
-                if (panel) { panel.classList.add('active'); }
+                if (panel) {
+                    panel.classList.add('active');
+                    requestAnimationFrame(function() { loadTwitterEmbeds(panel); });
+                }
             });
         });
 
