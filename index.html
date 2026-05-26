@@ -267,102 +267,125 @@
             font-size: 13px; font-weight: 600; color: var(--text-primary);
         }
 
-        /* ---- Results Cards (Stacked) ---- */
-        .results-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-        .result-block {
-            width: 100%;
-            background: var(--bg-card);
+        /* ---- Results Dashboard ---- */
+        .results-shell {
             border: 1px solid var(--border);
-            border-left: 4px solid var(--accent);
-            border-radius: var(--radius-lg);
-            padding: 36px;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-        .result-block:hover {
-            border-color: var(--accent);
-            border-left-color: var(--accent);
+            background: rgba(255, 253, 248, 0.8);
             box-shadow: var(--shadow-md);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
         }
-        .result-header {
+        [data-theme="dark"] .results-shell {
+            background: rgba(21, 26, 29, 0.82);
+        }
+        .results-snapshot {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+        .snapshot-metric {
+            padding: 22px 24px;
+            border-right: 1px solid var(--border);
+        }
+        .snapshot-metric:last-child { border-right: 0; }
+        .snapshot-metric .number,
+        .receipt strong {
+            font-family: 'Space Mono', monospace;
+            color: var(--warm-accent);
+            line-height: 1;
+            font-weight: 800;
+        }
+        .snapshot-metric .number {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin: 8px 0 6px;
+        }
+        .snapshot-metric p {
+            margin: 0;
+            color: var(--text-secondary);
+            line-height: 1.45;
+            font-size: 14px;
+        }
+        .result-row {
+            display: grid;
+            grid-template-columns: 260px minmax(340px, 1fr) 200px;
+            gap: 20px;
+            align-items: center;
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .result-row:last-child { border-bottom: 0; }
+        .result-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 5px 0 7px;
+        }
+        .result-insight {
+            margin: 0;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        .result-eyebrow,
+        .chart-label,
+        .mini-stat .label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            line-height: 1.2;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+        }
+        .chart-panel {
+            background: rgba(255, 253, 248, 0.66);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 12px 14px 8px;
+            min-width: 0;
+        }
+        [data-theme="dark"] .chart-panel {
+            background: rgba(21, 26, 29, 0.7);
+        }
+        .chart-head {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            gap: 16px;
+            align-items: center;
             margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 12px;
         }
-        .result-block .result-title {
-            font-family: 'Sora', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-        }
-        .result-block .period {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            color: var(--text-muted);
-            background: var(--bg-secondary);
-            padding: 4px 12px;
-            border-radius: 20px;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-        }
-        .result-block .hero-number {
-            font-family: 'Space Mono', monospace;
-            font-size: 3.2rem;
-            font-weight: 700;
+        .chart-note {
+            font-size: 12px;
             color: var(--accent);
-            line-height: 1;
-            margin-bottom: 4px;
-            opacity: 0; transform: translateY(16px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            font-weight: 800;
+            text-align: right;
         }
-        .result-block .hero-number.visible { opacity: 1; transform: translateY(0); }
-        .result-block .hero-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 28px;
+        .result-row canvas {
+            width: 100% !important;
+            height: 170px !important;
         }
-        .chart-pair {
+        .receipts {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 24px;
+            grid-template-columns: 1fr;
+            gap: 8px;
         }
-        .chart-wrap {
-            position: relative;
-            margin-bottom: 24px;
-        }
-        .chart-pair .chart-wrap {
-            margin-bottom: 0;
-        }
-        .result-block canvas { width: 100% !important; }
-        .mini-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-        .mini-stat {
+        .receipt {
             background: var(--bg-secondary);
-            padding: 14px 16px;
             border-radius: var(--radius-sm);
-            transition: var(--transition);
+            padding: 10px 12px;
         }
-        .mini-stat:hover { background: var(--bg-card); box-shadow: var(--shadow-sm); }
-        .mini-stat .value {
-            font-family: 'Space Mono', monospace; font-weight: 700;
-            color: var(--accent); font-size: 0.95rem; display: block; margin-bottom: 2px;
+        .receipt strong {
+            display: block;
+            font-size: 16px;
         }
-        .mini-stat .label {
-            font-size: 10px; color: var(--text-muted); text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .receipt span {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 3px;
+            line-height: 1.35;
         }
 
         /* ---- Work Cards ---- */
@@ -535,10 +558,19 @@
             section { padding: 48px 0; }
             .stats-bar { gap: 24px; }
             .stat-block .number { font-size: 1.8rem; }
-            .result-block { padding: 24px; }
-            .result-block .hero-number { font-size: 2.4rem; }
-            .chart-pair { grid-template-columns: 1fr; }
-            .mini-stats { grid-template-columns: repeat(2, 1fr); }
+            .results-snapshot { grid-template-columns: 1fr; }
+            .snapshot-metric {
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
+            }
+            .snapshot-metric:last-child { border-bottom: 0; }
+            .result-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .receipts {
+                grid-template-columns: repeat(3, 1fr);
+            }
             .tab-btn { padding: 10px 16px; font-size: 13px; }
             .footer-grid { flex-direction: column; gap: 24px; }
         }
@@ -729,8 +761,7 @@
         .mini-stat,
         .work-card,
         blockquote.twitter-tweet,
-        .client-pill,
-        .result-block {
+        .client-pill {
             border-radius: 8px;
         }
 
@@ -794,7 +825,6 @@
         }
 
         .stat-block .number,
-        .result-block .hero-number,
         .mini-stat .value {
             color: var(--warm-accent);
         }
@@ -845,39 +875,14 @@
             color: var(--text-secondary);
         }
 
-        .result-block {
-            padding: 38px;
-            border: 1px solid var(--border);
-            border-left: 8px solid var(--accent);
-            background: var(--bg-card);
-            box-shadow: var(--shadow-md);
-        }
-
-        .result-block:hover,
         .work-card:hover {
             transform: translateY(-2px);
             border-color: var(--accent);
             box-shadow: 8px 8px 0 var(--warm-soft), var(--shadow-md);
         }
 
-        .result-block .result-title {
-            font-size: 1.35rem;
-        }
-
-        .result-block .period,
         .mini-stat {
             background: var(--bg-secondary);
-        }
-
-        .chart-wrap {
-            background: rgba(255, 253, 248, 0.55);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 12px;
-        }
-
-        [data-theme="dark"] .chart-wrap {
-            background: rgba(21, 26, 29, 0.7);
         }
 
         .tab-bar {
@@ -1048,7 +1053,7 @@
             }
 
             .stats-bar,
-            .mini-stats {
+            .receipts {
                 grid-template-columns: 1fr;
             }
 
@@ -1059,10 +1064,6 @@
 
             .stat-block:last-child {
                 border-bottom: 0;
-            }
-
-            .result-block {
-                padding: 24px;
             }
 
             .tab-bar {
@@ -1209,76 +1210,84 @@
                 <p class="section-desc">Data-driven content strategy with measurable impact across social, SEO, and executive ghostwriting.</p>
             </div>
 
-            <div class="results-stack">
-
-                <!-- Aptos -->
-                <div class="result-block">
-                    <div class="result-header">
-                        <div>
-                            <div class="result-title">Aptos CEO Ghostwriting</div>
-                            <span class="period">Jun &ndash; Oct 2024</span>
-                        </div>
+            <div class="results-shell">
+                <div class="results-snapshot">
+                    <div class="snapshot-metric">
+                        <div class="result-eyebrow">Aptos CEO ghostwriting</div>
+                        <div class="number">4.34M</div>
+                        <p>Total impressions, with the breakout concentrated in the final month.</p>
                     </div>
-                    <div class="hero-number" data-target="4.34" data-suffix="M">0</div>
-                    <div class="hero-subtitle">Total Impressions / +469% Growth</div>
-                    <div class="chart-pair">
-                        <div class="chart-wrap">
-                            <canvas id="aptosLineChart" height="280"></canvas>
-                        </div>
-                        <div class="chart-wrap">
-                            <canvas id="aptosBarChart" height="280"></canvas>
-                        </div>
+                    <div class="snapshot-metric">
+                        <div class="result-eyebrow">SeamlessFi social</div>
+                        <div class="number">+174%</div>
+                        <p>Higher views per post while publishing 47% less content.</p>
                     </div>
-                    <div class="mini-stats">
-                        <div class="mini-stat"><div class="value">+469%</div><div class="label">Growth</div></div>
-                        <div class="mini-stat"><div class="value">2.2M</div><div class="label">Oct Peak</div></div>
-                        <div class="mini-stat"><div class="value">23.8K</div><div class="label">Avg Views</div></div>
-                        <div class="mini-stat"><div class="value">5 mos</div><div class="label">Duration</div></div>
+                    <div class="snapshot-metric">
+                        <div class="result-eyebrow">io.net blog SEO</div>
+                        <div class="number">+430%</div>
+                        <p>Traffic value growth from sustained long-form search performance.</p>
                     </div>
                 </div>
 
-                <!-- Seamless -->
-                <div class="result-block">
-                    <div class="result-header">
-                        <div>
-                            <div class="result-title">SeamlessFi Social Reach</div>
-                            <span class="period">Apr &ndash; Nov 2025</span>
+                <article class="result-row">
+                    <div>
+                        <div class="result-eyebrow">Jun &ndash; Oct 2024</div>
+                        <h3 class="result-title">Aptos CEO Ghostwriting</h3>
+                        <p class="result-insight">The story is not just total reach. The insight is the October acceleration: average views and monthly impressions both broke out after a consistent executive voice took shape.</p>
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-head">
+                            <div class="chart-label">Monthly impressions</div>
+                            <div class="chart-note">Oct peak: 2.2M</div>
                         </div>
+                        <canvas id="aptosBarChart" height="170"></canvas>
                     </div>
-                    <div class="hero-number" data-target="174" data-suffix="%">0</div>
-                    <div class="hero-subtitle">With 47% Less Content</div>
-                    <div class="chart-wrap">
-                        <canvas id="seamlessLineChart" height="280"></canvas>
+                    <div class="receipts">
+                        <div class="receipt"><strong>+469%</strong><span>growth across the period</span></div>
+                        <div class="receipt"><strong>23.8K</strong><span>average views per tweet in Oct</span></div>
+                        <div class="receipt"><strong>5 mos</strong><span>duration of program</span></div>
                     </div>
-                    <div class="mini-stats">
-                        <div class="mini-stat"><div class="value">38 &gt; 20</div><div class="label">Posts/Mo</div></div>
-                        <div class="mini-stat"><div class="value">1412 &gt; 3871</div><div class="label">Views/Post</div></div>
-                        <div class="mini-stat"><div class="value">46.9K</div><div class="label">Peak Views</div></div>
-                        <div class="mini-stat"><div class="value">497K</div><div class="label">Impressions</div></div>
-                    </div>
-                </div>
+                </article>
 
-                <!-- io.net -->
-                <div class="result-block">
-                    <div class="result-header">
-                        <div>
-                            <div class="result-title">io.net Blog SEO</div>
-                            <span class="period">Aug 2025 &ndash; Jan 2026</span>
+                <article class="result-row">
+                    <div>
+                        <div class="result-eyebrow">Apr &ndash; Nov 2025</div>
+                        <h3 class="result-title">SeamlessFi Social Reach</h3>
+                        <p class="result-insight">This chart should show efficiency, not just growth. The important point is that reach per post improved while the content calendar got lighter.</p>
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-head">
+                            <div class="chart-label">Average views per post</div>
+                            <div class="chart-note">Less volume, more reach</div>
                         </div>
+                        <canvas id="seamlessLineChart" height="170"></canvas>
                     </div>
-                    <div class="hero-number" data-target="430" data-suffix="%">0</div>
-                    <div class="hero-subtitle">Traffic Value Growth</div>
-                    <div class="chart-wrap">
-                        <canvas id="ionetLineChart" height="280"></canvas>
+                    <div class="receipts">
+                        <div class="receipt"><strong>38 &rarr; 20</strong><span>posts per month</span></div>
+                        <div class="receipt"><strong>46.9K</strong><span>peak views</span></div>
+                        <div class="receipt"><strong>497K</strong><span>total impressions</span></div>
                     </div>
-                    <div class="mini-stats">
-                        <div class="mini-stat"><div class="value">479</div><div class="label">New Keywords</div></div>
-                        <div class="mini-stat"><div class="value">38 &gt; 54</div><div class="label">Top 10 Rankings</div></div>
-                        <div class="mini-stat"><div class="value">$16.4K/mo</div><div class="label">Traffic Value</div></div>
-                        <div class="mini-stat"><div class="value">No. 4</div><div class="label">GPU vs CPU</div></div>
-                    </div>
-                </div>
+                </article>
 
+                <article class="result-row">
+                    <div>
+                        <div class="result-eyebrow">Aug 2025 &ndash; Jan 2026</div>
+                        <h3 class="result-title">io.net Blog SEO</h3>
+                        <p class="result-insight">The SEO story needs a compounding read. Show the climb in traffic value, then use the receipts to prove it was driven by new keywords and top-10 rankings.</p>
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-head">
+                            <div class="chart-label">Estimated traffic value</div>
+                            <div class="chart-note">$27K high point</div>
+                        </div>
+                        <canvas id="ionetLineChart" height="170"></canvas>
+                    </div>
+                    <div class="receipts">
+                        <div class="receipt"><strong>479</strong><span>new keywords</span></div>
+                        <div class="receipt"><strong>38 &rarr; 54</strong><span>top 10 rankings</span></div>
+                        <div class="receipt"><strong>No. 4</strong><span>GPU vs CPU ranking</span></div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -1554,31 +1563,6 @@
             });
         });
 
-        // Animated count-up on scroll (hero numbers in result cards)
-        const heroNumbers = document.querySelectorAll('.hero-number');
-        const countObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
-                    entry.target.classList.add('visible');
-                    const el = entry.target;
-                    const target = parseFloat(el.dataset.target);
-                    const suffix = el.dataset.suffix || '';
-                    const isDecimal = target % 1 !== 0;
-                    const duration = 1500;
-                    const start = performance.now();
-                    function tick(now) {
-                        const progress = Math.min((now - start) / duration, 1);
-                        const eased = 1 - Math.pow(1 - progress, 3);
-                        const current = target * eased;
-                        el.textContent = (isDecimal ? current.toFixed(2) : Math.round(current)) + suffix;
-                        if (progress < 1) requestAnimationFrame(tick);
-                    }
-                    requestAnimationFrame(tick);
-                }
-            });
-        }, { threshold: 0.3 });
-        heroNumbers.forEach(el => countObserver.observe(el));
-
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
@@ -1604,7 +1588,7 @@
             };
         }
 
-        let aptosLine, aptosBar, seamlessLine, ionetLine;
+        let aptosBar, seamlessLine, ionetLine;
         const initTheme = html.getAttribute('data-theme');
 
         function createCharts(theme) {
@@ -1614,32 +1598,60 @@
             Chart.defaults.color = c.text;
 
             const commonScales = {
-                y: { beginAtZero: true, grid: { color: c.grid, drawBorder: false }, ticks: { padding: 8 } },
-                x: { grid: { display: false }, ticks: { padding: 4 } }
-            };
-            const commonPlugins = { legend: { display: false } };
-
-            aptosLine = new Chart(document.getElementById('aptosLineChart'), {
-                type: 'line',
-                data: {
-                    labels: ['Jun','Jul','Aug','Sep','Oct'],
-                    datasets: [{ label: 'Avg Views/Tweet', data: [7457,9366,9277,11870,23800],
-                        borderColor: c.line, backgroundColor: c.fill, tension: 0.4, fill: true,
-                        pointRadius: 3, pointBackgroundColor: c.line, borderWidth: 2 }]
+                y: {
+                    beginAtZero: true,
+                    border: { display: false },
+                    grid: { color: c.grid, drawBorder: false },
+                    ticks: { padding: 8, maxTicksLimit: 4 }
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { ...commonPlugins, title: { display: true, text: 'Avg Views per Tweet', color: c.text, padding: { bottom: 12 } } },
-                    scales: commonScales }
-            });
+                x: {
+                    border: { display: false },
+                    grid: { display: false },
+                    ticks: { padding: 4 }
+                }
+            };
+            const commonPlugins = {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: theme === 'dark' ? '#151A1D' : '#FFFDF8',
+                    borderColor: theme === 'dark' ? '#30383A' : '#D8D0C2',
+                    borderWidth: 1,
+                    titleColor: theme === 'dark' ? '#F7F4ED' : '#161A1D',
+                    bodyColor: theme === 'dark' ? '#C8C0B4' : '#4C5458',
+                    displayColors: false
+                }
+            };
 
             aptosBar = new Chart(document.getElementById('aptosBarChart'), {
                 type: 'bar',
                 data: {
                     labels: ['Jun','Jul','Aug','Sep','Oct'],
                     datasets: [{ label: 'Impressions', data: [270000,732000,409000,718000,2220000],
-                        backgroundColor: c.bar, borderRadius: 4, barPercentage: 0.6 }]
+                        backgroundColor: c.bar, borderRadius: 5, barPercentage: 0.62, categoryPercentage: 0.72 }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { ...commonPlugins, title: { display: true, text: 'Monthly Impressions', color: c.text, padding: { bottom: 12 } } },
-                    scales: commonScales }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...commonPlugins,
+                        tooltip: {
+                            ...commonPlugins.tooltip,
+                            callbacks: {
+                                label: context => `${(context.parsed.y / 1000000).toFixed(context.parsed.y >= 1000000 ? 1 : 2)}M impressions`
+                            }
+                        }
+                    },
+                    scales: {
+                        ...commonScales,
+                        y: {
+                            ...commonScales.y,
+                            ticks: {
+                                ...commonScales.y.ticks,
+                                callback: value => `${value / 1000000}M`
+                            }
+                        }
+                    }
+                }
             });
 
             seamlessLine = new Chart(document.getElementById('seamlessLineChart'), {
@@ -1648,10 +1660,31 @@
                     labels: ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
                     datasets: [{ label: 'Avg Views/Post', data: [1412,1680,2100,2450,2900,3200,3550,3871],
                         borderColor: c.line, backgroundColor: c.fill, tension: 0.4, fill: true,
-                        pointRadius: 3, pointBackgroundColor: c.line, borderWidth: 2 }]
+                        pointRadius: 3, pointHoverRadius: 5, pointBackgroundColor: c.line, borderWidth: 3 }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { ...commonPlugins, title: { display: true, text: 'Avg Views per Post', color: c.text, padding: { bottom: 12 } } },
-                    scales: commonScales }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...commonPlugins,
+                        tooltip: {
+                            ...commonPlugins.tooltip,
+                            callbacks: {
+                                label: context => `${context.parsed.y.toLocaleString()} avg views/post`
+                            }
+                        }
+                    },
+                    scales: {
+                        ...commonScales,
+                        y: {
+                            ...commonScales.y,
+                            ticks: {
+                                ...commonScales.y.ticks,
+                                callback: value => `${value / 1000}K`
+                            }
+                        }
+                    }
+                }
             });
 
             ionetLine = new Chart(document.getElementById('ionetLineChart'), {
@@ -1660,19 +1693,43 @@
                     labels: ['Aug','Sep','Oct','Nov','Dec','Jan'],
                     datasets: [{ label: 'Traffic Value ($)', data: [5097,8500,12000,16000,20000,27022],
                         borderColor: c.line, backgroundColor: c.fill, tension: 0.4, fill: true,
-                        pointRadius: 3, pointBackgroundColor: c.line, borderWidth: 2 }]
+                        pointRadius: 3, pointHoverRadius: 5, pointBackgroundColor: c.line, borderWidth: 3 }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { ...commonPlugins, title: { display: true, text: 'Estimated Traffic Value ($)', color: c.text, padding: { bottom: 12 } } },
-                    scales: commonScales }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...commonPlugins,
+                        tooltip: {
+                            ...commonPlugins.tooltip,
+                            callbacks: {
+                                label: context => `$${context.parsed.y.toLocaleString()} traffic value`
+                            }
+                        }
+                    },
+                    scales: {
+                        ...commonScales,
+                        y: {
+                            ...commonScales.y,
+                            ticks: {
+                                ...commonScales.y.ticks,
+                                callback: value => `$${value / 1000}K`
+                            }
+                        }
+                    }
+                }
             });
         }
 
         function updateChartColors(theme) {
             const c = getChartColors(theme);
-            [aptosLine, aptosBar, seamlessLine, ionetLine].forEach(chart => {
+            [aptosBar, seamlessLine, ionetLine].forEach(chart => {
                 if (!chart) return;
                 chart.options.scales.y.grid.color = c.grid;
-                chart.options.plugins.title.color = c.text;
+                chart.options.plugins.tooltip.backgroundColor = theme === 'dark' ? '#151A1D' : '#FFFDF8';
+                chart.options.plugins.tooltip.borderColor = theme === 'dark' ? '#30383A' : '#D8D0C2';
+                chart.options.plugins.tooltip.titleColor = theme === 'dark' ? '#F7F4ED' : '#161A1D';
+                chart.options.plugins.tooltip.bodyColor = theme === 'dark' ? '#C8C0B4' : '#4C5458';
                 Chart.defaults.color = c.text;
                 const ds = chart.data.datasets[0];
                 if (chart.config.type === 'line') {
