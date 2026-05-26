@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +10,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png?v=20260521">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="assets/vendor/chart.umd.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.7;
@@ -27,8 +27,8 @@
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Sora', sans-serif;
-            font-weight: 700;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
+            font-weight: 800;
             line-height: 1.2;
         }
 
@@ -55,7 +55,7 @@
             height: 56px;
         }
         .top-bar .site-name {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
             font-weight: 700; font-size: 15px;
             color: var(--text-primary);
             letter-spacing: -0.02em;
@@ -208,8 +208,8 @@
             padding: 28px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
         }
         .stat-block .number {
-            font-family: 'Space Mono', monospace;
-            font-size: 2.4rem; font-weight: 700;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
+            font-size: 2.4rem; font-weight: 800;
             color: var(--accent); line-height: 1;
         }
         .stat-block .label {
@@ -270,7 +270,7 @@
         /* ---- Results Dashboard ---- */
         .results-shell {
             border: 1px solid var(--border);
-            background: rgba(255, 253, 248, 0.8);
+            background: color-mix(in srgb, var(--bg-card) 82%, transparent);
             box-shadow: var(--shadow-md);
             border-radius: var(--radius-lg);
             overflow: hidden;
@@ -291,7 +291,7 @@
         .snapshot-metric:last-child { border-right: 0; }
         .snapshot-metric .number,
         .receipt strong {
-            font-family: 'Space Mono', monospace;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
             color: var(--warm-accent);
             line-height: 1;
             font-weight: 800;
@@ -316,7 +316,7 @@
         }
         .result-row:last-child { border-bottom: 0; }
         .result-title {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
             font-size: 1.15rem;
             font-weight: 700;
             color: var(--text-primary);
@@ -340,7 +340,7 @@
             letter-spacing: 0.04em;
         }
         .chart-panel {
-            background: rgba(255, 253, 248, 0.66);
+            background: color-mix(in srgb, var(--bg-card) 70%, transparent);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
             padding: 12px 14px 8px;
@@ -502,7 +502,7 @@
             flex-wrap: wrap;
         }
         .footer-name {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
             font-weight: 700;
             font-size: 16px;
             margin-bottom: 4px;
@@ -581,25 +581,27 @@
             .container { padding: 0 16px; }
         }
 
-        /* ---- 2026 visual refresh: editorial, sharper, Jetta Grove colors ---- */
+        /* ---- 2026 visual refresh: dark technical ---- */
         :root {
-            --bg-primary: #F7F4ED;
-            --bg-secondary: #ECE6DA;
-            --bg-card: #FFFDF8;
-            --text-primary: #161A1D;
-            --text-secondary: #4C5458;
-            --text-muted: #7B817B;
-            --accent: #145463;
-            --accent-hover: #0E3D49;
-            --accent-soft: rgba(20, 84, 99, 0.1);
-            --accent-glow: rgba(20, 84, 99, 0.16);
-            --warm-accent: #F47C20;
-            --warm-soft: rgba(244, 124, 32, 0.12);
-            --border: #D8D0C2;
-            --border-subtle: #E9E1D5;
-            --shadow-sm: 0 1px 2px rgba(22, 26, 29, 0.05);
-            --shadow-md: 0 10px 24px rgba(22, 26, 29, 0.08);
-            --shadow-lg: 0 24px 56px rgba(22, 26, 29, 0.12);
+            --bg-primary: #F5F7F2;
+            --bg-secondary: #E8EEE7;
+            --bg-card: #FFFFFF;
+            --text-primary: #111716;
+            --text-secondary: #485653;
+            --text-muted: #74817D;
+            --accent: #245B56;
+            --accent-hover: #143C39;
+            --accent-soft: rgba(36, 91, 86, 0.1);
+            --accent-glow: rgba(36, 91, 86, 0.16);
+            --warm-accent: #5B7D1E;
+            --warm-soft: rgba(91, 125, 30, 0.12);
+            --border: #CCD7D1;
+            --border-subtle: #E1E8E4;
+            --grid-line-a: rgba(36, 91, 86, 0.045);
+            --grid-line-b: rgba(91, 125, 30, 0.04);
+            --shadow-sm: 0 1px 2px rgba(17, 23, 22, 0.05);
+            --shadow-md: 0 10px 24px rgba(17, 23, 22, 0.08);
+            --shadow-lg: 0 24px 56px rgba(17, 23, 22, 0.12);
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             --radius-sm: 8px;
             --radius-md: 8px;
@@ -607,20 +609,22 @@
         }
 
         [data-theme="dark"] {
-            --bg-primary: #101314;
-            --bg-secondary: #1A2022;
-            --bg-card: #151A1D;
-            --text-primary: #F7F4ED;
-            --text-secondary: #C8C0B4;
-            --text-muted: #8F968E;
-            --accent: #78D2D7;
-            --accent-hover: #A1E6E8;
-            --accent-soft: rgba(120, 210, 215, 0.12);
-            --accent-glow: rgba(120, 210, 215, 0.18);
-            --warm-accent: #FF9A3D;
-            --warm-soft: rgba(255, 154, 61, 0.14);
-            --border: #30383A;
-            --border-subtle: #22292B;
+            --bg-primary: #111716;
+            --bg-secondary: #17201F;
+            --bg-card: #1B2523;
+            --text-primary: #EEF4EC;
+            --text-secondary: #AEBBB6;
+            --text-muted: #7E8E89;
+            --accent: #7BD7CF;
+            --accent-hover: #A3E7E1;
+            --accent-soft: rgba(123, 215, 207, 0.14);
+            --accent-glow: rgba(123, 215, 207, 0.2);
+            --warm-accent: #D7FF73;
+            --warm-soft: rgba(215, 255, 115, 0.13);
+            --border: rgba(238, 244, 236, 0.18);
+            --border-subtle: rgba(238, 244, 236, 0.1);
+            --grid-line-a: rgba(123, 215, 207, 0.045);
+            --grid-line-b: rgba(215, 255, 115, 0.04);
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
             --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.3);
             --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.4);
@@ -628,8 +632,8 @@
 
         body {
             background:
-                linear-gradient(90deg, rgba(20, 84, 99, 0.045) 1px, transparent 1px),
-                linear-gradient(180deg, rgba(244, 124, 32, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line-a) 1px, transparent 1px),
+                linear-gradient(180deg, var(--grid-line-b) 1px, transparent 1px),
                 var(--bg-primary);
             background-size: 72px 72px, 72px 72px, auto;
         }
@@ -639,16 +643,16 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            background: linear-gradient(180deg, rgba(255, 253, 248, 0.86), rgba(247, 244, 237, 0.7) 48%, rgba(247, 244, 237, 0.92));
+            background: linear-gradient(180deg, rgba(245, 247, 242, 0.86), rgba(245, 247, 242, 0.7) 48%, rgba(245, 247, 242, 0.92));
             z-index: -1;
         }
 
         [data-theme="dark"] body::before {
-            background: linear-gradient(180deg, rgba(16, 19, 20, 0.9), rgba(16, 19, 20, 0.72) 48%, rgba(16, 19, 20, 0.94));
+            background: linear-gradient(180deg, rgba(17, 23, 22, 0.9), rgba(17, 23, 22, 0.72) 48%, rgba(17, 23, 22, 0.94));
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
         }
 
         .container,
@@ -657,12 +661,12 @@
         }
 
         .top-bar {
-            background: rgba(255, 253, 248, 0.86);
-            border-bottom-color: rgba(216, 208, 194, 0.8);
+            background: color-mix(in srgb, var(--bg-primary) 88%, transparent);
+            border-bottom-color: var(--border);
         }
 
         [data-theme="dark"] .top-bar {
-            background: rgba(16, 19, 20, 0.88);
+            background: rgba(17, 23, 22, 0.88);
         }
 
         .top-bar-inner {
@@ -730,7 +734,7 @@
 
         header .subtitle {
             max-width: 680px;
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
             font-size: clamp(1.3rem, 2.4vw, 2rem);
             line-height: 1.25;
             color: var(--accent);
@@ -749,7 +753,7 @@
             max-width: 360px;
             border-radius: 8px;
             border: 1px solid var(--border);
-            box-shadow: 14px 14px 0 var(--accent), var(--shadow-lg);
+            box-shadow: 14px 14px 0 var(--warm-accent), var(--shadow-lg);
         }
 
         .hero-photo {
@@ -960,25 +964,25 @@
         }
 
         footer {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-top: 0;
+            background: #0B0F0E;
+            color: var(--text-primary);
+            border-top: 1px solid var(--border);
             margin-top: 64px;
             padding: 56px 0 28px;
         }
 
         footer .footer-name,
         footer .footer-link {
-            color: var(--bg-primary);
+            color: var(--text-primary);
         }
 
         footer .footer-tagline,
         footer .footer-bottom p {
-            color: rgba(247, 244, 237, 0.68);
+            color: var(--text-muted);
         }
 
         footer .footer-bottom {
-            border-top-color: rgba(247, 244, 237, 0.18);
+            border-top-color: var(--border);
         }
 
         @media (max-width: 900px) {
@@ -1468,7 +1472,7 @@
         const sunIcon = document.getElementById('sunIcon');
         const moonIcon = document.getElementById('moonIcon');
         const html = document.documentElement;
-        const saved = localStorage.getItem('theme') || 'light';
+        const saved = localStorage.getItem('theme') || 'dark';
         html.setAttribute('data-theme', saved);
         updateThemeIcon(saved);
 
@@ -1580,11 +1584,11 @@
         // Charts
         function getChartColors(theme) {
             return {
-                line: theme === 'dark' ? '#78D2D7' : '#145463',
-                bar: theme === 'dark' ? '#FF9A3D' : '#F47C20',
-                fill: theme === 'dark' ? 'rgba(120,210,215,0.14)' : 'rgba(20,84,99,0.12)',
-                grid: theme === 'dark' ? 'rgba(247,244,237,0.08)' : 'rgba(22,26,29,0.06)',
-                text: theme === 'dark' ? '#8F968E' : '#7B817B',
+                line: theme === 'dark' ? '#7BD7CF' : '#245B56',
+                bar: theme === 'dark' ? '#D7FF73' : '#5B7D1E',
+                fill: theme === 'dark' ? 'rgba(123,215,207,0.14)' : 'rgba(36,91,86,0.12)',
+                grid: theme === 'dark' ? 'rgba(238,244,236,0.08)' : 'rgba(17,23,22,0.06)',
+                text: theme === 'dark' ? '#7E8E89' : '#74817D',
             };
         }
 
@@ -1613,11 +1617,11 @@
             const commonPlugins = {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: theme === 'dark' ? '#151A1D' : '#FFFDF8',
-                    borderColor: theme === 'dark' ? '#30383A' : '#D8D0C2',
+                    backgroundColor: theme === 'dark' ? '#1B2523' : '#FFFFFF',
+                    borderColor: theme === 'dark' ? 'rgba(238,244,236,0.18)' : '#CCD7D1',
                     borderWidth: 1,
-                    titleColor: theme === 'dark' ? '#F7F4ED' : '#161A1D',
-                    bodyColor: theme === 'dark' ? '#C8C0B4' : '#4C5458',
+                    titleColor: theme === 'dark' ? '#EEF4EC' : '#111716',
+                    bodyColor: theme === 'dark' ? '#AEBBB6' : '#485653',
                     displayColors: false
                 }
             };
@@ -1726,10 +1730,10 @@
             [aptosBar, seamlessLine, ionetLine].forEach(chart => {
                 if (!chart) return;
                 chart.options.scales.y.grid.color = c.grid;
-                chart.options.plugins.tooltip.backgroundColor = theme === 'dark' ? '#151A1D' : '#FFFDF8';
-                chart.options.plugins.tooltip.borderColor = theme === 'dark' ? '#30383A' : '#D8D0C2';
-                chart.options.plugins.tooltip.titleColor = theme === 'dark' ? '#F7F4ED' : '#161A1D';
-                chart.options.plugins.tooltip.bodyColor = theme === 'dark' ? '#C8C0B4' : '#4C5458';
+                chart.options.plugins.tooltip.backgroundColor = theme === 'dark' ? '#1B2523' : '#FFFFFF';
+                chart.options.plugins.tooltip.borderColor = theme === 'dark' ? 'rgba(238,244,236,0.18)' : '#CCD7D1';
+                chart.options.plugins.tooltip.titleColor = theme === 'dark' ? '#EEF4EC' : '#111716';
+                chart.options.plugins.tooltip.bodyColor = theme === 'dark' ? '#AEBBB6' : '#485653';
                 Chart.defaults.color = c.text;
                 const ds = chart.data.datasets[0];
                 if (chart.config.type === 'line') {
