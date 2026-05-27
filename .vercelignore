@@ -1,0 +1,8 @@
+.git
+.superpowers
+data
+docs/goals
+scripts
+.env
+.env.local
+*.env.local
