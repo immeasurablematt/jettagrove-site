@@ -12,6 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="assets/vendor/chart.umd.min.js"></script>
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -1715,6 +1719,53 @@
                 if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
+
+        // Click Tracking
+        function cleanAnalyticsLabel(value) {
+            return (value || '')
+                .replace(/\s+/g, ' ')
+                .replace(/[^\w\s.#:/?=&@+-]/g, '')
+                .trim()
+                .slice(0, 80);
+        }
+
+        function getAnalyticsSection(element) {
+            if (element.closest('.top-bar, .mobile-menu')) return 'nav';
+            const section = element.closest('section, footer, header');
+            if (!section) return 'page';
+            if (section.id) return section.id;
+            if (section.matches('header')) return 'hero';
+            if (section.matches('footer')) return 'contact';
+            return 'page';
+        }
+
+        function getAnalyticsTarget(element) {
+            const cardTitle = element.closest('.project-card, .work-card')?.querySelector('h3')?.textContent;
+            const label = element.getAttribute('data-analytics-label') ||
+                element.getAttribute('aria-label') ||
+                (cardTitle ? `${cardTitle} ${element.textContent}` : element.textContent) ||
+                element.getAttribute('href') ||
+                element.id ||
+                element.className;
+            return cleanAnalyticsLabel(label) || 'Unlabeled click';
+        }
+
+        function trackClick(element) {
+            if (!window.va) return;
+            window.va('event', {
+                name: 'Site Click',
+                data: {
+                    target: getAnalyticsTarget(element),
+                    section: getAnalyticsSection(element)
+                }
+            });
+        }
+
+        document.addEventListener('click', event => {
+            const target = event.target.closest('a, button');
+            if (!target) return;
+            trackClick(target);
+        }, { capture: true });
 
         // Charts
         function getChartColors(theme) {
