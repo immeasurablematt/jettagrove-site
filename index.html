@@ -412,6 +412,84 @@
         .work-card h3 { font-size: 0.95rem; margin-bottom: 8px; }
         .work-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
+        /* ---- Live Projects ---- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--warm-accent);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            min-height: 260px;
+            transition: var(--transition);
+        }
+        .project-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: 8px 8px 0 var(--warm-soft), var(--shadow-md);
+        }
+        .project-card .badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--warm-accent);
+            margin-bottom: 10px;
+        }
+        .project-card h3 {
+            font-size: 1.18rem;
+            line-height: 1.22;
+            margin-bottom: 10px;
+        }
+        .project-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .project-proof {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-subtle);
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .project-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 22px;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            min-height: 40px;
+            padding: 9px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .project-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+
         /* ---- Tweets ---- */
         .tweets-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -570,6 +648,9 @@
             }
             .receipts {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
             }
             .tab-btn { padding: 10px 16px; font-size: 13px; }
             .footer-grid { flex-direction: column; gap: 24px; }
@@ -1090,6 +1171,7 @@
             </a>
             <nav class="nav-links">
                 <a href="#results">Results</a>
+                <a href="#projects">Live Projects</a>
                 <a href="#work">Work</a>
                 <a href="#story">Story</a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -1106,6 +1188,7 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="#results" class="mobile-nav-link">Results</a>
+        <a href="#projects" class="mobile-nav-link">Live Projects</a>
         <a href="#work" class="mobile-nav-link">Work</a>
         <a href="#story" class="mobile-nav-link">Story</a>
         <a href="#contact" class="mobile-nav-link">Contact</a>
@@ -1290,6 +1373,58 @@
                         <div class="receipt"><strong>479</strong><span>new keywords</span></div>
                         <div class="receipt"><strong>38 &rarr; 54</strong><span>top 10 rankings</span></div>
                         <div class="receipt"><strong>No. 4</strong><span>GPU vs CPU ranking</span></div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE PROJECTS -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Live Projects</h2>
+                <p class="section-desc">Working tools, dashboards, and product experiments people can open, inspect, and click through.</p>
+            </div>
+
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="badge">Dashboard</div>
+                    <h3>Machines &amp; Money DeFi20 Opportunity Tracker</h3>
+                    <p>A public crypto fundamentals dashboard for comparing market attention, product scale, fees, revenue, usage, and source confidence across major DeFi projects.</p>
+                    <div class="project-proof">Static product surface &middot; public data snapshot &middot; newsletter CTA</div>
+                    <div class="project-actions">
+                        <a href="projects/machines-money-dashboard/" class="project-link" target="_blank" rel="noopener">Open Project &nearr;</a>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="badge">Research Tool</div>
+                    <h3>Keyword Research Tool</h3>
+                    <p>A lightweight research app for generating content keyword ideas by niche and AI model, built as a practical planning utility for SEO and content strategy work.</p>
+                    <div class="project-proof">Live app &middot; user-supplied API key &middot; content strategy workflow</div>
+                    <div class="project-actions">
+                        <a href="https://keyword-research-tool.vercel.app/" class="project-link" target="_blank" rel="noopener">Open Project &nearr;</a>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="badge">AI Practice App</div>
+                    <h3>NVC Practice App</h3>
+                    <p>A nonviolent communication practice tool that turns common emotional moments into structured reflection, conflict translation, gratitude, and self-expression flows.</p>
+                    <div class="project-proof">Live app &middot; guided interaction modes &middot; multilingual surface</div>
+                    <div class="project-actions">
+                        <a href="https://nvc-app.vercel.app/" class="project-link" target="_blank" rel="noopener">Open Project &nearr;</a>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="badge">Product Pilot</div>
+                    <h3>Gym Scheduler</h3>
+                    <p>A scheduling product pilot for personal trainers, with trainer/client workflows, protected app routes, SMS scheduling infrastructure, and calendar integration work.</p>
+                    <div class="project-proof">Live product shell &middot; private beta path &middot; operational workflow design</div>
+                    <div class="project-actions">
+                        <a href="https://gym-scheduler-umber.vercel.app/" class="project-link" target="_blank" rel="noopener">Open Project &nearr;</a>
                     </div>
                 </article>
             </div>

@@ -1,0 +1,1606 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Machines & Money Free Dashboard</title>
+  <style>
+    :root {
+      --bg: #061515;
+      --bg-deep: #03100f;
+      --panel: rgba(255, 255, 255, 0.04);
+      --panel-2: rgba(80, 210, 193, 0.065);
+      --ink: #ffffff;
+      --muted: rgba(255, 255, 255, 0.65);
+      --dim: rgba(255, 255, 255, 0.42);
+      --line: rgba(255, 255, 255, 0.09);
+      --line-strong: rgba(152, 252, 228, 0.28);
+      --mint: #50d2c1;
+      --mint-bright: #98fce4;
+      --orange: #ffb96d;
+      --red: #ff7a59;
+      --blue: #87bfff;
+      --purple: #b58cff;
+      --shadow: 0 16px 42px rgba(0, 0, 0, 0.44), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 1120px 620px at 50% -12%, rgba(80, 210, 193, 0.15), transparent 62%),
+        radial-gradient(ellipse 820px 450px at 92% 18%, rgba(152, 252, 228, 0.07), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg-deep));
+      background-attachment: fixed;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      letter-spacing: 0;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, select { font: inherit; }
+
+    .shell {
+      width: calc(100% - 32px);
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 14px 0 44px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav {
+      position: sticky;
+      top: 14px;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      min-height: 54px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(6, 21, 21, 0.78);
+      backdrop-filter: blur(16px);
+      padding: 8px 10px 8px 14px;
+      box-shadow: 0 8px 28px -12px rgba(0, 0, 0, 0.55);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(80, 210, 193, 0.08);
+      color: var(--mint-bright);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 750;
+      box-shadow: 0 0 24px rgba(80, 210, 193, 0.14);
+      flex: 0 0 auto;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .brand-copy strong {
+      font-size: 15px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 560;
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+
+    .nav-links a:hover {
+      color: var(--mint-bright);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      border: 1px solid rgba(152, 252, 228, 0.22);
+      border-radius: 8px;
+      background: var(--mint);
+      color: #061515;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 750;
+      box-shadow: 0 0 16px rgba(80, 210, 193, 0.2);
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 410px);
+      gap: 24px;
+      align-items: end;
+      padding: 56px 0 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      color: var(--mint-bright);
+      font-size: 11px;
+      font-weight: 720;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 5.2vw, 68px);
+      line-height: 0.98;
+      font-weight: 520;
+      max-width: 880px;
+    }
+
+    .lede {
+      margin: 16px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .hero-card span {
+      color: var(--dim);
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero-card strong {
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 28px;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      margin: 10px 0 0;
+      line-height: 1.45;
+    }
+
+    .refresh-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 26px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.035);
+      color: var(--muted);
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 650;
+      margin-top: 12px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--mint);
+      box-shadow: 0 0 0 5px rgba(80, 210, 193, 0.1);
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin: 18px 0 14px;
+    }
+
+    .category-map {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
+      gap: 10px;
+      margin: 16px 0 14px;
+    }
+
+    .category-card {
+      display: grid;
+      align-content: space-between;
+      gap: 12px;
+      min-height: 128px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      text-align: left;
+      color: var(--ink);
+    }
+
+    .category-card:hover,
+    .category-card.active {
+      border-color: var(--line-strong);
+      background: rgba(80, 210, 193, 0.08);
+    }
+
+    .category-card span {
+      color: var(--mint-bright);
+      font-size: 10px;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+
+    .category-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 15px;
+      line-height: 1.15;
+    }
+
+    .category-card em {
+      color: var(--dim);
+      font-size: 11px;
+      font-style: normal;
+    }
+
+    .category-card p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .stat, .panel, .story-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      min-width: 0;
+      backdrop-filter: blur(8px);
+    }
+
+    .stat {
+      display: grid;
+      gap: 8px;
+      padding: 14px;
+      min-height: 94px;
+      border-top: 1px solid rgba(152, 252, 228, 0.18);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 22px;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat em {
+      color: var(--dim);
+      font-size: 12px;
+      font-style: normal;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto auto;
+      gap: 10px;
+      align-items: center;
+      margin: 18px 0 14px;
+    }
+
+    .timeframes {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tabs button,
+    .timeframes button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.035);
+      color: var(--muted);
+      cursor: pointer;
+      padding: 8px 11px;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .tabs button.active,
+    .timeframes button.active {
+      background: rgba(80, 210, 193, 0.14);
+      border-color: var(--line-strong);
+      color: var(--ink);
+    }
+
+    .timeframes button:disabled {
+      cursor: not-allowed;
+      opacity: 0.38;
+    }
+
+    select {
+      min-width: 150px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--ink);
+      padding: 7px 28px 7px 10px;
+    }
+
+    option {
+      background: #061515;
+      color: #ffffff;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(310px, 0.65fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 680;
+    }
+
+    .panel-header span {
+      color: var(--muted);
+      text-align: right;
+      font-size: 12px;
+    }
+
+    .chart-wrap {
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      height: 430px;
+    }
+
+    .bar-bg { fill: rgba(255, 255, 255, 0.06); }
+    .bar { fill: var(--mint); }
+    .bar-label { fill: var(--ink); font-size: 11.5px; font-weight: 680; }
+    .value-label { fill: var(--muted); font-size: 11px; }
+    .grid-line { stroke: var(--line); stroke-width: 1; }
+
+    .story-list {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .story-card {
+      padding: 12px;
+      box-shadow: none;
+    }
+
+    .story-card strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .story-card p {
+      color: var(--muted);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(152, 252, 228, 0.12);
+      color: var(--mint-bright);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .table-panel {
+      margin-top: 14px;
+      overflow-x: auto;
+    }
+
+    .project-detail {
+      margin-top: 14px;
+    }
+
+    .project-detail-body {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .project-detail-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+      padding: 12px;
+    }
+
+    .project-detail-card strong {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .project-detail-card p {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .mini-table {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    th {
+      color: var(--muted);
+      background: var(--panel-2);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    td.num {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .source-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .methodology {
+      margin-top: 14px;
+    }
+
+    .methodology-body {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .methodology-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+      padding: 12px;
+    }
+
+    .methodology-card strong {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .methodology-card p {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .source-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .source-row a {
+      color: var(--ink);
+      font-weight: 650;
+      overflow-wrap: anywhere;
+    }
+
+    .source-row span,
+    .quality-chip {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .quality-chip {
+      display: inline-flex;
+      justify-content: center;
+      min-width: 58px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: rgba(255, 255, 255, 0.035);
+      white-space: nowrap;
+    }
+
+    .quality-chip.high {
+      color: var(--mint-bright);
+      border-color: var(--line-strong);
+      background: rgba(80, 210, 193, 0.08);
+    }
+
+    .quality-chip.medium {
+      color: var(--orange);
+      border-color: rgba(255, 185, 109, 0.24);
+      background: rgba(255, 185, 109, 0.08);
+    }
+
+    .source-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 13px;
+    }
+
+    .source-card strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .source-card p {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .newsletter {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      margin-top: 14px;
+      padding: 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      background: rgba(80, 210, 193, 0.09);
+      box-shadow: var(--shadow);
+    }
+
+    .newsletter h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .newsletter p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .share-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .secondary-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink);
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 720;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .secondary-action:hover {
+      border-color: var(--line-strong);
+      color: var(--mint-bright);
+    }
+
+    .empty {
+      padding: 38px 18px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line-strong);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    @media (max-width: 900px) {
+      .shell { width: calc(100% - 24px); }
+      .nav { grid-template-columns: 1fr; }
+      .nav-links { justify-content: flex-start; flex-wrap: wrap; }
+      .hero, .dashboard, .newsletter, .methodology-body, .project-detail-body { grid-template-columns: 1fr; }
+      .stats, .source-strip, .category-map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .toolbar { grid-template-columns: 1fr; }
+      select { width: 100%; }
+    }
+
+    @media (max-width: 560px) {
+      h1 { font-size: 34px; }
+      .stats, .source-strip, .category-map { grid-template-columns: 1fr; }
+      .tabs button, .timeframes button { flex: 1 1 auto; }
+      svg { height: 480px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav" aria-label="Free dashboard navigation">
+      <a class="brand" href="#">
+        <span class="mark">M&M</span>
+        <span class="brand-copy">
+          <strong>Machines & Money</strong>
+          <span>DeFi20 opportunity tracker</span>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#leaderboard">Leaderboard</a>
+        <a href="#sources">Sources</a>
+      </div>
+      <a class="cta" href="https://machinesandmoney.beehiiv.com" data-track="subscribe_nav">Subscribe</a>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <p class="eyebrow">DeFi20 signals for market checks, yield research, and project discovery</p>
+        <h1>See which DeFi projects are earning attention.</h1>
+        <p class="lede">Track the DeFi20 across TVL, fees, revenue, volume, and usage before deciding what deserves your time, research, or capital.</p>
+        <div class="refresh-pill"><span class="live-dot"></span><span id="refreshStatus">Data status loading</span></div>
+      </div>
+      <aside class="hero-card">
+        <span>Worth watching</span>
+        <strong id="heroTakeaway">Loading...</strong>
+        <p id="heroCopy">Finding the clearest signal across capital, usage, fees, and token activity.</p>
+      </aside>
+    </header>
+
+    <section class="stats" aria-label="Free dashboard summary">
+      <div class="stat">
+        <span>Projects tracked</span>
+        <strong id="projectCount">-</strong>
+        <em>Starter universe</em>
+      </div>
+      <div class="stat">
+        <span>Total market cap</span>
+        <strong id="totalMarketCap">-</strong>
+        <em>Token metric</em>
+      </div>
+      <div class="stat">
+        <span>Total product TVL</span>
+        <strong id="totalTvl">-</strong>
+        <em>Product metric</em>
+      </div>
+      <div class="stat">
+        <span>Snapshot date</span>
+        <strong id="snapshotDate">-</strong>
+        <em id="coverageNote">Coverage check</em>
+      </div>
+    </section>
+
+    <section class="category-map" aria-label="Dashboard category map">
+      <button class="category-card" type="button" data-metric="marketCap">
+        <div>
+          <span>Index</span>
+          <strong>DeFi20 Pulse</strong>
+        </div>
+        <p>What is leading right now?</p>
+        <em>Scale / fees / tokens</em>
+      </button>
+      <button class="category-card" type="button" data-sector="Spot">
+        <div>
+          <span>Spot</span>
+          <strong>Where Traders Go</strong>
+        </div>
+        <p>DEXs with real flow.</p>
+        <em>Volume / fees</em>
+      </button>
+      <button class="category-card" type="button" data-sector="Derivatives">
+        <div>
+          <span>Derivatives</span>
+          <strong>Risk Markets</strong>
+        </div>
+        <p>Perps, options, and hedging.</p>
+        <em>Volume / fees</em>
+      </button>
+      <button class="category-card" type="button" data-sector="Lending">
+        <div>
+          <span>Lending</span>
+          <strong>Onchain Credit</strong>
+        </div>
+        <p>Where capital gets used.</p>
+        <em>TVL / fees</em>
+      </button>
+      <button class="category-card" type="button" data-sector="Asset Management">
+        <div>
+          <span>Asset Mgmt</span>
+          <strong>Yield Products</strong>
+        </div>
+        <p>Income strategies to inspect.</p>
+        <em>Stablecoins / vaults</em>
+      </button>
+      <button class="category-card" type="button" data-sector="Tokenization">
+        <div>
+          <span>RWA</span>
+          <strong>Assets Onchain</strong>
+        </div>
+        <p>Real-world finance moving over.</p>
+        <em>RWA / credit</em>
+      </button>
+      <button class="category-card" type="button" data-sector="Infra">
+        <div>
+          <span>Infra</span>
+          <strong>Rails and Flows</strong>
+        </div>
+        <p>The pipes beneath adoption.</p>
+        <em>Messages / users</em>
+      </button>
+      <button class="category-card" type="button" data-sector="AI">
+        <div>
+          <span>AI</span>
+          <strong>AI Markets</strong>
+        </div>
+        <p>Agent networks with activity.</p>
+        <em>Agents / volume</em>
+      </button>
+      <button class="category-card" type="button" data-metric="revenue">
+        <div>
+          <span>Accrual</span>
+          <strong>Value Capture</strong>
+        </div>
+        <p>Who turns usage into token value?</p>
+        <em>Revenue / buybacks</em>
+      </button>
+    </section>
+
+    <section id="dashboard">
+      <div class="toolbar">
+        <div>
+          <div class="tabs" id="metricTabs" aria-label="Chart metric selector"></div>
+          <div class="timeframes" id="timeframeTabs" aria-label="Available timeframe selector"></div>
+        </div>
+        <select id="sectorFilter" aria-label="Filter by sector">
+          <option value="all">All sectors</option>
+        </select>
+        <select id="projectFilter" aria-label="Select project">
+          <option value="all">All projects</option>
+        </select>
+        <select id="sortMode" aria-label="Sort table">
+          <option value="metric">Sort by selected metric</option>
+          <option value="name">Sort by project name</option>
+          <option value="marketCap">Sort by market cap</option>
+          <option value="tvl">Sort by TVL</option>
+        </select>
+      </div>
+
+      <div class="dashboard">
+        <section class="panel">
+          <div class="panel-header">
+            <h2 id="chartTitle">Fundamentals Leaderboard</h2>
+            <span id="chartSubtitle">Pick a signal to compare</span>
+          </div>
+          <div class="chart-wrap">
+            <svg id="chart" role="img" aria-label="Fundamentals bar chart"></svg>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <div class="panel-header">
+            <h2>What To Watch</h2>
+            <span>Signals worth a closer look</span>
+          </div>
+          <div class="story-list" id="storyList"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="project-detail" class="panel project-detail">
+      <div class="panel-header">
+        <h2 id="projectDetailTitle">Project Detail</h2>
+        <span id="projectDetailSubtitle">Choose a category, then a project</span>
+      </div>
+      <div class="project-detail-body">
+        <div class="project-detail-card">
+          <strong id="projectDetailTakeaway">No project selected</strong>
+          <p id="projectDetailCopy">Use the category cards above to narrow the universe, then select an individual project to see every available signal in the current data.</p>
+        </div>
+        <div class="mini-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Value</th>
+                <th>Period</th>
+                <th>Source</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody id="projectMetricRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="leaderboard" class="panel table-panel">
+      <div class="panel-header">
+        <h2>Project Signal Table</h2>
+        <span>Scale, activity, and confidence</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Sector</th>
+            <th>Market Cap</th>
+            <th>TVL</th>
+            <th>30D Fees</th>
+            <th>30D Revenue</th>
+            <th>7D Active Wallets</th>
+            <th>Confidence</th>
+          </tr>
+        </thead>
+        <tbody id="projectRows"></tbody>
+      </table>
+    </section>
+
+    <section id="methodology" class="panel methodology">
+      <div class="panel-header">
+        <h2>Read This Carefully</h2>
+        <span id="methodologySubtitle">What the data can and cannot tell you</span>
+      </div>
+      <div class="methodology-body">
+        <div class="methodology-card">
+          <strong id="sourceSummaryTitle">Data context loading</strong>
+          <p id="sourceSummaryCopy">Use the numbers to spot questions worth asking, then check the source before making a move.</p>
+        </div>
+        <div class="source-list" id="sourceList"></div>
+      </div>
+    </section>
+
+    <section id="sources" class="source-strip" aria-label="Dashboard data sources">
+      <div class="source-card">
+        <strong>Market conviction</strong>
+        <p>CoinGecko token price, market cap, FDV, and 24H volume.</p>
+      </div>
+      <div class="source-card">
+        <strong>Product traction</strong>
+        <p>DefiLlama TVL, fees, revenue, and DEX volume.</p>
+      </div>
+      <div class="source-card">
+        <strong>User activity</strong>
+        <p>Dune wallet rows where available. Treat usage as a signal to verify, not a final verdict.</p>
+      </div>
+    </section>
+
+    <section id="subscribe" class="newsletter">
+      <div>
+        <h2>Know where to look next.</h2>
+        <p>Get Machines & Money’s weekly read on DeFi yield, market moves, and projects that can change how capital gets used.</p>
+      </div>
+      <div class="share-actions">
+        <a class="secondary-action" id="shareOnX" href="#" target="_blank" rel="noopener noreferrer" data-track="share_x">Share chart</a>
+        <button class="secondary-action" id="copyDashboardLink" type="button" data-track="copy_link">Copy link</button>
+        <a class="cta" href="https://machinesandmoney.beehiiv.com" data-track="subscribe_footer">Subscribe to Machines & Money</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="generated-dashboard-data.js"></script>
+  <script>
+    const rawRows = (window.dashboardRows || []).map(row => ({
+      ...row,
+      value: Number(row.value) || 0
+    }));
+    const meta = window.dashboardMeta || {};
+
+    const metricTabs = document.getElementById("metricTabs");
+    const timeframeTabs = document.getElementById("timeframeTabs");
+    const categoryCards = [...document.querySelectorAll(".category-card")];
+    const sectorFilter = document.getElementById("sectorFilter");
+    const projectFilter = document.getElementById("projectFilter");
+    const sortMode = document.getElementById("sortMode");
+    const chart = document.getElementById("chart");
+    const projectRows = document.getElementById("projectRows");
+    const projectMetricRows = document.getElementById("projectMetricRows");
+    const storyList = document.getElementById("storyList");
+    const sourceList = document.getElementById("sourceList");
+    const sourceSummaryTitle = document.getElementById("sourceSummaryTitle");
+    const sourceSummaryCopy = document.getElementById("sourceSummaryCopy");
+    const methodologySubtitle = document.getElementById("methodologySubtitle");
+    const projectDetailTitle = document.getElementById("projectDetailTitle");
+    const projectDetailSubtitle = document.getElementById("projectDetailSubtitle");
+    const projectDetailTakeaway = document.getElementById("projectDetailTakeaway");
+    const projectDetailCopy = document.getElementById("projectDetailCopy");
+    const shareOnX = document.getElementById("shareOnX");
+    const copyDashboardLink = document.getElementById("copyDashboardLink");
+
+    const metricConfig = [
+      {id: "tvl", label: "TVL", frames: ["current"], frame: "current", metric: "TVL", title: "Where Capital Is Parked", subtitle: "Which DeFi20 projects have the largest product footprint", unit: "USD", type: "product"},
+      {id: "marketCap", label: "Market Cap", frames: ["current"], frame: "current", metric: "Market Cap", title: "What The Market Believes", subtitle: "Where token holders are assigning the most value today", unit: "USD", type: "token"},
+      {id: "fdv", label: "FDV", frames: ["current"], frame: "current", metric: "FDV", title: "What Is Priced In", subtitle: "Which projects already carry the biggest future expectations", unit: "USD", type: "token"},
+      {id: "volume", label: "Token Volume", frames: ["24h"], frame: "24h", metric: "24H Token Volume", title: "Where Traders Are Active", subtitle: "Near-term token demand, speculation, and rotation", unit: "USD", type: "token"},
+      {id: "wallets", label: "Active Wallets", frames: ["7d"], frame: "7d", metric: "7D Active Wallets", title: "Where Users Show Up", subtitle: "Available wallet rows; useful for questions, not conclusions", unit: "wallets", type: "usage"},
+      {id: "fees", label: "Fees", frames: ["30d"], frame: "30d", metric: "30D Fees", title: "Who Gets Paid", subtitle: "Protocols turning activity into fees over the past month", unit: "USD", type: "product"},
+      {id: "revenue", label: "Revenue", frames: ["30d"], frame: "30d", metric: "30D Revenue", title: "Who Keeps Revenue", subtitle: "Projects retaining more economics from real usage", unit: "USD", type: "product"},
+      {id: "dexVolume", label: "DEX Volume", frames: ["30d"], frame: "30d", metric: "30D DEX Volume", title: "Where Swaps Happen", subtitle: "Trading venues with the most recent flow", unit: "USD", type: "product"}
+    ];
+
+    const timeframeConfig = [
+      {id: "current", label: "Current", description: "Current scale and valuation"},
+      {id: "24h", label: "24H", description: "Near-term market activity"},
+      {id: "7d", label: "7D", description: "Available user activity"},
+      {id: "30d", label: "30D", description: "Monthly product economics"}
+    ];
+
+    let activeMetric = "tvl";
+    let activeFrame = "current";
+
+    function money(value) {
+      if (!Number.isFinite(value)) return "-";
+      const abs = Math.abs(value);
+      if (abs >= 1e12) return "$" + (value / 1e12).toFixed(2).replace(/\.00$/, "") + "T";
+      if (abs >= 1e9) return "$" + (value / 1e9).toFixed(2).replace(/\.00$/, "") + "B";
+      if (abs >= 1e6) return "$" + (value / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+      if (abs >= 1e3) return "$" + (value / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
+      return "$" + Math.round(value).toLocaleString();
+    }
+
+    function formatValue(value, unit = "USD") {
+      if (!value) return "-";
+      if (unit === "wallets") return Math.round(value).toLocaleString();
+      return money(value);
+    }
+
+    function shortLabel(label, max = 34) {
+      return label.length > max ? label.slice(0, max - 1) + "..." : label;
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function uniqueValues(rows, key) {
+      return [...new Set(rows.map(row => row[key]).filter(Boolean))];
+    }
+
+    function countBy(rows, key) {
+      return rows.reduce((counts, row) => {
+        const value = row[key] || "unknown";
+        counts[value] = (counts[value] || 0) + 1;
+        return counts;
+      }, {});
+    }
+
+    function sourceLabel(row) {
+      const relationship = row.source_relationship ? row.source_relationship.replace(/_/g, " ") : "source";
+      return `${row.source_name || "Unknown source"} / ${relationship}`;
+    }
+
+    function qualitySummary(project) {
+      const counts = countBy(project.records, "confidence");
+      const parts = ["high", "medium", "low"].filter(key => counts[key]).map(key => `${counts[key]} ${key}`);
+      return parts.length ? parts.join(", ") : "unknown";
+    }
+
+    function sectorColor(sector) {
+      return {
+        "Spot": "#50d2c1",
+        "Lending": "#87bfff",
+        "Derivatives": "#b58cff",
+        "Asset Management": "#ffb96d",
+        "Tokenization": "#ff7a59"
+      }[sector] || "#98fce4";
+    }
+
+    function metricRows(metric) {
+      return rawRows.filter(row => row.metric === metric);
+    }
+
+    function activeMetricConfig() {
+      return metricConfig.find(item => item.id === activeMetric) || metricConfig[0];
+    }
+
+    function availableFramesForMetric(config = activeMetricConfig()) {
+      return config.frames || [config.frame];
+    }
+
+    function ensureActiveFrameForMetric() {
+      const available = availableFramesForMetric();
+      if (!available.includes(activeFrame)) activeFrame = available[0];
+    }
+
+    function setMetric(metricId) {
+      const config = metricConfig.find(item => item.id === metricId);
+      if (!config) return;
+      activeMetric = metricId;
+      ensureActiveFrameForMetric();
+      render();
+    }
+
+    function aggregateByProject() {
+      const projects = {};
+      rawRows.forEach(row => {
+        if (!projects[row.project]) {
+          projects[row.project] = {
+            project: row.project,
+            sector: row.sector,
+            records: []
+          };
+        }
+        projects[row.project].records.push(row);
+        const key = {
+          "Market Cap": "marketCap",
+          "FDV": "fdv",
+          "24H Token Volume": "volume",
+          "TVL": "tvl",
+          "30D Fees": "fees",
+          "30D Revenue": "revenue",
+          "30D DEX Volume": "dexVolume",
+          "7D Active Wallets": "wallets"
+        }[row.metric];
+        if (key) projects[row.project][key] = Math.max(projects[row.project][key] || 0, row.value);
+      });
+      return Object.values(projects);
+    }
+
+    const projects = aggregateByProject();
+
+    function filteredProjects() {
+      const selectedSector = sectorFilter.value;
+      const selectedProject = projectFilter.value;
+      const filtered = projects.filter(project => {
+        const sectorMatch = selectedSector === "all" || project.sector.includes(selectedSector);
+        const projectMatch = selectedProject === "all" || project.project === selectedProject;
+        return sectorMatch && projectMatch;
+      });
+      const key = sortMode.value === "metric" ? activeMetricConfig().id : sortMode.value;
+      return filtered.sort((a, b) => {
+        if (key === "name") return a.project.localeCompare(b.project);
+        return (b[key] || 0) - (a[key] || 0);
+      });
+    }
+
+    function topProject(metricId) {
+      return [...projects].sort((a, b) => (b[metricId] || 0) - (a[metricId] || 0))[0];
+    }
+
+    function renderTabs() {
+      metricTabs.innerHTML = "";
+      metricConfig.forEach(config => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = config.label;
+        button.className = config.id === activeMetric ? "active" : "";
+        button.addEventListener("click", () => {
+          activeMetric = config.id;
+          ensureActiveFrameForMetric();
+          render();
+        });
+        metricTabs.appendChild(button);
+      });
+    }
+
+    function renderTimeframes() {
+      ensureActiveFrameForMetric();
+      const available = availableFramesForMetric();
+      timeframeTabs.innerHTML = "";
+      timeframeConfig.forEach(frame => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = frame.label;
+        button.title = frame.description;
+        button.disabled = !available.includes(frame.id);
+        button.className = frame.id === activeFrame ? "active" : "";
+        button.addEventListener("click", () => {
+          if (!available.includes(frame.id)) return;
+          activeFrame = frame.id;
+          render();
+        });
+        timeframeTabs.appendChild(button);
+      });
+    }
+
+    function renderCategoryMap() {
+      categoryCards.forEach(card => {
+        const metricMatch = card.dataset.metric && card.dataset.metric === activeMetric;
+        const sectorMatch = card.dataset.sector && sectorFilter.value === card.dataset.sector;
+        card.classList.toggle("active", metricMatch || sectorMatch);
+      });
+    }
+
+    function renderFilters() {
+      [...new Set(projects.map(project => project.sector))].sort().forEach(sector => {
+        const option = document.createElement("option");
+        option.value = sector;
+        option.textContent = sector;
+        sectorFilter.appendChild(option);
+      });
+      renderProjectFilter();
+    }
+
+    function renderProjectFilter() {
+      const selectedSector = sectorFilter.value;
+      const currentProject = projectFilter.value;
+      const eligibleProjects = projects
+        .filter(project => selectedSector === "all" || project.sector.includes(selectedSector))
+        .map(project => project.project)
+        .sort((a, b) => a.localeCompare(b));
+      projectFilter.innerHTML = `<option value="all">All projects</option>`;
+      eligibleProjects.forEach(project => {
+        const option = document.createElement("option");
+        option.value = project;
+        option.textContent = project;
+        projectFilter.appendChild(option);
+      });
+      projectFilter.value = eligibleProjects.includes(currentProject) ? currentProject : "all";
+    }
+
+    function renderStats() {
+      const totalMarketCap = projects.reduce((sum, row) => sum + (row.marketCap || 0), 0);
+      const totalTvl = projects.reduce((sum, row) => sum + (row.tvl || 0), 0);
+      const usageCount = projects.filter(row => row.wallets).length;
+      const topTvl = topProject("tvl");
+      const warningCount = Array.isArray(meta.warnings) ? meta.warnings.length : 0;
+      const refreshStatus = meta.refresh_status || "snapshot";
+      const rowCount = meta.row_count || rawRows.length;
+      document.getElementById("projectCount").textContent = projects.length.toLocaleString();
+      document.getElementById("totalMarketCap").textContent = money(totalMarketCap);
+      document.getElementById("totalTvl").textContent = money(totalTvl);
+      document.getElementById("snapshotDate").textContent = meta.generated_at || rawRows[0]?.pulled_date || "-";
+      document.getElementById("coverageNote").textContent = `${usageCount}/${projects.length} have active-wallet rows`;
+      document.getElementById("refreshStatus").textContent =
+        `${refreshStatus === "fresh" ? "Updated" : "Using saved data"} ${meta.generated_at || rawRows[0]?.pulled_date || "recently"} / ${rowCount} signals / ${warningCount ? `${warningCount} caveats` : "sources checked"}`;
+      document.getElementById("heroTakeaway").textContent = topTvl ? `${topTvl.project} leads TVL` : "Data loading";
+      document.getElementById("heroCopy").textContent = topTvl
+        ? `${topTvl.project} currently has the deepest DeFi20 product footprint. The next question is whether usage and fees support it.`
+        : "Data is still loading. Check back shortly for the latest DeFi20 signal set.";
+    }
+
+    function renderChart() {
+      const config = activeMetricConfig();
+      const data = filteredProjects()
+        .map(project => ({...project, value: project[config.id] || 0}))
+        .filter(project => project.value > 0)
+        .slice(0, 12);
+
+      document.getElementById("chartTitle").textContent = config.title;
+      document.getElementById("chartSubtitle").textContent = config.subtitle;
+      chart.innerHTML = "";
+
+      if (!data.length) {
+        const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+        foreignObject.setAttribute("x", 0);
+        foreignObject.setAttribute("y", 0);
+        foreignObject.setAttribute("width", 760);
+        foreignObject.setAttribute("height", 180);
+        foreignObject.innerHTML = `<div class="empty">No rows for this metric and sector yet.</div>`;
+        chart.setAttribute("viewBox", "0 0 760 180");
+        chart.appendChild(foreignObject);
+        return;
+      }
+
+      const wrapWidth = chart.getBoundingClientRect().width || chart.parentElement?.clientWidth || 760;
+      const width = Math.max(300, Math.floor(wrapWidth));
+      const compact = width < 560;
+      const rowHeight = compact ? 42 : 34;
+      const height = Math.max(compact ? 460 : 390, data.length * rowHeight + (compact ? 86 : 88));
+      const margin = compact
+        ? {top: 16, right: 8, bottom: 54, left: 0}
+        : {top: 18, right: 18, bottom: 50, left: 250};
+      const plotWidth = compact ? width : width - margin.left - margin.right;
+      const max = Math.max(...data.map(row => row.value), 1);
+
+      chart.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      chart.setAttribute("preserveAspectRatio", "xMinYMin meet");
+      chart.style.height = `${height}px`;
+
+      [0, 0.5, 1].forEach(tick => {
+        const x = compact ? tick * plotWidth : margin.left + tick * plotWidth;
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", x);
+        line.setAttribute("x2", x);
+        line.setAttribute("y1", margin.top);
+        line.setAttribute("y2", height - margin.bottom);
+        line.setAttribute("class", "grid-line");
+        chart.appendChild(line);
+
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", x);
+        label.setAttribute("y", height - 16);
+        label.setAttribute("text-anchor", tick === 1 ? "end" : tick === 0 ? "start" : "middle");
+        label.setAttribute("class", "value-label");
+        label.textContent = formatValue(max * tick, config.unit);
+        chart.appendChild(label);
+      });
+
+      data.forEach((row, index) => {
+        const y = margin.top + index * rowHeight + 3;
+        const barY = compact ? y + 20 : y;
+        const barHeight = 18;
+        const widthRatio = Math.max(2, row.value / max * plotWidth);
+
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", compact ? 0 : 0);
+        label.setAttribute("y", compact ? y + 12 : y + 14);
+        label.setAttribute("class", "bar-label");
+        label.textContent = shortLabel(row.project, compact ? 24 : 28);
+        chart.appendChild(label);
+
+        if (compact) {
+          const valueTop = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          valueTop.setAttribute("x", width);
+          valueTop.setAttribute("y", y + 12);
+          valueTop.setAttribute("text-anchor", "end");
+          valueTop.setAttribute("class", "value-label");
+          valueTop.textContent = formatValue(row.value, config.unit);
+          chart.appendChild(valueTop);
+        }
+
+        const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        bg.setAttribute("x", compact ? 0 : margin.left);
+        bg.setAttribute("y", barY);
+        bg.setAttribute("width", plotWidth);
+        bg.setAttribute("height", barHeight);
+        bg.setAttribute("rx", 4);
+        bg.setAttribute("class", "bar-bg");
+        chart.appendChild(bg);
+
+        const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("x", compact ? 0 : margin.left);
+        rect.setAttribute("y", barY);
+        rect.setAttribute("width", widthRatio);
+        rect.setAttribute("height", barHeight);
+        rect.setAttribute("rx", 4);
+        rect.setAttribute("class", "bar");
+        rect.setAttribute("style", `fill: ${sectorColor(row.sector)}`);
+        chart.appendChild(rect);
+
+        if (!compact) {
+          const value = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          const valueX = Math.min(margin.left + widthRatio + 8, width - 4);
+          value.setAttribute("x", valueX);
+          value.setAttribute("y", y + 14);
+          value.setAttribute("text-anchor", valueX > width - 24 ? "end" : "start");
+          value.setAttribute("class", "value-label");
+          value.textContent = formatValue(row.value, config.unit);
+          chart.appendChild(value);
+        }
+      });
+    }
+
+    function renderStories() {
+      const config = activeMetricConfig();
+      const data = filteredProjects()
+        .map(project => ({...project, value: project[config.id] || 0}))
+        .filter(project => project.value > 0)
+        .sort((a, b) => b.value - a.value);
+      const top = data[0];
+      const second = data[1];
+      const lagging = filteredProjects().filter(project => !project[config.id]).slice(0, 2);
+
+      const stories = [];
+      if (top) {
+        stories.push({
+          badge: "Lead signal",
+          title: `${top.project} leads ${config.label}`,
+          body: `Start here when deciding what deserves deeper research.`
+        });
+      }
+      if (top && second) {
+        stories.push({
+          badge: "Comparison",
+          title: `${top.project} vs ${second.project}`,
+          body: `${formatValue(top.value - second.value, config.unit)} separates the leader from the next closest project.`
+        });
+      }
+      if (config.id === "wallets") {
+        stories.push({
+          badge: "Usage caveat",
+          title: "Usage data is still narrow",
+          body: "Use wallet rows to find leads, then verify them in the source."
+        });
+      } else if (lagging.length) {
+        stories.push({
+          badge: "Missing signal",
+          title: `${lagging.map(row => row.project).join(" and ")} need more context`,
+          body: `No ${config.label} row is available here yet. That is a research gap, not a verdict.`
+        });
+      }
+
+      storyList.innerHTML = stories.slice(0, 3).map(story => `
+        <article class="story-card">
+          <span class="badge">${escapeHtml(story.badge)}</span>
+          <strong>${escapeHtml(story.title)}</strong>
+          <p>${escapeHtml(story.body)}</p>
+        </article>
+      `).join("");
+    }
+
+    function renderSourceDetail() {
+      const config = activeMetricConfig();
+      const selectedSector = sectorFilter.value;
+      const selectedProject = projectFilter.value;
+      const rows = metricRows(config.metric).filter(row => {
+        const sectorMatch = selectedSector === "all" || row.sector.includes(selectedSector);
+        const projectMatch = selectedProject === "all" || row.project === selectedProject;
+        return sectorMatch && projectMatch;
+      });
+      const confidence = countBy(rows, "confidence");
+      const sources = uniqueValues(rows, "source_name");
+      const periods = uniqueValues(rows, "period");
+      const relationships = uniqueValues(rows, "source_relationship").map(value => value.replace(/_/g, " "));
+      const caveats = uniqueValues(rows, "notes").slice(0, 2);
+      const warningCount = Array.isArray(meta.warnings) ? meta.warnings.length : 0;
+
+      methodologySubtitle.textContent = `${config.label} / ${selectedProject === "all" ? selectedSector === "all" ? "all sectors" : selectedSector : selectedProject}`;
+
+      if (!rows.length) {
+        sourceSummaryTitle.textContent = `No ${config.label} rows in this view`;
+        sourceSummaryCopy.textContent = "No row is available here yet. Check the project directly before drawing conclusions.";
+        sourceList.innerHTML = `<div class="empty">No source rows for this selected metric and sector.</div>`;
+        return;
+      }
+
+      const confidenceText = ["high", "medium", "low"]
+        .filter(key => confidence[key])
+        .map(key => `${confidence[key]} ${key}`)
+        .join(", ");
+      const periodText = periods.length ? periods.join(", ") : config.frame;
+      const relationshipText = relationships.length ? relationships.join(", ") : "source relationship unknown";
+      const caveatText = caveats.length ? shortLabel(caveats.join(" "), 150) : "Confirm the source methodology before using this signal.";
+
+      sourceSummaryTitle.textContent = `${rows.length} ${config.label} rows / ${confidenceText || "confidence unknown"}`;
+      sourceSummaryCopy.textContent = `${periodText}. ${relationshipText}. ${caveatText}${warningCount ? ` Caveats: ${meta.warnings.join(" ")}` : ""}`;
+      sourceList.innerHTML = sources.slice(0, 4).map(source => {
+        const sourceRows = rows.filter(row => row.source_name === source);
+        const first = sourceRows[0];
+        const sourceConfidence = countBy(sourceRows, "confidence");
+        const topConfidence = sourceConfidence.high ? "high" : sourceConfidence.medium ? "medium" : "unknown";
+        return `
+          <div class="source-row">
+            <div>
+              <a href="${escapeHtml(first.source || "#")}" target="_blank" rel="noopener noreferrer">${escapeHtml(source)}</a>
+              <span>${escapeHtml(sourceLabel(first))} / ${sourceRows.length} rows</span>
+            </div>
+            <span class="quality-chip ${escapeHtml(topConfidence)}">${escapeHtml(topConfidence)}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateShareLinks() {
+      const config = activeMetricConfig();
+      const url = window.location.href.split("#")[0];
+      const text = `Machines & Money DeFi20 signal: ${config.title}.`;
+      shareOnX.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+    }
+
+    function copyShareLink() {
+      const url = window.location.href.split("#")[0];
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          copyDashboardLink.textContent = "Copied";
+          window.setTimeout(() => { copyDashboardLink.textContent = "Copy link"; }, 1600);
+        }).catch(() => {
+          copyDashboardLink.textContent = "Copy failed";
+          window.setTimeout(() => { copyDashboardLink.textContent = "Copy link"; }, 1600);
+        });
+        return;
+      }
+      copyDashboardLink.textContent = "Copy URL";
+    }
+
+    function renderTable() {
+      const data = filteredProjects();
+      projectRows.innerHTML = data.map(project => `
+        <tr>
+          <td>${escapeHtml(project.project)}</td>
+          <td>${escapeHtml(project.sector)}</td>
+          <td class="num">${formatValue(project.marketCap)}</td>
+          <td class="num">${formatValue(project.tvl)}</td>
+          <td class="num">${formatValue(project.fees)}</td>
+          <td class="num">${formatValue(project.revenue)}</td>
+          <td class="num">${formatValue(project.wallets, "wallets")}</td>
+          <td>${escapeHtml(qualitySummary(project))}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderProjectDetail() {
+      const selectedProject = projectFilter.value;
+      if (selectedProject === "all") {
+        const selectedSector = sectorFilter.value;
+        projectDetailTitle.textContent = "Project Detail";
+        projectDetailSubtitle.textContent = selectedSector === "all" ? "Choose a category, then a project" : `${selectedSector} projects`;
+        projectDetailTakeaway.textContent = "No project selected";
+        projectDetailCopy.textContent = selectedSector === "all"
+          ? "Use the category cards above to narrow the universe, then select an individual project to see every available signal in the current data."
+          : "Select one project in this category to see its market, adoption, product, and source rows together.";
+        projectMetricRows.innerHTML = `<tr><td colspan="5">Select a project to see the available rows.</td></tr>`;
+        return;
+      }
+
+      const project = projects.find(item => item.project === selectedProject);
+      const records = (project?.records || []).slice().sort((a, b) => {
+        const metricOrder = ["Market Cap", "FDV", "24H Token Volume", "TVL", "30D Fees", "30D Revenue", "30D DEX Volume", "7D Active Wallets", "Token Price"];
+        return metricOrder.indexOf(a.metric) - metricOrder.indexOf(b.metric) || b.value - a.value;
+      });
+      const productRows = records.filter(row => !row.notes.includes("Token-level market metric"));
+      projectDetailTitle.textContent = selectedProject;
+      projectDetailSubtitle.textContent = project?.sector || "Project detail";
+      projectDetailTakeaway.textContent = `${records.length} available rows`;
+      projectDetailCopy.textContent = productRows.length
+        ? `${productRows.length} rows describe product traction or usage. Token rows are included for market context but should not be treated as product adoption.`
+        : "This project currently has market rows only. It needs product-native or third-party adoption data before making a stronger fundamentals claim.";
+      projectMetricRows.innerHTML = records.map(row => `
+        <tr>
+          <td>${escapeHtml(row.metric)}</td>
+          <td class="num">${formatValue(row.value, row.unit === "wallets" ? "wallets" : "USD")}</td>
+          <td>${escapeHtml(row.period)}</td>
+          <td><a href="${escapeHtml(row.source || "#")}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.source_name || "Source")}</a></td>
+          <td>${escapeHtml(row.confidence || "unknown")}</td>
+        </tr>
+      `).join("");
+    }
+
+    function render() {
+      renderTimeframes();
+      renderTabs();
+      renderCategoryMap();
+      renderProjectFilter();
+      renderStats();
+      renderChart();
+      renderStories();
+      renderSourceDetail();
+      updateShareLinks();
+      renderTable();
+      renderProjectDetail();
+    }
+
+    renderFilters();
+    render();
+    categoryCards.forEach(card => {
+      card.addEventListener("click", () => {
+        if (card.dataset.metric) {
+          sectorFilter.value = "all";
+          projectFilter.value = "all";
+          setMetric(card.dataset.metric);
+          return;
+        }
+        if (card.dataset.sector) {
+          sectorFilter.value = card.dataset.sector;
+          renderProjectFilter();
+          render();
+        }
+      });
+    });
+    sectorFilter.addEventListener("change", () => {
+      renderProjectFilter();
+      render();
+    });
+    projectFilter.addEventListener("change", render);
+    sortMode.addEventListener("change", render);
+    copyDashboardLink.addEventListener("click", copyShareLink);
+    window.addEventListener("resize", renderChart);
+  </script>
+</body>
+</html>
