@@ -47,11 +47,11 @@
             border-bottom: 1px solid var(--border);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            background: rgba(250,249,247,0.85);
+            background: rgba(247, 248, 255, 0.88);
             transition: background 0.3s ease;
         }
         [data-theme="dark"] .top-bar {
-            background: rgba(12,10,9,0.85);
+            background: rgba(31, 28, 48, 0.88);
         }
         .top-bar-inner {
             max-width: 960px; margin: 0 auto; padding: 0 24px;
@@ -666,27 +666,27 @@
             .container { padding: 0 16px; }
         }
 
-        /* ---- 2026 visual refresh: dark technical ---- */
+        /* ---- 2026 visual refresh: cobalt editorial ---- */
         :root {
-            --bg-primary: #F5F7F2;
-            --bg-secondary: #E8EEE7;
+            --bg-primary: #F7F8FF;
+            --bg-secondary: #ECEBFA;
             --bg-card: #FFFFFF;
-            --text-primary: #111716;
-            --text-secondary: #485653;
-            --text-muted: #74817D;
-            --accent: #245B56;
-            --accent-hover: #143C39;
-            --accent-soft: rgba(36, 91, 86, 0.1);
-            --accent-glow: rgba(36, 91, 86, 0.16);
-            --warm-accent: #6F8A2B;
-            --warm-soft: rgba(111, 138, 43, 0.12);
-            --border: #CCD7D1;
-            --border-subtle: #E1E8E4;
-            --grid-line-a: rgba(36, 91, 86, 0.045);
-            --grid-line-b: rgba(91, 125, 30, 0.04);
-            --shadow-sm: 0 1px 2px rgba(17, 23, 22, 0.05);
-            --shadow-md: 0 10px 24px rgba(17, 23, 22, 0.08);
-            --shadow-lg: 0 24px 56px rgba(17, 23, 22, 0.12);
+            --text-primary: #17152E;
+            --text-secondary: #4C4968;
+            --text-muted: #77738F;
+            --accent: #3157D5;
+            --accent-hover: #1E3FAE;
+            --accent-soft: rgba(49, 87, 213, 0.11);
+            --accent-glow: rgba(49, 87, 213, 0.18);
+            --warm-accent: #E45169;
+            --warm-soft: rgba(228, 81, 105, 0.13);
+            --border: #DADCF0;
+            --border-subtle: #E8E9F6;
+            --grid-line-a: rgba(49, 87, 213, 0.045);
+            --grid-line-b: rgba(228, 81, 105, 0.038);
+            --shadow-sm: 0 1px 2px rgba(23, 21, 46, 0.05);
+            --shadow-md: 0 10px 24px rgba(23, 21, 46, 0.08);
+            --shadow-lg: 0 24px 56px rgba(23, 21, 46, 0.13);
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             --radius-sm: 8px;
             --radius-md: 8px;
@@ -694,25 +694,25 @@
         }
 
         [data-theme="dark"] {
-            --bg-primary: #111716;
-            --bg-secondary: #17201F;
-            --bg-card: #1B2523;
-            --text-primary: #EEF4EC;
-            --text-secondary: #AEBBB6;
-            --text-muted: #7E8E89;
-            --accent: #6FD6CC;
-            --accent-hover: #93E5DD;
-            --accent-soft: rgba(111, 214, 204, 0.14);
-            --accent-glow: rgba(111, 214, 204, 0.2);
-            --warm-accent: #BFEA63;
-            --warm-soft: rgba(191, 234, 99, 0.13);
-            --border: rgba(238, 244, 236, 0.18);
-            --border-subtle: rgba(238, 244, 236, 0.1);
-            --grid-line-a: rgba(111, 214, 204, 0.045);
-            --grid-line-b: rgba(191, 234, 99, 0.04);
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-            --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.4);
+            --bg-primary: #1F1C30;
+            --bg-secondary: #2B2944;
+            --bg-card: #302D49;
+            --text-primary: #F4F2FF;
+            --text-secondary: #C9C4DD;
+            --text-muted: #928CA9;
+            --accent: #7EA2FF;
+            --accent-hover: #A9BFFF;
+            --accent-soft: rgba(126, 162, 255, 0.15);
+            --accent-glow: rgba(126, 162, 255, 0.24);
+            --warm-accent: #FF7F6E;
+            --warm-soft: rgba(255, 127, 110, 0.14);
+            --border: rgba(244, 242, 255, 0.17);
+            --border-subtle: rgba(244, 242, 255, 0.1);
+            --grid-line-a: rgba(126, 162, 255, 0.045);
+            --grid-line-b: rgba(255, 127, 110, 0.04);
+            --shadow-sm: 0 1px 2px rgba(11, 9, 24, 0.24);
+            --shadow-md: 0 10px 24px rgba(11, 9, 24, 0.34);
+            --shadow-lg: 0 24px 56px rgba(11, 9, 24, 0.44);
         }
 
         body {
@@ -728,12 +728,12 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            background: linear-gradient(180deg, rgba(245, 247, 242, 0.86), rgba(245, 247, 242, 0.7) 48%, rgba(245, 247, 242, 0.92));
+            background: linear-gradient(180deg, rgba(247, 248, 255, 0.88), rgba(247, 248, 255, 0.72) 48%, rgba(247, 248, 255, 0.94));
             z-index: -1;
         }
 
         [data-theme="dark"] body::before {
-            background: linear-gradient(180deg, rgba(17, 23, 22, 0.9), rgba(17, 23, 22, 0.72) 48%, rgba(17, 23, 22, 0.94));
+            background: linear-gradient(180deg, rgba(31, 28, 48, 0.92), rgba(31, 28, 48, 0.74) 48%, rgba(31, 28, 48, 0.95));
         }
 
         h1, h2, h3, h4 {
@@ -751,7 +751,7 @@
         }
 
         [data-theme="dark"] .top-bar {
-            background: rgba(17, 23, 22, 0.88);
+            background: rgba(31, 28, 48, 0.88);
         }
 
         .top-bar-inner {
@@ -1049,7 +1049,7 @@
         }
 
         footer {
-            background: #0B0F0E;
+            background: #232039;
             color: var(--text-primary);
             border-top: 1px solid var(--border);
             margin-top: 64px;
@@ -1770,11 +1770,11 @@
         // Charts
         function getChartColors(theme) {
             return {
-                line: theme === 'dark' ? '#6FD6CC' : '#245B56',
-                bar: theme === 'dark' ? '#BFEA63' : '#6F8A2B',
-                fill: theme === 'dark' ? 'rgba(111,214,204,0.14)' : 'rgba(36,91,86,0.12)',
-                grid: theme === 'dark' ? 'rgba(238,244,236,0.08)' : 'rgba(17,23,22,0.06)',
-                text: theme === 'dark' ? '#7E8E89' : '#74817D',
+                line: theme === 'dark' ? '#7EA2FF' : '#3157D5',
+                bar: theme === 'dark' ? '#FF7F6E' : '#E45169',
+                fill: theme === 'dark' ? 'rgba(126,162,255,0.15)' : 'rgba(49,87,213,0.12)',
+                grid: theme === 'dark' ? 'rgba(244,242,255,0.08)' : 'rgba(23,21,46,0.06)',
+                text: theme === 'dark' ? '#928CA9' : '#77738F',
             };
         }
 
@@ -1803,11 +1803,11 @@
             const commonPlugins = {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: theme === 'dark' ? '#1B2523' : '#FFFFFF',
-                    borderColor: theme === 'dark' ? 'rgba(238,244,236,0.18)' : '#CCD7D1',
+                    backgroundColor: theme === 'dark' ? '#302D49' : '#FFFFFF',
+                    borderColor: theme === 'dark' ? 'rgba(244,242,255,0.17)' : '#DADCF0',
                     borderWidth: 1,
-                    titleColor: theme === 'dark' ? '#EEF4EC' : '#111716',
-                    bodyColor: theme === 'dark' ? '#AEBBB6' : '#485653',
+                    titleColor: theme === 'dark' ? '#F4F2FF' : '#17152E',
+                    bodyColor: theme === 'dark' ? '#C9C4DD' : '#4C4968',
                     displayColors: false
                 }
             };
@@ -1924,10 +1924,10 @@
             [aptosBar, seamlessLine, ionetLine].forEach(chart => {
                 if (!chart) return;
                 chart.options.scales.y.grid.color = c.grid;
-                chart.options.plugins.tooltip.backgroundColor = theme === 'dark' ? '#1B2523' : '#FFFFFF';
-                chart.options.plugins.tooltip.borderColor = theme === 'dark' ? 'rgba(238,244,236,0.18)' : '#CCD7D1';
-                chart.options.plugins.tooltip.titleColor = theme === 'dark' ? '#EEF4EC' : '#111716';
-                chart.options.plugins.tooltip.bodyColor = theme === 'dark' ? '#AEBBB6' : '#485653';
+                chart.options.plugins.tooltip.backgroundColor = theme === 'dark' ? '#302D49' : '#FFFFFF';
+                chart.options.plugins.tooltip.borderColor = theme === 'dark' ? 'rgba(244,242,255,0.17)' : '#DADCF0';
+                chart.options.plugins.tooltip.titleColor = theme === 'dark' ? '#F4F2FF' : '#17152E';
+                chart.options.plugins.tooltip.bodyColor = theme === 'dark' ? '#C9C4DD' : '#4C4968';
                 Chart.defaults.color = c.text;
                 const ds = chart.data.datasets[0];
                 if (chart.config.type === 'line') {
