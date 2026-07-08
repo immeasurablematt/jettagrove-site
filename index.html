@@ -512,6 +512,7 @@
             text-transform: uppercase; letter-spacing: 1px;
             color: var(--accent); margin-bottom: 8px; font-weight: 600;
         }
+        blockquote.tweet-card,
         blockquote.twitter-tweet {
             border: 1px solid var(--border); border-radius: var(--radius-lg);
             padding: 20px; max-width: 550px; width: 100%; margin: 0;
@@ -520,9 +521,13 @@
             font-size: 14px; line-height: 1.5; color: var(--text-primary);
             background: var(--bg-card);
         }
+        blockquote.tweet-card p,
         blockquote.twitter-tweet p { margin: 0 0 12px; }
+        blockquote.tweet-card a,
         blockquote.twitter-tweet a { color: var(--accent); text-decoration: none; }
+        blockquote.tweet-card a:hover,
         blockquote.twitter-tweet a:hover { text-decoration: underline; }
+        blockquote.tweet-card > a:last-child,
         blockquote.twitter-tweet > a:last-child {
             display: inline-flex;
             align-items: center;
@@ -858,6 +863,7 @@
         .marquee-item,
         .mini-stat,
         .work-card,
+        blockquote.tweet-card,
         blockquote.twitter-tweet,
         .client-pill {
             border-radius: 8px;
@@ -1032,6 +1038,7 @@
         .work-card .badge,
         .tweet-cat,
         .footer-bottom a,
+        blockquote.tweet-card a,
         blockquote.twitter-tweet a {
             color: var(--warm-accent);
         }
@@ -1041,6 +1048,7 @@
             line-height: 1.25;
         }
 
+        blockquote.tweet-card,
         blockquote.twitter-tweet {
             box-shadow: var(--shadow-sm);
         }
@@ -1468,29 +1476,29 @@
                     <div class="client-panel active" id="panel-exec-ghostwriting">
                         <p class="sub-desc" style="margin-top:0"><strong>Executive Ghostwriting | Aptos CEO Mo Shaikh + Jay / Lite Strategy</strong><br>Short-form thought leadership for technical founders and executives: scripted video, partnerships, product education, market narrative, and launch commentary.</p>
                         <div class="tweets-slider">
-                            <div class="tweet-wrapper"><div class="tweet-cat">Scripted Video</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Aptos Autumn is back <a href="https://t.co/yQnchvQjm4">pic.twitter.com/yQnchvQjm4</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1842199371762589797?ref_src=twsrc%5Etfw">October 4, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Partnerships</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Today, <a href="https://twitter.com/BlackRock?ref_src=twsrc%5Etfw">@BlackRock</a> chose Aptos as the only non-EVM chain to launch its money market fund tokenized by <a href="https://twitter.com/Securitize?ref_src=twsrc%5Etfw">@Securitize</a>: BUIDL<br><br>Following <a href="https://twitter.com/OndoFinance?ref_src=twsrc%5Etfw">@OndoFinance</a>&#39;s USDY, <a href="https://twitter.com/FTDA_US?ref_src=twsrc%5Etfw">@FTDA_US</a>&#39;s FOBXX, &amp; <a href="https://twitter.com/BitwiseInvest?ref_src=twsrc%5Etfw">@BitwiseInvest</a>&#39;s Aptos ETP, RWAs &amp; institutional-grade DeFi are not just coming to Aptos.<br><br>They&#39;re here.</p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1856708291415683125?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">TradFi has to figure these things out in the next 12-18mo to be in the best position for the incoming tsunami of tokenized funds:<br><br>- a tokenized fund vision<br>- a use case road map<br>- on-chain compliance<br>- a center of excellence to orchestrate everything<br><br>Aptos figured out the rest. <a href="https://t.co/pGyuuVUjro">pic.twitter.com/pGyuuVUjro</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1851646968919195694?ref_src=twsrc%5Etfw">October 30, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">...but seriously, Aptos is approaching a tipping point. Stripe just acquired Bridge - a stablecoin transaction API for $1.1B<br><br>Aptos&#39; purpose-built rails can support TRILLIONS of on-chain value flows right now (USDT soon). institutions &amp; enterprises: we&#39;ve been waiting for ya <a href="https://t.co/ORfKL3DFSp">pic.twitter.com/ORfKL3DFSp</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1849490515399680405?ref_src=twsrc%5Etfw">October 24, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Events</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">28 MILLION people are expected to attend the World Expo 2025 in Osaka Japan, and they&#39;ll all be using a digital wallet developed by our latest acquisition <a href="https://twitter.com/hashpalette_en?ref_src=twsrc%5Etfw">@hashpalette_en</a> on Aptos<br><br>&#x1F1EF;&#x1F1F5; has A+ gov&#39;t support &amp; a vibrant Web3 ecosystem, making it (and APAC) the future of Web3. lfg <a href="https://t.co/fMelMF9PNs">pic.twitter.com/fMelMF9PNs</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1843737088442937822?ref_src=twsrc%5Etfw">October 8, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2054211853052493829?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2057462163837685910?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2049832405297488106?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Scripted Video</div><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">Aptos Autumn is back <a href="https://t.co/yQnchvQjm4">pic.twitter.com/yQnchvQjm4</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1842199371762589797?ref_src=twsrc%5Etfw">October 4, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Partnerships</div><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">Today, <a href="https://twitter.com/BlackRock?ref_src=twsrc%5Etfw">@BlackRock</a> chose Aptos as the only non-EVM chain to launch its money market fund tokenized by <a href="https://twitter.com/Securitize?ref_src=twsrc%5Etfw">@Securitize</a>: BUIDL<br><br>Following <a href="https://twitter.com/OndoFinance?ref_src=twsrc%5Etfw">@OndoFinance</a>&#39;s USDY, <a href="https://twitter.com/FTDA_US?ref_src=twsrc%5Etfw">@FTDA_US</a>&#39;s FOBXX, &amp; <a href="https://twitter.com/BitwiseInvest?ref_src=twsrc%5Etfw">@BitwiseInvest</a>&#39;s Aptos ETP, RWAs &amp; institutional-grade DeFi are not just coming to Aptos.<br><br>They&#39;re here.</p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1856708291415683125?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">TradFi has to figure these things out in the next 12-18mo to be in the best position for the incoming tsunami of tokenized funds:<br><br>- a tokenized fund vision<br>- a use case road map<br>- on-chain compliance<br>- a center of excellence to orchestrate everything<br><br>Aptos figured out the rest. <a href="https://t.co/pGyuuVUjro">pic.twitter.com/pGyuuVUjro</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1851646968919195694?ref_src=twsrc%5Etfw">October 30, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">...but seriously, Aptos is approaching a tipping point. Stripe just acquired Bridge - a stablecoin transaction API for $1.1B<br><br>Aptos&#39; purpose-built rails can support TRILLIONS of on-chain value flows right now (USDT soon). institutions &amp; enterprises: we&#39;ve been waiting for ya <a href="https://t.co/ORfKL3DFSp">pic.twitter.com/ORfKL3DFSp</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1849490515399680405?ref_src=twsrc%5Etfw">October 24, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Events</div><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">28 MILLION people are expected to attend the World Expo 2025 in Osaka Japan, and they&#39;ll all be using a digital wallet developed by our latest acquisition <a href="https://twitter.com/hashpalette_en?ref_src=twsrc%5Etfw">@hashpalette_en</a> on Aptos<br><br>&#x1F1EF;&#x1F1F5; has A+ gov&#39;t support &amp; a vibrant Web3 ecosystem, making it (and APAC) the future of Web3. lfg <a href="https://t.co/fMelMF9PNs">pic.twitter.com/fMelMF9PNs</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1843737088442937822?ref_src=twsrc%5Etfw">October 8, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="tweet-card" data-lazy-tweet><a href="https://twitter.com/jay_lits/status/2054211853052493829?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="tweet-card" data-lazy-tweet><a href="https://twitter.com/jay_lits/status/2057462163837685910?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
+                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="tweet-card" data-lazy-tweet><a href="https://twitter.com/jay_lits/status/2049832405297488106?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
                         </div>
                     </div>
 
                     <div class="client-panel" id="panel-brand-accounts">
                         <p class="sub-desc" style="margin-top:0"><strong>Brand Accounts | io.net, Seamless, Ctrl Wallet, Moonbeam</strong><br>Technical social systems for protocols and products: launch narratives, product education, brand voice, market commentary, and community-building posts.</p>
                         <div class="tweets-grid">
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">.<a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> has GPUs.<br><br>AI needs GPUs<br>Gaming needs GPUs<br>High-Performance Computing needs GPUs<br>Cloud Computing needs GPUs<br>Data Center Efficiency needs GPUs<br>Scientific Visualization needs GPUs<br>Healthcare needs GPUs<br>Automotive Industry needs GPUs<br>Finance needs GPUs<br>Defense and Military&#8230;</p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1879257216144101379?ref_src=twsrc%5Etfw">January 14, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">If you&#39;re watching AI, you&#39;re probably seeing <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> everywhere.<br><br>The DeepSeek R1 launch has been exciting, but full of hype and hot takes.  So lets unpack what you need to know &amp; why the launch matters to the space:<br><br>&#x1F9F5;&#x1F447;&#x1F3FB;<br>1/6 <a href="https://t.co/E58pkO5Glk">pic.twitter.com/E58pkO5Glk</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1884572266870231105?ref_src=twsrc%5Etfw">January 29, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Cloud computing is expected to be a $2.5T market, and decentralized clouds are &lt; 1/1,000th of that now. Agents are going to completely abstract away the complexity stonewalling people from using DeFi<br><br>DefAI is the rocket engine, <a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> is the propellant <a href="https://t.co/xqpOAyGOxX">pic.twitter.com/xqpOAyGOxX</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1880011903914963307?ref_src=twsrc%5Etfw">January 16, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#x1F52E; LEVERAGE TOKENS ARE LIVE! &#x1F52E;<br><br>What are Leverage Tokens (LTs) and why should you care?<br><br>Let&#39;s dive in &#x1FA82;<br><br>1/7 <a href="https://t.co/LltqEWVQsO">pic.twitter.com/LltqEWVQsO</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1935715727161569388?ref_src=twsrc%5Etfw">June 19, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Leverage Tokens Litepaper just dropped, and Seamless is leading the charge into fully composable next-gen DeFi on <a href="https://twitter.com/base?ref_src=twsrc%5Etfw">@Base</a> - and beyond.<br><br>Leverage Tokens let you do more with your money on your own terms:<br><br>&#x2705; simplicity of a single-token solution<br>&#x2705; efficient performance of a&#8230; <a href="https://t.co/zzi9g4xDcP">pic.twitter.com/zzi9g4xDcP</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1902451711752728581?ref_src=twsrc%5Etfw">March 19, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#x274C; Manual ETH Looping: Dozens of txs, around the clock monitoring, liquidation anxiety<br><br>&#x2705; LT's 17x weETH/ETH Yield Loop: 1-click execution, automated rebalancing, verifiable transparent logic, tokenized and in your wallet<br><br>All of the same potential, none of the friction&#8230; <a href="https://t.co/c3H9DwjaDI">pic.twitter.com/c3H9DwjaDI</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1934998800055308472?ref_src=twsrc%5Etfw">June 17, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ctrl is for everyone.  If you like the rebrand you&#39;ll love the redesigned Ctrl extension and all-new mobile app. World-class with beautiful form and functionality.<br><br>Our founder <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> explains &#x1F447; <a href="https://t.co/KbI1GG3KBc">pic.twitter.com/KbI1GG3KBc</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1819961509243650133?ref_src=twsrc%5Etfw">August 4, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Bear markets are for building. And that&#39;s exactly what we did &#x1F6E0;&#xFE0F;<br><br>New name, same mission: true self-custody across more chains than ever.<br><br>One wallet for all your crypto. <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> breaks it down: <a href="https://t.co/rff19CKDzz">pic.twitter.com/rff19CKDzz</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1818315722646511965?ref_src=twsrc%5Etfw">July 30, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Our dApp is the best way into the Moonbeam ecosystem<br><br>Just 3 clicks to become a proud <a href="https://twitter.com/search?q=%24GLMR&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$GLMR</a> holder<br><br>Have you tried it? Link below &#x1F440; <a href="https://t.co/r1Rtg2da1R">pic.twitter.com/r1Rtg2da1R</a></p>&mdash; Moonbeam (@MoonbeamNetwork) <a href="https://twitter.com/MoonbeamNetwork/status/1856728779462525109?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">.<a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> has GPUs.<br><br>AI needs GPUs<br>Gaming needs GPUs<br>High-Performance Computing needs GPUs<br>Cloud Computing needs GPUs<br>Data Center Efficiency needs GPUs<br>Scientific Visualization needs GPUs<br>Healthcare needs GPUs<br>Automotive Industry needs GPUs<br>Finance needs GPUs<br>Defense and Military&#8230;</p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1879257216144101379?ref_src=twsrc%5Etfw">January 14, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">If you&#39;re watching AI, you&#39;re probably seeing <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> everywhere.<br><br>The DeepSeek R1 launch has been exciting, but full of hype and hot takes.  So lets unpack what you need to know &amp; why the launch matters to the space:<br><br>&#x1F9F5;&#x1F447;&#x1F3FB;<br>1/6 <a href="https://t.co/E58pkO5Glk">pic.twitter.com/E58pkO5Glk</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1884572266870231105?ref_src=twsrc%5Etfw">January 29, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">Cloud computing is expected to be a $2.5T market, and decentralized clouds are &lt; 1/1,000th of that now. Agents are going to completely abstract away the complexity stonewalling people from using DeFi<br><br>DefAI is the rocket engine, <a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> is the propellant <a href="https://t.co/xqpOAyGOxX">pic.twitter.com/xqpOAyGOxX</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1880011903914963307?ref_src=twsrc%5Etfw">January 16, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">&#x1F52E; LEVERAGE TOKENS ARE LIVE! &#x1F52E;<br><br>What are Leverage Tokens (LTs) and why should you care?<br><br>Let&#39;s dive in &#x1FA82;<br><br>1/7 <a href="https://t.co/LltqEWVQsO">pic.twitter.com/LltqEWVQsO</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1935715727161569388?ref_src=twsrc%5Etfw">June 19, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">Leverage Tokens Litepaper just dropped, and Seamless is leading the charge into fully composable next-gen DeFi on <a href="https://twitter.com/base?ref_src=twsrc%5Etfw">@Base</a> - and beyond.<br><br>Leverage Tokens let you do more with your money on your own terms:<br><br>&#x2705; simplicity of a single-token solution<br>&#x2705; efficient performance of a&#8230; <a href="https://t.co/zzi9g4xDcP">pic.twitter.com/zzi9g4xDcP</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1902451711752728581?ref_src=twsrc%5Etfw">March 19, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">&#x274C; Manual ETH Looping: Dozens of txs, around the clock monitoring, liquidation anxiety<br><br>&#x2705; LT's 17x weETH/ETH Yield Loop: 1-click execution, automated rebalancing, verifiable transparent logic, tokenized and in your wallet<br><br>All of the same potential, none of the friction&#8230; <a href="https://t.co/c3H9DwjaDI">pic.twitter.com/c3H9DwjaDI</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1934998800055308472?ref_src=twsrc%5Etfw">June 17, 2025</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">Ctrl is for everyone.  If you like the rebrand you&#39;ll love the redesigned Ctrl extension and all-new mobile app. World-class with beautiful form and functionality.<br><br>Our founder <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> explains &#x1F447; <a href="https://t.co/KbI1GG3KBc">pic.twitter.com/KbI1GG3KBc</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1819961509243650133?ref_src=twsrc%5Etfw">August 4, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">Bear markets are for building. And that&#39;s exactly what we did &#x1F6E0;&#xFE0F;<br><br>New name, same mission: true self-custody across more chains than ever.<br><br>One wallet for all your crypto. <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> breaks it down: <a href="https://t.co/rff19CKDzz">pic.twitter.com/rff19CKDzz</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1818315722646511965?ref_src=twsrc%5Etfw">July 30, 2024</a></blockquote></div>
+                            <div class="tweet-wrapper"><blockquote class="tweet-card" data-lazy-tweet><p lang="en" dir="ltr">Our dApp is the best way into the Moonbeam ecosystem<br><br>Just 3 clicks to become a proud <a href="https://twitter.com/search?q=%24GLMR&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$GLMR</a> holder<br><br>Have you tried it? Link below &#x1F440; <a href="https://t.co/r1Rtg2da1R">pic.twitter.com/r1Rtg2da1R</a></p>&mdash; Moonbeam (@MoonbeamNetwork) <a href="https://twitter.com/MoonbeamNetwork/status/1856728779462525109?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
                         </div>
                     </div>
                 </div>
@@ -1681,6 +1689,85 @@
         }, { threshold: 0.5 });
         counterObs.observe(document.querySelector('.stats-bar'));
 
+        // Tweets render as fast local cards first, then upgrade the active panel only.
+        let twitterScriptPromise;
+
+        function loadTwitterScript() {
+            if (window.twttr?.widgets) return Promise.resolve(window.twttr);
+            if (twitterScriptPromise) return twitterScriptPromise;
+
+            twitterScriptPromise = new Promise((resolve, reject) => {
+                const existing = document.querySelector('script[src="https://platform.twitter.com/widgets.js"]');
+                if (existing) {
+                    existing.addEventListener('load', () => resolve(window.twttr), { once: true });
+                    existing.addEventListener('error', reject, { once: true });
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = 'https://platform.twitter.com/widgets.js';
+                script.async = true;
+                script.charset = 'utf-8';
+                script.onload = () => resolve(window.twttr);
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+
+            return twitterScriptPromise;
+        }
+
+        function getActiveTweetScope() {
+            const shortForm = document.getElementById('tab-short-form');
+            if (!shortForm || shortForm.classList.contains('hidden')) return null;
+            return shortForm.querySelector('.client-panel.active') || shortForm;
+        }
+
+        function activateTweetCards(scope) {
+            const target = scope || getActiveTweetScope();
+            if (!target) return false;
+
+            const cards = target.querySelectorAll('blockquote.tweet-card[data-lazy-tweet]:not([data-twitter-activated])');
+            cards.forEach(card => {
+                card.classList.add('twitter-tweet');
+                card.dataset.twitterActivated = 'true';
+            });
+
+            return cards.length > 0 || Boolean(target.querySelector('blockquote.twitter-tweet'));
+        }
+
+        function loadTwitterEmbeds(scope) {
+            const target = scope || getActiveTweetScope();
+            if (!target || !activateTweetCards(target)) return;
+
+            loadTwitterScript()
+                .then(() => window.twttr?.widgets?.load(target))
+                .catch(() => {});
+        }
+
+        function scheduleTwitterEmbeds(scope, delay = 600) {
+            window.setTimeout(() => {
+                if ('requestIdleCallback' in window) {
+                    window.requestIdleCallback(() => loadTwitterEmbeds(scope), { timeout: 2500 });
+                    return;
+                }
+
+                loadTwitterEmbeds(scope);
+            }, delay);
+        }
+
+        const workSection = document.getElementById('work');
+        if ('IntersectionObserver' in window && workSection) {
+            const tweetObs = new IntersectionObserver((entries, obs) => {
+                if (entries.some(entry => entry.isIntersecting)) {
+                    scheduleTwitterEmbeds(getActiveTweetScope(), 400);
+                    obs.disconnect();
+                }
+            }, { rootMargin: '500px 0px' });
+            tweetObs.observe(workSection);
+        } else {
+            scheduleTwitterEmbeds(getActiveTweetScope(), 1600);
+        }
+
         // Tab Switching
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1689,6 +1776,9 @@
                 document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
                 const tab = document.getElementById('tab-' + btn.dataset.tab);
                 tab.classList.remove('hidden');
+                if (tab.id === 'tab-short-form') {
+                    scheduleTwitterEmbeds(getActiveTweetScope(), 100);
+                }
             });
         });
 
@@ -1702,6 +1792,7 @@
                 var panel = document.getElementById(pill.getAttribute('data-panel'));
                 if (panel) {
                     panel.classList.add('active');
+                    scheduleTwitterEmbeds(panel, 100);
                 }
             });
         });
