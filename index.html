@@ -1241,7 +1241,7 @@
                     </div>
                     <div class="chart-panel">
                         <div class="chart-head">
-                            <div class="chart-label">Monthly impressions</div>
+                            <div class="chart-label">Five-month total impressions</div>
                             <div class="chart-note">Oct peak: 2.2M</div>
                         </div>
                         <canvas id="aptosBarChart" height="170"></canvas>
@@ -1429,7 +1429,7 @@
                 <p>After grad school, I repurposed my academic training as a writer, researcher, and educator into content marketing at some of Toronto's fastest-growing B2B SaaS companies: Nulogy, Top Hat, Personify, 7shifts. I created everything from whitepapers and sales decks to video productions and full website refreshes from scratch.</p>
                 <p>When the pandemic hit and our first son was born, I discovered crypto. I bought BTC and ETH, stored it in a hardware wallet, experimented with DeFi, traded NFTs, bridged assets across ecosystems, yield farmed, got rekt, lurked Discord servers and obscure Telegram channels. All in pursuit of learning and alpha.</p>
                 <p>What I found instead was a terrible need for high-quality content. So I took the opportunity and made it my mission to work in Web3, creating informed, helpful, high-quality content for the audiences that needed it.</p>
-                <p>That led me to Kraken, then LayerZero (first marketing hire), Waves Labs, Kava Labs, and io.net. Building content engines that drove real results: 9M+ impressions, 430% SEO growth, ghostwriting for CEOs of a massive onchain finance pioneers Aptos and Lite Strategy.</p>
+                <p>That led me to Kraken, then LayerZero (first marketing hire), Waves Labs, Kava Labs, and io.net. Building content engines that drove real results: 9M+ impressions, 430% growth in estimated monthly organic visits across io.net's full domain, ghostwriting for CEOs of a massive onchain finance pioneers Aptos and Lite Strategy.</p>
                 <p>Recently my consulting practice has let me go deep into the AI innovations that are transforming the entire sector. I provide AI enablement and strategic marketing services across the funnel to small buisness owners and high tech startups alike.</p>
                 <p>I am profient at building agentic workflows, managing token spend, building skills and plugins, creating custom applications and creating high-quality content that ranks, drives engagment, and educates at a rate that even a year ago, would have been impossible. Its an exciting time to be in the industry.</p>
             </div>
@@ -1629,8 +1629,8 @@
             aptosBar = new Chart(document.getElementById('aptosBarChart'), {
                 type: 'bar',
                 data: {
-                    labels: ['Jun','Jul','Aug','Sep','Oct'],
-                    datasets: [{ label: 'Impressions', data: [270000,732000,409000,718000,2220000],
+                    labels: ['Five months'],
+                    datasets: [{ label: 'Impressions', data: [4340000],
                         backgroundColor: c.bar, borderRadius: 5, barPercentage: 0.62, categoryPercentage: 0.72 }]
                 },
                 options: {
@@ -1641,7 +1641,7 @@
                         tooltip: {
                             ...commonPlugins.tooltip,
                             callbacks: {
-                                label: context => `${(context.parsed.y / 1000000).toFixed(context.parsed.y >= 1000000 ? 1 : 2)}M impressions`
+                                label: context => `${context.parsed.y.toLocaleString()} impressions`
                             }
                         }
                     },
