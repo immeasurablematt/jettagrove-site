@@ -15,6 +15,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
@@ -388,97 +389,453 @@
             line-height: 1.35;
         }
 
-        /* ---- Work Cards ---- */
-        .work-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px; margin-top: 20px;
+        /* ---- Work: chapters by job, flagship proof + artifact shelves ---- */
+        .mono {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px; line-height: 1.35; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em;
         }
-        .work-card {
-            background: var(--bg-card); padding: 24px; border-radius: var(--radius-md);
-            transition: var(--transition); border: 1px solid var(--border);
-            display: block; box-shadow: var(--shadow-sm);
+        html:not([data-theme="dark"]) #work,
+        html:not([data-theme="dark"]) .w-embed { --text-muted: #626F6B; --warm-accent: #5A7022; }
+        #work :focus-visible { outline: 2px solid var(--warm-accent); outline-offset: 3px; }
+
+        .w-jobnav {
+            display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            margin-bottom: 72px;
         }
-        a.work-card { text-decoration: none; color: inherit; cursor: pointer; }
-        .work-card:hover {
-            transform: translateY(-3px);
+        .w-jobnav a {
+            display: flex; gap: 10px; align-items: baseline;
+            padding: 14px 14px 12px 0; font-size: 13px; font-weight: 700;
+            color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px;
+        }
+        .w-jobnav a + a { padding-left: 14px; border-left: 1px solid var(--border-subtle); }
+        .w-jobnav a .mono { color: inherit; }
+        .w-jobnav a:hover { color: var(--text-primary); }
+        .w-jobnav a[aria-current="true"] { color: var(--text-primary); border-bottom-color: var(--warm-accent); }
+        .w-jobnav a[aria-current="true"] .mono { color: var(--warm-accent); }
+
+        .w-job { scroll-margin-top: 88px; }
+        [tabindex="-1"]:focus { outline: none; }
+        .w-job + .w-job { margin-top: 96px; padding-top: 40px; border-top: 1px solid var(--border); }
+        .w-job-head { max-width: 760px; margin-bottom: 32px; }
+        .w-job-num { color: var(--warm-accent); }
+        .w-job-head h3 {
+            font-size: clamp(1.75rem, 3.6vw, 2.75rem); line-height: 1.04; letter-spacing: -0.03em;
+            margin: 10px 0 10px; color: var(--text-primary);
+        }
+        .w-job-for { font-size: 15px; font-weight: 600; color: var(--accent); line-height: 1.5; }
+
+        .w-job-body {
+            display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+            gap: 40px; align-items: start;
+        }
+        .w-job-body--portrait { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+
+        /* Lead media: shown whole at its real proportions, never cropped */
+        .w-lead { display: block; color: inherit; }
+        .w-lead-frame {
+            position: relative; display: block; overflow: hidden;
+            border: 1px solid var(--border); border-radius: 8px; background: #0B0F0E;
+            transition: border-color 0.2s ease;
+        }
+        .w-lead-frame { --lead-max: min(78vh, 760px); width: min(100%, calc(var(--lead-max) * var(--ar, 1.7778))); }
+        .w-lead-frame img { display: block; width: 100%; height: auto; }
+        .w-lead:hover .w-lead-frame { border-color: var(--warm-accent); }
+        .w-lead-cap {
+            display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+            padding-top: 10px; color: var(--text-muted);
+        }
+        .w-lead:hover .w-go { color: var(--warm-accent); }
+        @media (min-width: 901px) { .w-lead { position: sticky; top: 88px; } }
+
+        .w-play {
+            position: absolute; left: 16px; bottom: 16px; width: 52px; height: 52px; border-radius: 50%;
+            background: #111716; border: 2px solid #BFEA63; display: grid; place-items: center;
+            transition: background 0.2s ease;
+        }
+        .w-play::before {
+            content: ""; border-style: solid; border-width: 9px 0 9px 14px;
+            border-color: transparent transparent transparent #BFEA63; margin-left: 4px;
+        }
+        .w-lead:hover .w-play, .w-item:hover .w-play { background: #BFEA63; }
+        .w-lead:hover .w-play::before, .w-item:hover .w-play::before { border-left-color: #111716; }
+
+        .w-detail { min-width: 0; }
+        .w-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 56ch; }
+        .w-outcome {
+            display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: end;
+            margin: 24px 0 0;
+        }
+        .w-big {
+            grid-row: span 2; font-weight: 800; color: var(--warm-accent);
+            font-size: clamp(2.6rem, 5vw, 3.6rem); line-height: 0.9; letter-spacing: -0.03em;
+        }
+        .w-what { font-size: 14px; font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+        .w-scope { color: var(--text-muted); }
+        .w-receipts {
+            display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 14px;
+            font-size: 13px; color: var(--text-secondary);
+        }
+        .w-receipts b { color: var(--text-primary); font-weight: 800; }
+        .w-receipts a { color: var(--accent); font-weight: 700; padding: 8px 0; margin: -8px 0; }
+        .w-pull {
+            margin: 22px 0 0; padding-left: 14px; border-left: 3px solid var(--warm-accent);
+            font-size: 1.15rem; font-weight: 600; line-height: 1.35; letter-spacing: -0.01em;
+            color: var(--text-primary); max-width: 42ch;
+        }
+        .w-pull cite { display: block; font-style: normal; margin-top: 6px; color: var(--text-muted); }
+        .w-sublabel { color: var(--text-muted); margin-top: 28px; }
+
+        .w-pieces { list-style: none; margin-top: 22px; border-top: 1px solid var(--border); }
+        .w-sublabel + .w-pieces { margin-top: 10px; }
+        .w-pieces li { border-bottom: 1px solid var(--border-subtle); }
+        .w-pieces a {
+            display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 14px; align-items: center;
+            padding: 10px 2px; color: var(--text-secondary);
+        }
+        .w-pieces a:hover { background: var(--accent-soft); color: var(--text-primary); }
+        .w-fmt { display: block; color: var(--text-muted); margin-bottom: 2px; }
+        .w-t { display: block; font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--text-primary); }
+        .w-arr { color: var(--text-muted); transition: transform 0.2s ease, color 0.2s ease; }
+        .w-pieces a:hover .w-arr { color: var(--warm-accent); transform: translate(2px, -2px); }
+        .w-thumb {
+            display: block; width: 84px; aspect-ratio: 16 / 10; overflow: hidden;
+            border-radius: 6px; border: 1px solid var(--border-subtle); background: var(--bg-secondary);
+        }
+        .w-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .w-thumb--av { display: grid; place-items: center; }
+        .w-thumb--av img { width: 34px; height: 34px; border-radius: 50%; }
+
+        /* Shelves: real artifacts at their real proportions, standing on a ledge */
+        .w-shelf-block { margin-top: 56px; }
+        .w-shelf-block--lead { margin-top: 8px; }
+        .w-shelf-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; }
+        .w-shelf-head .w-sublabel { margin-top: 0; }
+        .w-shelf-ctrl { display: flex; gap: 8px; }
+        .w-shelf-btn {
+            width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+            border: 1px solid var(--border); background: var(--bg-card); color: var(--text-primary);
+        }
+        .w-shelf-btn svg { width: 14px; height: 14px; }
+        .w-shelf-btn:hover:not([aria-disabled="true"]) { border-color: var(--accent); color: var(--accent); }
+        .w-shelf-btn[aria-disabled="true"] { opacity: 0.35; cursor: default; }
+
+        .w-shelf {
+            --stage: 230px;
+            position: relative; list-style: none; margin: 8px 0 0;
+            display: flex; gap: 36px; align-items: flex-start;
+            overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain;
+            scroll-snap-type: x mandatory; padding: 28px 2px 14px;
+            scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+            background: linear-gradient(var(--text-primary), var(--text-primary)) no-repeat 0 calc(28px + var(--stage)) / 100% 2px;
+            --fade-l: 0px; --fade-r: 0px;
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+                    mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+        }
+        .w-shelf.more-l { --fade-l: 36px; }
+        .w-shelf.more-r { --fade-r: 56px; }
+        .w-shelf > li { flex: 0 0 auto; scroll-snap-align: start; }
+        .w-shelf > li:last-child { padding-right: 40px; }
+        .w-shelf:focus-visible { outline-offset: -2px; }
+
+        .w-item { display: flex; flex-direction: column; color: inherit; min-width: 180px; }
+        .w-obj {
+            position: relative; display: flex; align-items: flex-end;
+            height: var(--stage); transition: transform 0.28s cubic-bezier(.2,.7,.3,1);
+        }
+        .w-obj > img, .w-under img {
+            display: block; height: 100%; width: auto; max-width: none;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+        }
+        a.w-item:hover .w-obj { transform: translateY(-8px); }
+        .w-obj--doc > img, .w-obj--deck > img { position: relative; z-index: 1; border-radius: 1px 3px 3px 1px; }
+        .w-under {
+            position: absolute; left: 0; bottom: 0; height: 100%;
+            transform: translate(12px, -10px) rotate(1.6deg); transform-origin: 0 100%;
+            filter: brightness(0.8); transition: transform 0.28s cubic-bezier(.2,.7,.3,1);
+        }
+        a.w-item:hover .w-under { transform: translate(20px, -6px) rotate(3deg); }
+        .w-obj--web > img { border-radius: 4px; border: 1px solid var(--border); height: auto; max-height: 100%; width: 300px; }
+        .w-obj--post > img, .w-obj--logo > img { border-radius: 6px; }
+        .w-obj--video > img { border-radius: 6px; border: 6px solid #0B0F0E; }
+        .w-obj--video .w-play, .w-obj--post .w-play { left: 14px; bottom: 14px; width: 44px; height: 44px; }
+        .w-obj--quote, .w-obj--stat {
+            width: 230px; flex-direction: column; align-items: stretch; justify-content: space-between;
+            padding: 16px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+        }
+        .w-q-who { display: flex; align-items: center; gap: 8px; color: var(--text-muted); text-transform: none; }
+        .w-q-who img { width: 22px; height: 22px; border-radius: 50%; }
+        .w-q { font-size: 1.05rem; font-weight: 600; line-height: 1.35; letter-spacing: -0.01em; color: var(--text-primary); }
+        .w-stat-fig { font-weight: 800; font-size: 4.6rem; line-height: 0.85; letter-spacing: -0.05em; color: var(--warm-accent); margin-top: auto; }
+        .w-stat-l { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-top: 6px; }
+        .w-stat-foot { color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 10px; margin-top: 14px; }
+
+        .w-cap { display: block; padding-top: 20px; max-width: 300px; }
+        .w-client { display: block; color: var(--accent); }
+        .w-title { display: block; font-size: 14px; font-weight: 700; line-height: 1.3; margin-top: 4px; color: var(--text-primary); }
+        .w-meta { display: block; margin-top: 4px; color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+        a.w-item:hover .w-title { color: var(--accent); }
+        a.w-item:focus-visible { outline: none; }
+        a.w-item:focus-visible .w-obj { outline: 2px solid var(--warm-accent); outline-offset: 5px; }
+
+        @media (max-width: 900px) {
+            .w-jobnav { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 48px; }
+            .w-jobnav a:nth-child(3) { padding-left: 0; border-left: 0; }
+            .w-job-body, .w-job-body--portrait { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+            .w-job-body--portrait .w-lead-frame { --lead-max: 62vh; }
+            .w-job + .w-job { margin-top: 64px; }
+        }
+        @media (max-width: 560px) {
+            .w-shelf { --stage: 180px; gap: 28px; }
+            .w-obj--web > img { width: 240px; }
+            .w-obj--quote, .w-obj--stat { width: 200px; }
+            .w-stat-fig { font-size: 3.6rem; }
+            .w-pieces a { grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; }
+            .w-thumb { width: 64px; }
+            .w-cap { max-width: 240px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .w-obj, .w-under, .w-arr { transition: none; }
+            a.w-item:hover .w-obj { transform: none; }
+            a.w-item:hover .w-under { transform: translate(12px, -10px) rotate(1.6deg); }
+        }
+
+        /* ---- Work embeds (dialog, X, YouTube, PDF) ---- */
+        /* Work embeds: shared dialog (see CONTRACT.md). Uses the site's tokens; every class is w-embed-prefixed. */
+        html.w-embed-lock { overflow: hidden; padding-right: var(--w-embed-sbw, 0px); }
+
+        .w-embed {
+            padding: 0; margin: auto;
+            width: min(560px, calc(100vw - 48px));
+            max-width: calc(100vw - 32px); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px);
+            border: 1px solid var(--border); border-radius: 8px;
+            background: var(--bg-card); color: var(--text-primary);
             box-shadow: var(--shadow-lg);
-            border-color: var(--accent);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Avenir Next', sans-serif;
+            overflow: auto; overscroll-behavior: contain;
         }
-        .work-card .badge {
-            display: inline-block; font-size: 11px; font-weight: 600;
-            text-transform: uppercase; color: var(--accent);
-            margin-bottom: 8px; letter-spacing: 0.04em;
-        }
-        .work-card h3 { font-size: 0.95rem; margin-bottom: 8px; }
-        .work-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+        .w-embed[open] { display: flex; flex-direction: column; }
+        .w-embed::backdrop { background: rgba(8, 11, 10, 0.72); }
 
-        /* ---- Tweets ---- */
-        .tweets-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 16px; margin-top: 20px;
+        /* Header: title, open-original link, close */
+        .w-embed-bar {
+            position: sticky; top: 0; z-index: 2; flex: none;
+            display: flex; align-items: center; gap: 16px;
+            min-height: 56px; padding: 10px 10px 10px 20px;
+            background: var(--bg-card); border-bottom: 1px solid var(--border);
         }
-        .tweets-slider {
-            display: flex; align-items: flex-start; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch; padding-bottom: 8px; margin-top: 16px;
+        .w-embed-title {
+            flex: 1 1 auto; min-width: 0; margin: 0;
+            font-size: 14px; font-weight: 600; line-height: 1.35; letter-spacing: 0;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .tweets-slider::-webkit-scrollbar { height: 4px; }
-        .tweets-slider::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-        .tweets-slider .tweet-wrapper { flex: 0 0 min(85vw, 400px); scroll-snap-align: start; }
-        .tweet-wrapper { display: flex; flex-direction: column; align-items: center; }
-        .tweet-cat {
-            font-family: 'Space Mono', monospace; font-size: 10px;
-            text-transform: uppercase; letter-spacing: 1px;
-            color: var(--accent); margin-bottom: 8px; font-weight: 600;
+        .w-embed-orig, .w-embed-fail a {
+            flex: none; color: var(--text-muted);
+            font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; line-height: 1.35;
+            text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none;
         }
-        blockquote.twitter-tweet {
-            border: 1px solid var(--border); border-radius: var(--radius-lg);
-            padding: 20px; max-width: 550px; width: 100%; margin: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 14px; line-height: 1.5; color: var(--text-primary);
-            background: var(--bg-card);
+        .w-embed-orig:hover, .w-embed-fail a:hover { color: var(--accent); }
+        .w-embed-close {
+            flex: none; width: 36px; height: 36px; border-radius: 50%;
+            display: grid; place-items: center; cursor: pointer;
+            background: none; border: 1px solid var(--border); color: var(--text-muted);
+            font: 400 22px/1 'Inter', sans-serif;
+            transition: border-color 0.2s ease, color 0.2s ease;
         }
-        blockquote.twitter-tweet p { margin: 0 0 12px; }
-        blockquote.twitter-tweet a { color: var(--accent); text-decoration: none; }
-        blockquote.twitter-tweet a:hover { text-decoration: underline; }
+        .w-embed-close:hover { border-color: var(--accent); color: var(--accent); }
+        .w-embed :focus-visible { outline: 2px solid var(--warm-accent); outline-offset: 3px; }
 
-        /* ---- Tab Bar ---- */
-        .tab-bar {
-            display: flex; gap: 0; margin-bottom: 40px;
-            border-bottom: 1px solid var(--border);
-        }
-        .tab-btn {
-            background: none; border: none; cursor: pointer;
-            padding: 12px 24px; font-family: 'Inter', sans-serif;
-            font-size: 14px; color: var(--text-muted); font-weight: 500;
-            border-bottom: 2px solid transparent; margin-bottom: -1px;
-            transition: var(--transition);
-        }
-        .tab-btn:hover { color: var(--text-primary); }
-        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+        /* Body: providers mount here */
+        .w-embed-host { position: relative; flex: 1 1 auto; min-height: 0; overflow: auto; }
+        .w-embed-host:focus-visible { outline-offset: -2px; }
 
-        /* ---- Client Panels ---- */
-        .work-sub { margin-top: 48px; }
-        .work-sub h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--text-primary); }
-        .work-sub .sub-desc {
-            font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;
+        /* Sizes: video = 16:9 up to 960px; post = ~560px, tall; doc = near-fullscreen */
+        .w-embed[data-size="video"] { width: min(960px, calc(100vw - 48px), calc((100vh - 104px) * 16 / 9)); }
+        @supports (height: 100dvh) {
+            .w-embed[data-size="video"] { width: min(960px, calc(100vw - 48px), calc((100dvh - 104px) * 16 / 9)); }
+        }
+        .w-embed[data-size="video"] .w-embed-host { flex: none; aspect-ratio: 16 / 9; overflow: hidden; background: #0B0F0E; }
+        .w-embed[data-size="post"] { max-height: min(860px, calc(100vh - 48px)); max-height: min(860px, calc(100dvh - 48px)); }
+        .w-embed[data-size="post"] .w-embed-host { min-height: 280px; }
+        .w-embed[data-size="doc"] {
+            width: min(1280px, calc(100vw - 48px));
+            height: calc(100vh - 48px); height: calc(100dvh - 48px);
         }
 
-        .client-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
-        .client-pill {
-            background: none; border: 1px solid var(--border); cursor: pointer;
-            padding: 8px 18px; font-family: 'Inter', sans-serif;
-            font-size: 13px; color: var(--text-muted); border-radius: 24px;
-            transition: var(--transition); white-space: nowrap; font-weight: 500;
+        /* Fallback when a provider throws or times out */
+        .w-embed-fail {
+            position: absolute; inset: 0; display: grid; place-content: center; gap: 10px;
+            padding: 24px; text-align: center; background: var(--bg-card);
         }
-        .client-pill:hover { border-color: var(--accent); color: var(--accent); }
-        .client-pill.active {
-            border-color: var(--accent); color: var(--accent);
-            background: var(--accent-soft);
+        .w-embed-fail p { margin: 0; font-size: 15px; color: var(--text-secondary); }
+        .w-embed-fail a { color: var(--accent); }
+
+        /* Phones: full-screen sheet; header stays pinned */
+        @media (max-width: 599px) {
+            .w-embed, .w-embed[data-size] {
+                width: 100%; height: 100%; height: 100dvh;
+                max-width: none; max-height: none; margin: 0;
+                border: 0; border-radius: 0; box-shadow: none;
+            }
+            .w-embed-bar { padding-left: 16px; gap: 12px; }
+            .w-embed[data-size="video"] { background: #0B0F0E; }
+            .w-embed[data-size="video"] .w-embed-host { margin: auto 0; }
         }
-        .client-panel { display: none; }
-        .client-panel.active { display: block; }
-        .hidden { display: none; }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .w-embed[open] { animation: w-embed-in 0.2s cubic-bezier(.2, .7, .3, 1); }
+            .w-embed[open]::backdrop { animation: w-embed-fade 0.2s ease; }
+        }
+        @keyframes w-embed-in { from { opacity: 0; transform: translateY(10px) scale(0.985); } }
+        @keyframes w-embed-fade { from { opacity: 0; } }
+
+        /* Work embeds: X provider (x.js). Uses the site's tokens; every class is w-embed-x-prefixed. */
+        .w-embed-x { position: relative; padding: 16px; }
+
+        /* The post frame: X's card tops out at 550px; height is set from X's resize messages. */
+        .w-embed-x-frame {
+            display: block; width: 100%; max-width: 550px; height: 320px; margin: 0 auto;
+            border: 0; background: transparent;
+        }
+        /* While loading, the frame lays out at its final width (so X measures the right height)
+           but stays invisible; the skeleton holds the space. */
+        .w-embed-x[data-state="loading"] .w-embed-x-frame {
+            position: absolute; top: 16px; left: 16px; right: 16px; width: auto;
+            opacity: 0; pointer-events: none;
+        }
+
+        /* Loading skeleton, shaped like a post */
+        .w-embed-x-loading { max-width: 550px; margin: 0 auto; }
+        .w-embed-x-skel {
+            display: grid; grid-template-columns: 40px 1fr; gap: 12px 12px;
+            padding: 20px; border: 1px solid var(--border); border-radius: 8px;
+            background: var(--bg-primary);
+        }
+        .w-embed-x-skel i { width: 40px; height: 40px; border-radius: 50%; background: var(--border-subtle); grid-row: span 2; }
+        .w-embed-x-skel b { height: 10px; border-radius: 5px; background: var(--border-subtle); align-self: center; }
+        .w-embed-x-skel b:nth-of-type(1) { width: 38%; }
+        .w-embed-x-skel b:nth-of-type(2) { width: 24%; }
+        .w-embed-x-skel b:nth-of-type(3) { grid-column: 1 / -1; height: 180px; border-radius: 8px; width: 100%; }
+        .w-embed-x-label {
+            margin: 14px 0 0; text-align: center; color: var(--text-muted);
+            font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; line-height: 1.35;
+            text-transform: uppercase; letter-spacing: 0.04em;
+        }
+
+        /* Missing / failed post */
+        .w-embed-x-note {
+            max-width: 550px; margin: 0 auto; padding: 40px 24px;
+            display: grid; gap: 12px; justify-items: center; text-align: center;
+            border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary);
+        }
+        .w-embed-x-note p { margin: 0; max-width: 36ch; font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+        .w-embed-x-note a {
+            color: var(--accent); text-decoration: none;
+            font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; line-height: 1.35;
+            text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        .w-embed-x-note a:hover { color: var(--accent-hover, var(--accent)); }
+
+        @media (max-width: 599px) {
+            .w-embed-x { padding: 12px; }
+            .w-embed-x[data-state="loading"] .w-embed-x-frame { top: 12px; left: 12px; right: 12px; }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .w-embed-x-skel { animation: w-embed-x-pulse 1.4s ease-in-out infinite; }
+            .w-embed-x[data-state="ready"] .w-embed-x-frame { animation: w-embed-x-in 0.2s ease; }
+        }
+        @keyframes w-embed-x-pulse { 50% { opacity: 0.55; } }
+        @keyframes w-embed-x-in { from { opacity: 0; } }
+
+        /* Work embeds: PDF reader (pdfview.js). Site tokens only; every class is w-embed-pdf-prefixed. */
+        .w-embed-pdf {
+            position: absolute; inset: 0; overflow: hidden;
+            background: var(--bg-primary); color: var(--text-primary);
+        }
+
+        /* One vertical scroll of pages */
+        .w-embed-pdf-scroll {
+            position: relative; /* page offsetTop is measured against this box */
+            height: 100%; overflow-x: hidden; overflow-y: auto;
+            overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+        }
+        .w-embed-pdf-scroll:focus { outline: none; }
+        .w-embed-pdf-scroll:focus-visible { outline: 2px solid var(--warm-accent); outline-offset: -2px; }
+        .w-embed-pdf-pages {
+            display: flex; flex-direction: column; align-items: center; gap: 16px;
+            padding: 32px 32px 88px;
+        }
+        .w-embed-pdf-page {
+            position: relative; flex: none; max-width: 100%;
+            background: var(--bg-card); border-radius: 2px;
+            box-shadow: 0 0 0 1px var(--border), var(--shadow-sm); /* ring, not border: canvas box = page box */
+            overflow: hidden;
+        }
+        .w-embed-pdf-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+        .w-embed-pdf-page.is-broken::after {
+            content: "Page couldn\2019t render"; position: absolute; inset: 0; display: grid; place-content: center;
+            font: 700 11px/1.35 'Space Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Loading + failure state (centred over the reader) */
+        .w-embed-pdf-state {
+            position: absolute; inset: 0; z-index: 2;
+            display: grid; place-content: center; justify-items: center; gap: 12px;
+            padding: 24px; text-align: center; background: var(--bg-primary);
+            transition: opacity 0.2s ease, visibility 0.2s;
+        }
+        .w-embed-pdf.is-ready .w-embed-pdf-state { opacity: 0; visibility: hidden; }
+        .w-embed-pdf-label {
+            font: 700 11px/1.35 'Space Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .w-embed-pdf-bar { display: block; width: 160px; height: 2px; background: var(--border); overflow: hidden; }
+        .w-embed-pdf-bar > span { display: block; width: 8%; height: 100%; background: var(--accent); transition: width 0.2s ease; }
+        .w-embed-pdf-msg { margin: 0; font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+        .w-embed-pdf-open {
+            display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 16px;
+            border: 1px solid var(--accent); border-radius: 8px; color: var(--accent); text-decoration: none;
+            font: 700 11px/1.35 'Space Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase;
+        }
+        .w-embed-pdf-open:hover { background: var(--accent); color: var(--bg-card); }
+
+        /* Page counter + prev/next */
+        .w-embed-pdf-nav {
+            position: absolute; left: 50%; bottom: 16px; z-index: 1; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 2px; padding: 4px;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+            box-shadow: var(--shadow-md);
+        }
+        .w-embed-pdf-nav[hidden] { display: none; }
+        .w-embed-pdf-count {
+            min-width: 72px; padding: 0 6px; text-align: center; white-space: nowrap;
+            font: 700 12px/1 'Space Mono', monospace; letter-spacing: 0.04em; color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+        .w-embed-pdf-btn {
+            width: 36px; height: 36px; display: grid; place-items: center; cursor: pointer;
+            background: none; border: 0; border-radius: 6px; color: var(--text-secondary);
+        }
+        .w-embed-pdf-btn:hover:not(:disabled) { color: var(--accent); background: var(--bg-primary); }
+        .w-embed-pdf-btn:disabled { opacity: 0.35; cursor: default; }
+        .w-embed-pdf-btn:focus-visible { outline: 2px solid var(--warm-accent); outline-offset: 1px; }
+
+        /* Fallback: browser's own viewer when pdf.js can't load (desktop only) */
+        .w-embed-pdf-native { display: block; width: 100%; height: 100%; border: 0; background: var(--bg-primary); }
+
+        @media (max-width: 599px), (max-height: 520px) {
+            .w-embed-pdf-pages { gap: 12px; padding: 12px 12px 80px; }
+            .w-embed-pdf-nav { bottom: max(12px, env(safe-area-inset-bottom)); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .w-embed-pdf-state, .w-embed-pdf-bar > span { transition: none; }
+        }
+
+        html.w-embed-lock .top-bar { right: var(--w-embed-sbw, 0px); }
 
         /* ---- Story ---- */
         .story-content { max-width: 640px; }
@@ -571,7 +928,6 @@
             .receipts {
                 grid-template-columns: repeat(3, 1fr);
             }
-            .tab-btn { padding: 10px 16px; font-size: 13px; }
             .footer-grid { flex-direction: column; gap: 24px; }
         }
 
@@ -762,10 +1118,7 @@
 
         .tag,
         .marquee-item,
-        .mini-stat,
-        .work-card,
-        blockquote.twitter-tweet,
-        .client-pill {
+        .mini-stat {
             border-radius: 8px;
         }
 
@@ -835,9 +1188,7 @@
 
         .stat-block .label,
         .mini-stat .label,
-        .marquee-label,
-        .tweet-cat,
-        .work-card .badge {
+        .marquee-label {
             font-family: 'Space Mono', monospace;
             font-weight: 700;
         }
@@ -873,82 +1224,16 @@
         }
 
         .section-header .section-desc,
-        .work-sub .sub-desc,
-        .story-content p,
-        .work-card p {
+        .story-content p {
             color: var(--text-secondary);
-        }
-
-        .work-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent);
-            box-shadow: 8px 8px 0 var(--warm-soft), var(--shadow-md);
         }
 
         .mini-stat {
             background: var(--bg-secondary);
         }
 
-        .tab-bar {
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            padding: 6px;
-            width: fit-content;
-            border-radius: 8px;
-        }
-
-        .tab-btn {
-            border-radius: 6px;
-            border-bottom: 0;
-            margin-bottom: 0;
-            font-weight: 800;
-        }
-
-        .tab-btn.active {
-            background: var(--accent);
-            color: #FFFFFF;
-            border-bottom-color: transparent;
-        }
-
-        .client-selector {
-            gap: 10px;
-        }
-
-        .client-pill {
-            background: var(--bg-card);
-            font-weight: 800;
-        }
-
-        .client-pill.active {
-            background: var(--accent);
-            color: #FFFFFF;
-            border-color: var(--accent);
-        }
-
-        .work-grid,
-        .tweets-grid {
-            gap: 18px;
-        }
-
-        .work-card {
-            border-top: 4px solid var(--accent);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .work-card .badge,
-        .tweet-cat,
-        .footer-bottom a,
-        blockquote.twitter-tweet a {
+        .footer-bottom a {
             color: var(--warm-accent);
-        }
-
-        .work-card h3 {
-            font-size: 1.05rem;
-            line-height: 1.25;
-        }
-
-        blockquote.twitter-tweet {
-            box-shadow: var(--shadow-sm);
         }
 
         .story-content {
@@ -1068,14 +1353,6 @@
 
             .stat-block:last-child {
                 border-bottom: 0;
-            }
-
-            .tab-bar {
-                width: 100%;
-            }
-
-            .tab-btn {
-                flex: 1;
             }
         }
     </style>
@@ -1297,123 +1574,210 @@
     </section>
 
     <!-- WORK -->
-    <section id="work">
+    <section id="work" aria-labelledby="work-title">
         <div class="container">
             <div class="section-header">
-                <h2>Work</h2>
+                <h2 id="work-title">Work</h2>
+                <p class="section-desc">Grouped by the job I get hired to do, not by format. Each chapter opens with its strongest proof: the real posts, articles, decks, and video, linked to the originals.</p>
             </div>
 
-            <div class="tab-bar">
-                <button class="tab-btn active" data-tab="short-form">Short-Form</button>
-                <button class="tab-btn" data-tab="long-form">Long-Form</button>
-                <button class="tab-btn" data-tab="campaigns">Campaigns</button>
-            </div>
+            <nav class="w-jobnav" aria-label="Work chapters">
+                <a href="#job-voice"><span class="mono">01</span>Founder voice</a>
+                <a href="#job-launch"><span class="mono">02</span>Product launches</a>
+                <a href="#job-infra"><span class="mono">03</span>Infrastructure stories</a>
+                <a href="#job-sales"><span class="mono">04</span>Sales enablement</a>
+            </nav>
 
-            <!-- SHORT-FORM TAB -->
-            <div id="tab-short-form" class="tab-content">
-                <div class="work-sub" style="margin-top:0">
-                    <div class="client-selector">
-                        <button class="client-pill active" data-panel="panel-exec-ghostwriting">Executive Ghostwriting</button>
-                        <button class="client-pill" data-panel="panel-brand-accounts">Brand Accounts</button>
-                    </div>
-
-                    <div class="client-panel active" id="panel-exec-ghostwriting">
-                        <p class="sub-desc" style="margin-top:0"><strong>Executive Ghostwriting | Aptos CEO Mo Shaikh + Jay / Lite Strategy</strong><br>Short-form thought leadership for technical founders and executives: scripted video, partnerships, product education, market narrative, and launch commentary.</p>
-                        <div class="tweets-slider">
-                            <div class="tweet-wrapper"><div class="tweet-cat">Scripted Video</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Aptos Autumn is back <a href="https://t.co/yQnchvQjm4">pic.twitter.com/yQnchvQjm4</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1842199371762589797?ref_src=twsrc%5Etfw">October 4, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Partnerships</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Today, <a href="https://twitter.com/BlackRock?ref_src=twsrc%5Etfw">@BlackRock</a> chose Aptos as the only non-EVM chain to launch its money market fund tokenized by <a href="https://twitter.com/Securitize?ref_src=twsrc%5Etfw">@Securitize</a>: BUIDL<br><br>Following <a href="https://twitter.com/OndoFinance?ref_src=twsrc%5Etfw">@OndoFinance</a>&#39;s USDY, <a href="https://twitter.com/FTDA_US?ref_src=twsrc%5Etfw">@FTDA_US</a>&#39;s FOBXX, &amp; <a href="https://twitter.com/BitwiseInvest?ref_src=twsrc%5Etfw">@BitwiseInvest</a>&#39;s Aptos ETP, RWAs &amp; institutional-grade DeFi are not just coming to Aptos.<br><br>They&#39;re here.</p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1856708291415683125?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">TradFi has to figure these things out in the next 12-18mo to be in the best position for the incoming tsunami of tokenized funds:<br><br>- a tokenized fund vision<br>- a use case road map<br>- on-chain compliance<br>- a center of excellence to orchestrate everything<br><br>Aptos figured out the rest. <a href="https://t.co/pGyuuVUjro">pic.twitter.com/pGyuuVUjro</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1851646968919195694?ref_src=twsrc%5Etfw">October 30, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Tech Education</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">...but seriously, Aptos is approaching a tipping point. Stripe just acquired Bridge - a stablecoin transaction API for $1.1B<br><br>Aptos&#39; purpose-built rails can support TRILLIONS of on-chain value flows right now (USDT soon). institutions &amp; enterprises: we&#39;ve been waiting for ya <a href="https://t.co/ORfKL3DFSp">pic.twitter.com/ORfKL3DFSp</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1849490515399680405?ref_src=twsrc%5Etfw">October 24, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Events</div><blockquote class="twitter-tweet"><p lang="en" dir="ltr">28 MILLION people are expected to attend the World Expo 2025 in Osaka Japan, and they&#39;ll all be using a digital wallet developed by our latest acquisition <a href="https://twitter.com/hashpalette_en?ref_src=twsrc%5Etfw">@hashpalette_en</a> on Aptos<br><br>&#x1F1EF;&#x1F1F5; has A+ gov&#39;t support &amp; a vibrant Web3 ecosystem, making it (and APAC) the future of Web3. lfg <a href="https://t.co/fMelMF9PNs">pic.twitter.com/fMelMF9PNs</a></p>&mdash; Mo Shaikh (@Moshaikh) <a href="https://twitter.com/Moshaikh/status/1843737088442937822?ref_src=twsrc%5Etfw">October 8, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2054211853052493829?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2057462163837685910?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
-                            <div class="tweet-wrapper"><div class="tweet-cat">Lite Strategy</div><blockquote class="twitter-tweet"><a href="https://twitter.com/jay_lits/status/2049832405297488106?ref_src=twsrc%5Etfw">Jay / Lite Strategy post</a></blockquote></div>
+            <!-- 01 FOUNDER VOICE -->
+            <article class="w-job" id="job-voice" aria-labelledby="job-voice-title">
+                <div class="w-job-head">
+                    <p class="w-job-num mono">01 / 04 &middot; Executive ghostwriting</p>
+                    <h3 id="job-voice-title">Give a technical founder a voice people follow.</h3>
+                    <p class="w-job-for">For Aptos CEO Mo Shaikh and Jay File, Lite Strategy</p>
+                </div>
+                <div class="w-job-body w-job-body--portrait">
+                    <a class="w-lead" href="https://twitter.com/Moshaikh/status/1842199371762589797" target="_blank" rel="noopener" data-embed="x" data-embed-id="1842199371762589797" data-embed-title="Aptos Autumn is back · Mo Shaikh">
+                        <span class="w-lead-frame" style="--ar: 0.5625">
+                            <img src="assets/work/tweet-1842199371762589797.jpg" width="675" height="1200" loading="lazy" decoding="async" alt="Mo Shaikh speaking to camera outdoors: still from the Aptos Autumn scripted video">
+                            <span class="w-play" aria-hidden="true"></span>
+                        </span>
+                        <span class="w-lead-cap mono"><span>Scripted video &middot; Oct 4, 2024</span><span class="w-go">Watch here <span aria-hidden="true">&#9656;</span></span></span>
+                    </a>
+                    <div class="w-detail">
+                        <p class="w-desc">Short-form thought leadership for technical founders: scripted video, partnership news, product education, market narrative, and launch commentary.</p>
+                        <div class="w-outcome">
+                            <span class="w-big">4.34M</span>
+                            <span class="w-what">total impressions across five months of Aptos CEO ghostwriting</span>
+                            <span class="w-scope mono">Jun &ndash; Oct 2024 &middot; Oct peak 2.2M</span>
                         </div>
-                    </div>
-
-                    <div class="client-panel" id="panel-brand-accounts">
-                        <p class="sub-desc" style="margin-top:0"><strong>Brand Accounts | io.net, Seamless, Ctrl Wallet, Moonbeam</strong><br>Technical social systems for protocols and products: launch narratives, product education, brand voice, market commentary, and community-building posts.</p>
-                        <div class="tweets-grid">
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">.<a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> has GPUs.<br><br>AI needs GPUs<br>Gaming needs GPUs<br>High-Performance Computing needs GPUs<br>Cloud Computing needs GPUs<br>Data Center Efficiency needs GPUs<br>Scientific Visualization needs GPUs<br>Healthcare needs GPUs<br>Automotive Industry needs GPUs<br>Finance needs GPUs<br>Defense and Military&#8230;</p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1879257216144101379?ref_src=twsrc%5Etfw">January 14, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">If you&#39;re watching AI, you&#39;re probably seeing <a href="https://twitter.com/deepseek_ai?ref_src=twsrc%5Etfw">@deepseek_ai</a> everywhere.<br><br>The DeepSeek R1 launch has been exciting, but full of hype and hot takes.  So lets unpack what you need to know &amp; why the launch matters to the space:<br><br>&#x1F9F5;&#x1F447;&#x1F3FB;<br>1/6 <a href="https://t.co/E58pkO5Glk">pic.twitter.com/E58pkO5Glk</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1884572266870231105?ref_src=twsrc%5Etfw">January 29, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Cloud computing is expected to be a $2.5T market, and decentralized clouds are &lt; 1/1,000th of that now. Agents are going to completely abstract away the complexity stonewalling people from using DeFi<br><br>DefAI is the rocket engine, <a href="https://twitter.com/ionet?ref_src=twsrc%5Etfw">@ionet</a> is the propellant <a href="https://t.co/xqpOAyGOxX">pic.twitter.com/xqpOAyGOxX</a></p>&mdash; io.net (@ionet) <a href="https://twitter.com/ionet/status/1880011903914963307?ref_src=twsrc%5Etfw">January 16, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#x1F52E; LEVERAGE TOKENS ARE LIVE! &#x1F52E;<br><br>What are Leverage Tokens (LTs) and why should you care?<br><br>Let&#39;s dive in &#x1FA82;<br><br>1/7 <a href="https://t.co/LltqEWVQsO">pic.twitter.com/LltqEWVQsO</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1935715727161569388?ref_src=twsrc%5Etfw">June 19, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Leverage Tokens Litepaper just dropped, and Seamless is leading the charge into fully composable next-gen DeFi on <a href="https://twitter.com/base?ref_src=twsrc%5Etfw">@Base</a> - and beyond.<br><br>Leverage Tokens let you do more with your money on your own terms:<br><br>&#x2705; simplicity of a single-token solution<br>&#x2705; efficient performance of a&#8230; <a href="https://t.co/zzi9g4xDcP">pic.twitter.com/zzi9g4xDcP</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1902451711752728581?ref_src=twsrc%5Etfw">March 19, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#x274C; Manual ETH Looping: Dozens of txs, around the clock monitoring, liquidation anxiety<br><br>&#x2705; LT's 17x weETH/ETH Yield Loop: 1-click execution, automated rebalancing, verifiable transparent logic, tokenized and in your wallet<br><br>All of the same potential, none of the friction&#8230; <a href="https://t.co/c3H9DwjaDI">pic.twitter.com/c3H9DwjaDI</a></p>&mdash; Seamless Protocol (@SeamlessFi) <a href="https://twitter.com/SeamlessFi/status/1934998800055308472?ref_src=twsrc%5Etfw">June 17, 2025</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ctrl is for everyone.  If you like the rebrand you&#39;ll love the redesigned Ctrl extension and all-new mobile app. World-class with beautiful form and functionality.<br><br>Our founder <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> explains &#x1F447; <a href="https://t.co/KbI1GG3KBc">pic.twitter.com/KbI1GG3KBc</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1819961509243650133?ref_src=twsrc%5Etfw">August 4, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Bear markets are for building. And that&#39;s exactly what we did &#x1F6E0;&#xFE0F;<br><br>New name, same mission: true self-custody across more chains than ever.<br><br>One wallet for all your crypto. <a href="https://twitter.com/goitbykojiro?ref_src=twsrc%5Etfw">@goitbykojiro</a> breaks it down: <a href="https://t.co/rff19CKDzz">pic.twitter.com/rff19CKDzz</a></p>&mdash; Ctrl Wallet &#x271C; (@Ctrl_Wallet) <a href="https://twitter.com/Ctrl_Wallet/status/1818315722646511965?ref_src=twsrc%5Etfw">July 30, 2024</a></blockquote></div>
-                            <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Our dApp is the best way into the Moonbeam ecosystem<br><br>Just 3 clicks to become a proud <a href="https://twitter.com/search?q=%24GLMR&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$GLMR</a> holder<br><br>Have you tried it? Link below &#x1F440; <a href="https://t.co/r1Rtg2da1R">pic.twitter.com/r1Rtg2da1R</a></p>&mdash; Moonbeam (@MoonbeamNetwork) <a href="https://twitter.com/MoonbeamNetwork/status/1856728779462525109?ref_src=twsrc%5Etfw">November 13, 2024</a></blockquote></div>
-                        </div>
+                        <p class="w-receipts"><span><b>+469%</b> follower growth</span><span><b>23.8K</b> avg views per post in Oct</span><a href="#results">See the chart in Results &uarr;</a></p>
+                        <blockquote class="w-pull">&ldquo;RWAs &amp; institutional-grade DeFi are not just coming to Aptos. They&rsquo;re here.&rdquo;<cite class="mono">@Moshaikh &middot; Nov 13, 2024</cite></blockquote>
+                        <ul class="w-pieces" aria-label="More Aptos posts">
+                            <li><a href="https://twitter.com/Moshaikh/status/1856708291415683125" target="_blank" rel="noopener" data-embed="x" data-embed-id="1856708291415683125" data-embed-title="BlackRock chose Aptos for its tokenized fund, BUIDL"><span class="w-thumb w-thumb--av"><img src="assets/work/avatar-Moshaikh.jpg" width="96" height="96" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Partnerships &middot; Nov 13, 2024</span><span class="w-t">BlackRock chose Aptos for its tokenized fund, BUIDL</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://twitter.com/Moshaikh/status/1851646968919195694" target="_blank" rel="noopener" data-embed="x" data-embed-id="1851646968919195694" data-embed-title="What TradFi has to figure out in the next 12&ndash;18 months"><span class="w-thumb"><img src="assets/work/tweet-1851646968919195694-sm.jpg" width="240" height="181" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Tech education &middot; Oct 30, 2024</span><span class="w-t">What TradFi has to figure out in the next 12&ndash;18 months</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://twitter.com/Moshaikh/status/1849490515399680405" target="_blank" rel="noopener" data-embed="x" data-embed-id="1849490515399680405" data-embed-title="Stripe buys Bridge: Aptos is approaching a tipping point"><span class="w-thumb"><img src="assets/work/tweet-1849490515399680405-sm.jpg" width="240" height="135" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Market narrative &middot; Oct 24, 2024</span><span class="w-t">Stripe buys Bridge: Aptos is approaching a tipping point</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://twitter.com/Moshaikh/status/1843737088442937822" target="_blank" rel="noopener" data-embed="x" data-embed-id="1843737088442937822" data-embed-title="World Expo 2025 Osaka runs on a wallet built on Aptos"><span class="w-thumb"><img src="assets/work/tweet-1843737088442937822-sm.jpg" width="240" height="247" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Events &middot; Oct 8, 2024</span><span class="w-t">World Expo 2025 Osaka runs on a wallet built on Aptos</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                        </ul>
+                        <p class="w-sublabel mono">Jay File &middot; Lite Strategy</p>
+                        <ul class="w-pieces" aria-label="Lite Strategy posts">
+                            <li><a href="https://twitter.com/jay_lits/status/2049832405297488106" target="_blank" rel="noopener" data-embed="x" data-embed-id="2049832405297488106" data-embed-title="&ldquo;We hold Litecoin in the treasury because it functions as a global payments network.&rdquo;"><span class="w-thumb"><img src="assets/work/tweet-2049832405297488106-sm.jpg" width="240" height="134" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Treasury rationale &middot; Apr 30, 2026</span><span class="w-t">&ldquo;We hold Litecoin in the treasury because it functions as a global payments network.&rdquo;</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://twitter.com/jay_lits/status/2054211853052493829" target="_blank" rel="noopener" data-embed="x" data-embed-id="2054211853052493829" data-embed-title="&ldquo;Litecoin is not a speculative asset.&rdquo;"><span class="w-thumb w-thumb--av"><img src="assets/work/avatar-jay_lits.jpg" width="96" height="96" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Positioning &middot; May 12, 2026</span><span class="w-t">&ldquo;Litecoin is not a speculative asset.&rdquo;</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://twitter.com/jay_lits/status/2057462163837685910" target="_blank" rel="noopener" data-embed="x" data-embed-id="2057462163837685910" data-embed-title="Why Litecoin was built to complement Bitcoin, not compete with it"><span class="w-thumb w-thumb--av"><img src="assets/work/avatar-jay_lits.jpg" width="96" height="96" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Explainer video &middot; May 21, 2026</span><span class="w-t">Why Litecoin was built to complement Bitcoin, not compete with it</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
+            </article>
 
-            <!-- LONG-FORM TAB -->
-            <div id="tab-long-form" class="tab-content hidden">
-                <div class="work-sub" style="margin-top:0">
-                    <p class="sub-desc" style="margin-top:0"><strong>Strategic Writing</strong><br>Long-form technical content, case studies, product explainers, governance work, and website copy for infrastructure, DeFi, and B2B buyers.</p>
-                    <div class="work-grid">
-                        <a href="https://blog.io.net/article/io-net-2024-year-in-review" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">io.net</div><h3>io.net 2024 Year in Review</h3><p>Company narrative that turns a year of infrastructure milestones into a clear market-positioning story.</p>
-                        </a>
-                        <a href="https://io.net/blog/article/ai-infrastructure-cost-savings-92-percent-case-study" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">io.net</div><h3>AI Infrastructure Cost Savings Case Study</h3><p>Case-study writing connecting technical infrastructure to measurable buyer value and cost reduction.</p>
-                        </a>
-                        <a href="https://seamlessprotocol.com/blog/leverage-tokens-amplified-gains-made-simple" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Seamless</div><h3>Leverage Tokens: Amplified Gains Made Simple</h3><p>Technical product education that makes a complex DeFi primitive easier to understand and evaluate.</p>
-                        </a>
-                        <a href="https://seamlessprotocol.com/blog/the-seamless-protocol-master-plan-part-1-the-setup" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Seamless</div><h3>The Seamless Protocol Master Plan</h3><p>Strategic narrative for a protocol roadmap, written to align product direction, market context, and community belief.</p>
-                        </a>
-                        <a href="https://tac.build/blog/telegram-mini-apps-explained-risks-red-flags-and-how-to-stay-safe" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">TAC</div><h3>Telegram Mini Apps Explained</h3><p>Security explainer translating app-store risk, DeFi behavior, and user safety into accessible guidance.</p>
-                        </a>
-                        <a href="https://www.kava.io/news/cosmos-native-usdt-deep-dive" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Kava</div><h3>Cosmos-native USDt Deep Dive</h3><p>Ecosystem technical article explaining why native stablecoin infrastructure matters for builders and users.</p>
-                        </a>
-                        <a href="docs/power-protocol-whitepaper.pdf" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">PowerDAO</div><h3>Power Protocol Whitepaper</h3><p>Technical whitepaper covering tokenomics, architecture, and market positioning for a crypto protocol.</p>
-                        </a>
-                        <a href="https://io.net/" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Website Copy</div><h3>io.net Website Copy</h3><p>Homepage and product-positioning copy for decentralized GPU compute, written for AI and infrastructure buyers.</p>
-                        </a>
+            <!-- 02 PRODUCT LAUNCHES -->
+            <article class="w-job" id="job-launch" aria-labelledby="job-launch-title">
+                <div class="w-job-head">
+                    <p class="w-job-num mono">02 / 04 &middot; Launch narrative + product education</p>
+                    <h3 id="job-launch-title">Launch a complex product so people understand it.</h3>
+                    <p class="w-job-for">For Seamless Protocol, PowerDAO, Kava, TAC, Ctrl Wallet, and Moonbeam</p>
+                </div>
+                <div class="w-job-body">
+                    <a class="w-lead" href="https://twitter.com/SeamlessFi/status/1935715727161569388" target="_blank" rel="noopener" data-embed="x" data-embed-id="1935715727161569388" data-embed-title="Leverage Tokens are live · Seamless launch thread">
+                        <span class="w-lead-frame" style="--ar: 1.7778">
+                            <img src="assets/work/tweet-1935715727161569388.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Launch video frame reading &ldquo;...meanwhile in Old School DeFi&rdquo; from the Seamless Leverage Tokens launch thread">
+                            <span class="w-play" aria-hidden="true"></span>
+                        </span>
+                        <span class="w-lead-cap mono"><span>Seamless &middot; Leverage Tokens launch thread &middot; Jun 19, 2025</span><span class="w-go">Watch here <span aria-hidden="true">&#9656;</span></span></span>
+                    </a>
+                    <div class="w-detail">
+                        <p class="w-desc">Seamless Leverage Tokens, from litepaper to go-live: the launch thread, product education that makes a DeFi primitive easy to evaluate, and the protocol&rsquo;s strategic narrative.</p>
+                        <div class="w-outcome">
+                            <span class="w-big">+174%</span>
+                            <span class="w-what">average views per post, while posting volume fell from 38 to 20 a month</span>
+                            <span class="w-scope mono">SeamlessFi account-wide &middot; Apr &ndash; Nov 2025</span>
+                        </div>
+                        <p class="w-receipts"><a href="#results">See the chart in Results &uarr;</a></p>
+                        <ul class="w-pieces" aria-label="Seamless pieces">
+                            <li><a href="https://twitter.com/SeamlessFi/status/1902451711752728581" target="_blank" rel="noopener" data-embed="x" data-embed-id="1902451711752728581" data-embed-title="The Leverage Tokens litepaper drops"><span class="w-thumb"><img src="assets/work/tweet-1902451711752728581-sm.jpg" width="240" height="111" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">X post &middot; Mar 19, 2025</span><span class="w-t">The Leverage Tokens litepaper drops</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://twitter.com/SeamlessFi/status/1934998800055308472" target="_blank" rel="noopener" data-embed="x" data-embed-id="1934998800055308472" data-embed-title="Manual ETH looping vs. a 1-click 17x weETH/ETH yield loop"><span class="w-thumb"><img src="assets/work/tweet-1934998800055308472-sm.jpg" width="240" height="135" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">X post &middot; Jun 17, 2025</span><span class="w-t">Manual ETH looping vs. a 1-click 17x weETH/ETH yield loop</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://web.archive.org/web/20260307204950/https://seamlessprotocol.com/blog/leverage-tokens-amplified-gains-made-simple" target="_blank" rel="noopener"><span class="w-thumb"><img src="assets/work/seamless-leverage-tokens-sm.jpg" width="240" height="135" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Article &middot; archived copy</span><span class="w-t">Leverage Tokens: Amplified Gains Made Simple</span></span><span class="w-arr" aria-hidden="true">&#8599;</span></a></li>
+                            <li><a href="https://web.archive.org/web/20260307204712/https://seamlessprotocol.com/blog/the-seamless-protocol-master-plan-part-1-the-setup" target="_blank" rel="noopener"><span class="w-thumb"><img src="assets/work/seamless-master-plan-sm.jpg" width="240" height="135" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Article &middot; archived copy</span><span class="w-t">The Seamless Protocol Master Plan</span></span><span class="w-arr" aria-hidden="true">&#8599;</span></a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
 
-            <!-- CAMPAIGNS TAB -->
-            <div id="tab-campaigns" class="tab-content hidden">
-                <div class="work-sub" style="margin-top:0">
-                    <p class="sub-desc" style="margin-top:0"><strong>Full-Funnel B2B Marketing</strong><br>Landing pages, sales decks, campaign collateral, videos, product booklets, and enablement assets built for buyers at different stages.</p>
-                    <div class="work-grid">
-                        <div class="work-card">
-                            <div class="badge">Personify</div><h3>Referral Campaign Landing Page</h3><p>Seasonal referral campaign page that increased referrals by 50%. Simplified a multi-step manual process.</p>
-                        </div>
-                        <a href="docs/nulogy-business-case-deck.pdf" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Nulogy</div><h3>Modular Business Case Deck</h3><p>Sales deck for Develop and Prove stages: generic + customizable slides with prospect-specific variations.</p>
-                        </a>
-                        <a href="docs/nulogy-awareness-brochure.pdf" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Nulogy</div><h3>Awareness &amp; Consideration Collateral</h3><p>Full suite of brochures, booklets, and 2-pagers for awareness and consideration stages.</p>
-                        </a>
-                        <a href="docs/nulogy-executive-keynote.pdf" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Nulogy</div><h3>Executive Keynote</h3><p>Joint industry presentation deck showing solution value through a trusted partner narrative.</p>
-                        </a>
-                        <a href="https://www.youtube.com/watch?v=5WtggEp79pk" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Top Hat</div><h3>Platform Overview Video</h3><p>Managed production with an animation studio: concept, script, casting, soundtrack, storyboarding, and distribution.</p>
-                        </a>
-                        <a href="https://www.youtube.com/watch?v=92ehiP1BZ2k" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Top Hat</div><h3>Interactive Texts Product Overview</h3><p>Product-specific campaign video with sourcing, interviewing, filming, audio/video editing, and UI capture.</p>
-                        </a>
-                        <a href="docs/tophat-interactive-text-booklet.pdf" class="work-card" target="_blank" rel="noopener">
-                            <div class="badge">Top Hat</div><h3>Interactive Texts Product Booklet</h3><p>Print and digital booklet showcasing Top Hat's interactive textbook platform and its impact on student engagement.</p>
-                        </a>
-                        <div class="work-card">
-                            <div class="badge">Blockgeeks</div><h3>Crypto Investment Masterclass</h3><p>Designed a cohort-based course from scratch: learning objectives, community elements, expert speakers, and landing-page positioning.</p>
+                <div class="w-shelf-block">
+                    <div class="w-shelf-head">
+                        <p class="w-sublabel mono">More launches &amp; explainers</p>
+                        <div class="w-shelf-ctrl">
+                            <button class="w-shelf-btn" type="button" hidden data-dir="-1" aria-controls="shelf-launch" aria-label="Scroll launches back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+                            <button class="w-shelf-btn" type="button" hidden data-dir="1" aria-controls="shelf-launch" aria-label="Scroll launches forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
                         </div>
                     </div>
+                    <ul class="w-shelf" id="shelf-launch" tabindex="0" aria-label="More launches and explainers, scrolls sideways">
+                        <li><a class="w-item" href="docs/power-protocol-whitepaper.pdf" target="_blank" rel="noopener" data-embed="pdf" data-embed-title="Power Protocol Whitepaper">
+                            <span class="w-obj w-obj--doc"><span class="w-under" aria-hidden="true"><img src="assets/work/power-protocol-whitepaper-p2.jpg" width="371" height="480" alt="" loading="lazy" decoding="async"></span><img src="assets/work/power-protocol-whitepaper.jpg" width="371" height="480" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">PowerDAO</span><span class="w-title">Power Protocol Whitepaper</span><span class="w-meta mono">Whitepaper &middot; PDF</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="https://www.kava.io/news/cosmos-native-usdt-deep-dive" target="_blank" rel="noopener">
+                            <span class="w-obj w-obj--web"><img src="assets/work/kava-cosmos-usdt.jpg" width="800" height="529" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">Kava</span><span class="w-title">Cosmos-native USDt Deep Dive</span><span class="w-meta mono">Technical article &middot; kava.io</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="https://tac.build/blog/telegram-mini-apps-explained-risks-red-flags-and-how-to-stay-safe" target="_blank" rel="noopener">
+                            <span class="w-obj w-obj--web"><img src="assets/work/tac-telegram-mini-apps.jpg" width="800" height="450" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">TAC</span><span class="w-title">Telegram Mini Apps Explained</span><span class="w-meta mono">Security explainer &middot; tac.build</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="https://twitter.com/Ctrl_Wallet/status/1818315722646511965" target="_blank" rel="noopener" data-embed="x" data-embed-id="1818315722646511965" data-embed-title="&ldquo;Bear markets are for building.&rdquo; The rebrand launch">
+                            <span class="w-obj w-obj--post"><img src="assets/work/tweet-1818315722646511965.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="w-play" aria-hidden="true"></span></span>
+                            <span class="w-cap"><span class="w-client mono">Ctrl Wallet</span><span class="w-title">&ldquo;Bear markets are for building.&rdquo; The rebrand launch</span><span class="w-meta mono">X video &middot; Jul 30, 2024</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="https://twitter.com/Ctrl_Wallet/status/1819961509243650133" target="_blank" rel="noopener" data-embed="x" data-embed-id="1819961509243650133" data-embed-title="&ldquo;Ctrl is for everyone.&rdquo; The new app and extension">
+                            <span class="w-obj w-obj--post"><img src="assets/work/tweet-1819961509243650133.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="w-play" aria-hidden="true"></span></span>
+                            <span class="w-cap"><span class="w-client mono">Ctrl Wallet</span><span class="w-title">&ldquo;Ctrl is for everyone.&rdquo; The new app and extension</span><span class="w-meta mono">X video &middot; Aug 4, 2024</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="https://twitter.com/MoonbeamNetwork/status/1856728779462525109" target="_blank" rel="noopener" data-embed="x" data-embed-id="1856728779462525109" data-embed-title="Three clicks into the ecosystem">
+                            <span class="w-obj w-obj--quote"><span class="w-q-who mono"><img src="assets/work/avatar-MoonbeamNetwork.jpg" width="96" height="96" alt="" loading="lazy" decoding="async">@MoonbeamNetwork</span><span class="w-q">Our dApp is the best way into the Moonbeam ecosystem. Just 3 clicks to become a proud $GLMR holder.</span></span>
+                            <span class="w-cap"><span class="w-client mono">Moonbeam</span><span class="w-title">Three clicks into the ecosystem</span><span class="w-meta mono">X post &middot; Nov 13, 2024</span></span>
+                        </a></li>
+                    </ul>
                 </div>
-            </div>
+            </article>
 
+            <!-- 03 INFRASTRUCTURE STORIES -->
+            <article class="w-job" id="job-infra" aria-labelledby="job-infra-title">
+                <div class="w-job-head">
+                    <p class="w-job-num mono">03 / 04 &middot; Long-form, SEO, web copy</p>
+                    <h3 id="job-infra-title">Turn infrastructure into a story buyers can repeat.</h3>
+                    <p class="w-job-for">For io.net, decentralized GPU compute</p>
+                </div>
+                <div class="w-job-body">
+                    <a class="w-lead" href="https://web.archive.org/web/20250715233524/https://blog.io.net/article/io-net-2024-year-in-review" target="_blank" rel="noopener">
+                        <span class="w-lead-frame" style="--ar: 2.5">
+                            <img src="assets/work/ionet-2024-year-in-review.jpg" width="800" height="320" loading="lazy" decoding="async" alt="io.net 2024 Year in Review header image: title set beside a particle globe">
+                        </span>
+                        <span class="w-lead-cap mono"><span>io.net 2024 Year in Review &middot; archived copy</span><span class="w-go">Read <span aria-hidden="true">&#8599;</span></span></span>
+                    </a>
+                    <div class="w-detail">
+                        <p class="w-desc">Company narrative, case studies, homepage positioning, and brand social for decentralized GPU compute, written for AI and infrastructure buyers.</p>
+                        <div class="w-outcome">
+                            <span class="w-big">+430%</span>
+                            <span class="w-what">estimated monthly organic visits, 5,097 &rarr; 27,022</span>
+                            <span class="w-scope mono">io.net domain-wide SEO</span>
+                        </div>
+                        <p class="w-receipts"><a href="#results">See the chart in Results &uarr;</a></p>
+                        <ul class="w-pieces" aria-label="io.net pieces">
+                            <li><a href="https://web.archive.org/web/20250715224154/https://blog.io.net/article/ai-infrastructure-cost-savings-92-percent-case-study" target="_blank" rel="noopener"><span class="w-thumb"><img src="assets/work/ionet-cost-savings-case-study-sm.jpg" width="240" height="105" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Case study &middot; archived copy</span><span class="w-t">How io.net cut AI research costs 92.8% for a Frodobots&ndash;UC Berkeley project</span></span><span class="w-arr" aria-hidden="true">&#8599;</span></a></li>
+                            <li><a href="https://io.net/" target="_blank" rel="noopener"><span class="w-thumb"><img src="assets/work/ionet-website-copy-sm.jpg" width="240" height="150" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">Website copy &middot; io.net</span><span class="w-t">Homepage and product positioning for AI and infrastructure buyers</span></span><span class="w-arr" aria-hidden="true">&#8599;</span></a></li>
+                            <li><a href="https://twitter.com/ionet/status/1884572266870231105" target="_blank" rel="noopener" data-embed="x" data-embed-id="1884572266870231105" data-embed-title="DeepSeek R1: what you need to know, and why it matters"><span class="w-thumb"><img src="assets/work/tweet-1884572266870231105-sm.jpg" width="240" height="240" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">X thread &middot; Jan 29, 2025</span><span class="w-t">DeepSeek R1: what you need to know, and why it matters</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://twitter.com/ionet/status/1880011903914963307" target="_blank" rel="noopener" data-embed="x" data-embed-id="1880011903914963307" data-embed-title="&ldquo;DefAI is the rocket engine, @ionet is the propellant&rdquo;"><span class="w-thumb"><img src="assets/work/tweet-1880011903914963307-sm.jpg" width="240" height="151" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">X post &middot; Jan 16, 2025</span><span class="w-t">&ldquo;DefAI is the rocket engine, @ionet is the propellant&rdquo;</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                            <li><a href="https://twitter.com/ionet/status/1879257216144101379" target="_blank" rel="noopener" data-embed="x" data-embed-id="1879257216144101379" data-embed-title="&ldquo;@ionet has GPUs. AI needs GPUs&hellip;&rdquo;"><span class="w-thumb w-thumb--av"><img src="assets/work/avatar-ionet.jpg" width="96" height="96" alt="" loading="lazy" decoding="async"></span><span><span class="w-fmt mono">X post &middot; Jan 14, 2025</span><span class="w-t">&ldquo;@ionet has GPUs. AI needs GPUs&hellip;&rdquo;</span></span><span class="w-arr" aria-hidden="true">&#9656;</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 04 SALES ENABLEMENT -->
+            <article class="w-job" id="job-sales" aria-labelledby="job-sales-title">
+                <div class="w-job-head">
+                    <p class="w-job-num mono">04 / 04 &middot; Full-funnel B2B marketing</p>
+                    <h3 id="job-sales-title">Give a B2B sales team something for every stage.</h3>
+                    <p class="w-job-for">For Nulogy, Top Hat, Personify, and Blockgeeks: decks, collateral, video, landing pages, and a course</p>
+                </div>
+
+                <div class="w-shelf-block w-shelf-block--lead">
+                    <div class="w-shelf-head">
+                        <p class="w-sublabel mono">Awareness &rarr; consideration &rarr; decision</p>
+                        <div class="w-shelf-ctrl">
+                            <button class="w-shelf-btn" type="button" hidden data-dir="-1" aria-controls="shelf-sales" aria-label="Scroll sales assets back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+                            <button class="w-shelf-btn" type="button" hidden data-dir="1" aria-controls="shelf-sales" aria-label="Scroll sales assets forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+                        </div>
+                    </div>
+                    <ul class="w-shelf" id="shelf-sales" tabindex="0" aria-label="Sales enablement assets, scrolls sideways">
+                        <li><a class="w-item" href="docs/nulogy-awareness-brochure.pdf" target="_blank" rel="noopener" data-embed="pdf" data-embed-title="Awareness &amp; Consideration Collateral">
+                            <span class="w-obj w-obj--doc"><span class="w-under" aria-hidden="true"><img src="assets/work/nulogy-awareness-collateral-p2.jpg" width="371" height="480" alt="" loading="lazy" decoding="async"></span><img src="assets/work/nulogy-awareness-collateral.jpg" width="371" height="480" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">Nulogy &middot; Awareness</span><span class="w-title">Awareness &amp; Consideration Collateral</span><span class="w-meta mono">Brochures, booklets, 2-pagers &middot; PDF</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="docs/tophat-interactive-text-booklet.pdf" target="_blank" rel="noopener" data-embed="pdf" data-embed-title="Interactive Texts Product Booklet">
+                            <span class="w-obj w-obj--doc"><span class="w-under" aria-hidden="true"><img src="assets/work/tophat-interactive-text-booklet-p2.jpg" width="320" height="480" alt="" loading="lazy" decoding="async"></span><img src="assets/work/tophat-interactive-text-booklet.jpg" width="320" height="480" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">Top Hat &middot; Consideration</span><span class="w-title">Interactive Texts Product Booklet</span><span class="w-meta mono">Print + digital booklet &middot; PDF</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="https://www.youtube.com/watch?v=92ehiP1BZ2k" target="_blank" rel="noopener" data-embed="youtube" data-embed-id="92ehiP1BZ2k" data-embed-title="Interactive Texts Product Overview">
+                            <span class="w-obj w-obj--video"><img src="assets/work/tophat-interactive-texts-video.jpg" width="800" height="450" alt="" loading="lazy" decoding="async"><span class="w-play" aria-hidden="true"></span></span>
+                            <span class="w-cap"><span class="w-client mono">Top Hat &middot; Consideration</span><span class="w-title">Interactive Texts Product Overview</span><span class="w-meta mono">Sourcing, interviews, filming, edit &middot; YouTube</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="docs/nulogy-executive-keynote.pdf" target="_blank" rel="noopener" data-embed="pdf" data-embed-title="Executive Keynote">
+                            <span class="w-obj w-obj--deck"><span class="w-under" aria-hidden="true"><img src="assets/work/nulogy-executive-keynote-p2.jpg" width="640" height="480" alt="" loading="lazy" decoding="async"></span><img src="assets/work/nulogy-executive-keynote.jpg" width="640" height="480" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">Nulogy &middot; Consideration</span><span class="w-title">Executive Keynote</span><span class="w-meta mono">Joint industry presentation &middot; PDF</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="docs/nulogy-business-case-deck.pdf" target="_blank" rel="noopener" data-embed="pdf" data-embed-title="Modular Business Case Deck">
+                            <span class="w-obj w-obj--deck"><span class="w-under" aria-hidden="true"><img src="assets/work/nulogy-business-case-deck-p2.jpg" width="800" height="450" alt="" loading="lazy" decoding="async"></span><img src="assets/work/nulogy-business-case-deck.jpg" width="800" height="450" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">Nulogy &middot; Decision</span><span class="w-title">Modular Business Case Deck</span><span class="w-meta mono">Develop + Prove stages &middot; PDF</span></span>
+                        </a></li>
+                        <li><div class="w-item w-item--static">
+                            <span class="w-obj w-obj--stat"><span class="w-stat-fig">+50%</span><span class="w-stat-l">referrals</span><span class="w-stat-foot mono">Seasonal referral campaign</span></span>
+                            <span class="w-cap"><span class="w-client mono">Personify &middot; Landing page</span><span class="w-title">Referral Campaign Landing Page</span><span class="w-meta mono">Turned a multi-step manual process into one page &middot; not publicly linked</span></span>
+                        </div></li>
+                        <li><div class="w-item w-item--static">
+                            <span class="w-obj w-obj--logo"><img src="assets/work/blockgeeks-masterclass.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">Blockgeeks &middot; Education</span><span class="w-title">Crypto Investment Masterclass</span><span class="w-meta mono">Cohort course built from scratch &middot; not publicly linked</span></span>
+                        </div></li>
+                    </ul>
+                </div>
+            </article>
         </div>
     </section>
 
@@ -1465,7 +1829,7 @@
         </div>
     </footer>
 
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script src="assets/work-embeds.js" defer></script>
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -1534,50 +1898,63 @@
         }, { threshold: 0.5 });
         counterObs.observe(document.querySelector('.stats-bar'));
 
-        // Tab Switching
-        function loadTwitterEmbeds(scope) {
-            if (window.twttr && window.twttr.widgets) {
-                window.twttr.widgets.load(scope || document.getElementById('work'));
-            }
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-                const tab = document.getElementById('tab-' + btn.dataset.tab);
-                tab.classList.remove('hidden');
-                requestAnimationFrame(() => loadTwitterEmbeds(tab));
+        // Work: highlight the chapter in view
+        const jobLinks = document.querySelectorAll('.w-jobnav a');
+        const jobObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                jobLinks.forEach(a => {
+                    if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true');
+                    else a.removeAttribute('aria-current');
+                });
             });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        document.querySelectorAll('.w-job').forEach(j => jobObs.observe(j));
+
+        // Work: shelves scroll sideways with buttons, arrow keys, and edge fades
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.querySelectorAll('.w-shelf').forEach(shelf => {
+            const btns = document.querySelectorAll('.w-shelf-btn[aria-controls="' + shelf.id + '"]');
+            const update = () => {
+                const max = shelf.scrollWidth - shelf.clientWidth;
+                const x = shelf.scrollLeft;
+                const overflow = max > 2;
+                shelf.classList.toggle('more-l', overflow && x > 2);
+                shelf.classList.toggle('more-r', overflow && x < max - 2);
+                btns.forEach(b => {
+                    b.setAttribute('aria-disabled', String(!overflow || (b.dataset.dir === '-1' ? x <= 2 : x >= max - 2)));
+                    b.hidden = !overflow;
+                });
+            };
+            const step = (dir) => shelf.scrollBy({ left: dir * shelf.clientWidth * 0.8, behavior: reduceMotion ? 'auto' : 'smooth' });
+            btns.forEach(b => b.addEventListener('click', () => { if (b.getAttribute('aria-disabled') !== 'true') step(Number(b.dataset.dir)); }));
+            shelf.addEventListener('keydown', e => {
+                if (e.target !== shelf) return;
+                if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+            });
+            shelf.addEventListener('scroll', update, { passive: true });
+            new ResizeObserver(update).observe(shelf);
+            shelf.querySelectorAll('img').forEach(img => img.addEventListener('load', update));
+            update();
         });
 
-        // Client Panel Switcher
-        document.querySelectorAll('.client-pill').forEach(function(pill) {
-            pill.addEventListener('click', function() {
-                var selector = pill.closest('.work-sub');
-                selector.querySelectorAll('.client-pill').forEach(function(p) { p.classList.remove('active'); });
-                selector.querySelectorAll('.client-panel').forEach(function(p) { p.classList.remove('active'); });
-                pill.classList.add('active');
-                var panel = document.getElementById(pill.getAttribute('data-panel'));
-                if (panel) {
-                    panel.classList.add('active');
-                    requestAnimationFrame(function() { loadTwitterEmbeds(panel); });
-                }
-            });
-        });
-
-        // Smooth scroll
+        // Smooth scroll (instant when reduced motion is on); focus follows so keyboard users land in place
+        const scrollBehavior = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
                 e.preventDefault();
                 const href = a.getAttribute('href');
                 if (href === '#top') {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    window.scrollTo({ top: 0, behavior: scrollBehavior() });
                     return;
                 }
                 const t = document.querySelector(href);
-                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (!t) return;
+                t.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+                if (!t.hasAttribute('tabindex')) t.setAttribute('tabindex', '-1');
+                t.focus({ preventScroll: true });
+                history.pushState(null, '', href);
             });
         });
 
