@@ -568,19 +568,6 @@
         .w-q-who { display: flex; align-items: center; gap: 8px; color: var(--text-muted); text-transform: none; }
         .w-q-who img { width: 22px; height: 22px; border-radius: 50%; }
         .w-q { font-size: 1.05rem; font-weight: 600; line-height: 1.35; letter-spacing: -0.01em; color: var(--text-primary); }
-        /* Work with no public artifact: plain text, nothing that looks clickable */
-        .w-offline { margin-top: 36px; }
-        .w-offline ul {
-            list-style: none; margin-top: 10px; border-top: 1px solid var(--border);
-            display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px;
-        }
-        .w-offline li {
-            display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: start;
-            padding: 16px 0; border-bottom: 1px solid var(--border-subtle);
-        }
-        .w-offline-fig { font-weight: 800; font-size: 2rem; line-height: 1; letter-spacing: -0.03em; color: var(--warm-accent); }
-        .w-offline-fig--word { font-size: 1.05rem; line-height: 1.9; letter-spacing: 0; color: var(--text-muted); }
-        .w-offline-desc { display: block; margin-top: 4px; font-size: 14px; line-height: 1.55; color: var(--text-secondary); }
 
         .w-cap { display: block; padding-top: 20px; max-width: 300px; }
         .w-client { display: block; color: var(--accent); }
@@ -601,9 +588,6 @@
             .w-shelf { --stage: 180px; gap: 28px; }
             .w-obj--web > img { width: 240px; }
             .w-obj--quote { width: 200px; }
-            .w-offline ul { grid-template-columns: minmax(0, 1fr); }
-            .w-offline li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-            .w-offline-fig--word { line-height: 1.2; }
             .w-pieces a { grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; }
             .w-thumb { width: 64px; }
             .w-cap { max-width: 240px; }
@@ -1779,14 +1763,15 @@
                             <span class="w-obj w-obj--deck"><span class="w-under" aria-hidden="true"><img src="assets/work/nulogy-business-case-deck-p2.jpg" width="800" height="450" alt="" loading="lazy" decoding="async"></span><img src="assets/work/nulogy-business-case-deck.jpg" width="800" height="450" alt="" loading="lazy" decoding="async"></span>
                             <span class="w-cap"><span class="w-client mono">Nulogy &middot; Decision</span><span class="w-title">Modular Business Case Deck</span><span class="w-meta mono">Develop + Prove stages &middot; PDF</span></span>
                         </a></li>
+                        <li><a class="w-item" href="docs/personify-referral-race-landing-page.pdf" target="_blank" rel="noopener" data-embed="pdf" data-embed-title="The Amazing Referral Race">
+                            <span class="w-obj w-obj--doc"><span class="w-under" aria-hidden="true"><img src="assets/work/personify-referral-race-p2.jpg" width="371" height="480" alt="" loading="lazy" decoding="async"></span><img src="assets/work/personify-referral-race.jpg" width="371" height="480" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">Personify &middot; Referral</span><span class="w-title">The Amazing Referral Race</span><span class="w-meta mono">Landing page, +50% referrals &middot; PDF</span></span>
+                        </a></li>
+                        <li><a class="w-item" href="docs/blockgeeks-crypto-investing-masterclass.pdf" target="_blank" rel="noopener" data-embed="pdf" data-embed-title="Crypto Investing Masterclass">
+                            <span class="w-obj w-obj--doc"><span class="w-under" aria-hidden="true"><img src="assets/work/blockgeeks-masterclass-p2.jpg" width="360" height="480" alt="" loading="lazy" decoding="async"></span><img src="assets/work/blockgeeks-masterclass.jpg" width="371" height="480" alt="" loading="lazy" decoding="async"></span>
+                            <span class="w-cap"><span class="w-client mono">Blockgeeks &middot; Education</span><span class="w-title">Crypto Investing Masterclass</span><span class="w-meta mono">Course landing page + curriculum &middot; PDF</span></span>
+                        </a></li>
                     </ul>
-                    <div class="w-offline">
-                        <p class="w-sublabel mono">Also shipped &middot; not publicly available</p>
-                        <ul>
-                            <li><span class="w-offline-fig">+50%</span><span><span class="w-client mono">Personify &middot; Landing page</span><span class="w-title">Referral Campaign Landing Page</span><span class="w-offline-desc">Seasonal referral campaign page that increased referrals by 50%, turning a multi-step manual process into one page.</span></span></li>
-                            <li><span class="w-offline-fig w-offline-fig--word">Course</span><span><span class="w-client mono">Blockgeeks &middot; Education</span><span class="w-title">Crypto Investment Masterclass</span><span class="w-offline-desc">Cohort-based course designed from scratch: learning objectives, community elements, expert speakers, and landing-page positioning.</span></span></li>
-                        </ul>
-                    </div>
                 </div>
             </article>
         </div>
